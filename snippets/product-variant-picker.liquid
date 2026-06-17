@@ -19,12 +19,20 @@
         assign swatch_count = option.values | map: 'swatch' | compact | size
         assign picker_type = block.settings.picker_type
 
+        assign opt_name_lower = option.name | downcase
+        assign is_color_option = false
+        if opt_name_lower == 'cor' or opt_name_lower == 'color' or opt_name_lower == 'colour' or opt_name_lower == 'cores'
+          assign is_color_option = true
+        endif
+
         if swatch_count > 0 and block.settings.swatch_shape != 'none'
           if block.settings.picker_type == 'dropdown'
             assign picker_type = 'swatch_dropdown'
           else
             assign picker_type = 'swatch'
           endif
+        elsif is_color_option and block.settings.swatch_shape != 'none'
+          assign picker_type = 'swatch'
         endif
       -%}
       {%- if picker_type == 'swatch' -%}

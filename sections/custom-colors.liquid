@@ -1,0 +1,70 @@
+{%- if section.blocks.size > 0 -%}
+  <style>
+    {%- for block in section.blocks -%}
+      {%- if block.settings.color_name != blank -%}
+        {%- liquid
+          assign slug = block.settings.color_name | downcase| replace: 'á', 'a'| replace: 'à', 'a'| replace: 'ã', 'a'| replace: 'â', 'a'| replace: 'é', 'e'| replace: 'ê', 'e'| replace: 'í', 'i'| replace: 'ó', 'o'| replace: 'ô', 'o'| replace: 'õ', 'o'| replace: 'ú', 'u'| replace: 'ü', 'u'| replace: 'ç', 'c' | replace: ' ', '-'| replace: '_', '-'| replace: '/', '-'
+        -%}
+        .tp-swatch--{{ slug }}{
+          {%- if block.settings.color_image != blank -%}
+            background-image:url('{{ block.settings.color_image | image_url: width: 48 }}');
+            background-size:cover;
+            background-position:center;
+          {%- else -%}
+            background-color:{{ block.settings.color_value }};
+          {%- endif -%}
+        }
+      {%- endif -%}
+    {%- endfor -%}
+  </style>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Cores de Variantes",
+  "class": "tp-custom-colors",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Defina as cores das bolinhas de variante usadas nos cards de produto. Adicione um bloco para cada cor cadastrada nas opções de variante da loja."
+    },
+    {
+      "type": "paragraph",
+      "content": "⚠️ Para ativar globalmente, adicione {% section 'custom-colors' %} ao arquivo layout/theme.liquid, antes de </body>."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cor",
+      "name": "Cor",
+      "settings": [
+        {
+          "type": "text",
+          "id": "color_name",
+          "label": "Nome da variante",
+          "info": "Deve ser idêntico ao valor da opção no produto (diferencia maiúsculas). Ex: Preto, Azul Marinho, Off White.",
+          "default": "Preto"
+        },
+        {
+          "type": "color",
+          "id": "color_value",
+          "label": "Cor",
+          "default": "#111111"
+        },
+        {
+          "type": "image_picker",
+          "id": "color_image",
+          "label": "Imagem da cor",
+          "info": "Opcional. Use para padrões como mesclado, estampado ou xadrez. Substitui o campo Cor quando preenchido."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Cores de Variantes",
+      "category": "Cores"
+    }
+  ]
+}
+{% endschema %}

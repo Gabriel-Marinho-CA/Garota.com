@@ -1330,3 +1330,428 @@ class CartPerformance {
     );
   }
 }
+
+
+
+class TpColorCard extends HTMLElement {
+  connectedCallback() {
+    var dataEl = this.querySelector('.tp-cg-card__data');
+    if (!dataEl) return;
+    try {
+      this._data = JSON.parse(dataEl.textContent);
+    } catch (e) {
+      return;
+    }
+    this._activeColor = (this._data.colorValues && this._data.colorValues.length > 0)
+      ? this._data.colorValues[0]
+      : null;
+    this._swiper = null;
+    this._initSwiper();
+    this._bindSwatches();
+    this._renderBuySizes(this._activeColor);
+  }
+
+  disconnectedCallback() {
+    this._destroySwiper();
+  }
+
+  _destroySwiper() {
+    if (this._swiper) {
+      this._swiper.destroy(true, true);
+      this._swiper = null;
+    }
+  }
+
+  _getImagesForColor(color) {
+    if (!color || !this._data.images || this._data.images.length === 0) {
+      return this._data.images || [];
+    }
+    var colorLower = color.toLowerCase();
+    var filtered = this._data.images.filter(function (img) {
+      return img.alt && img.alt.toLowerCase() === colorLower;
+    });
+    return filtered.length > 0 ? filtered : this._data.images;
+  }
+
+  _initSwiper() {
+    this._destroySwiper();
+
+    var images = this._activeColor
+      ? this._getImagesForColor(this._activeColor)
+      : (this._data.images || []);
+
+    if (images.length === 0) return;
+
+    var wrapper = this.querySelector('.swiper-wrapper');
+    if (!wrapper) return;
+
+    wrapper.innerHTML = images.map(function (img) {
+      return (
+        '<div class="swiper-slide">' +
+        '<img class="tp-cg-card__img" src="' + img.src + '" alt="' + (img.alt || '') + '"' +
+        ' width="' + img.width + '" height="' + img.height + '" loading="lazy">' +
+        '</div>'
+      );
+    }).join('');
+
+    var prevEl = this.querySelector('.tp-cg-card__nav--prev');
+    var nextEl = this.querySelector('.tp-cg-card__nav--next');
+    var multiSlide = images.length > 1;
+
+    if (prevEl) prevEl.style.display = multiSlide ? '' : 'none';
+    if (nextEl) nextEl.style.display = multiSlide ? '' : 'none';
+
+    if (typeof Swiper === 'undefined') return;
+
+    var config = { loop: multiSlide };
+    if (multiSlide && prevEl && nextEl) {
+      config.navigation = { prevEl: prevEl, nextEl: nextEl };
+    }
+
+    this._swiper = new Swiper(this.querySelector('.tp-cg-card__swiper'), config);
+  }
+
+  _bindSwatches() {
+    var self = this;
+    this.querySelectorAll('.tp-cg-card__swatch').forEach(function (swatch) {
+      swatch.addEventListener('click', function (e) {
+        e.preventDefault();
+        var color = swatch.dataset.color;
+        if (color === self._activeColor) return;
+        self._activeColor = color;
+
+        self.querySelectorAll('.tp-cg-card__swatch').forEach(function (s) {
+          s.classList.remove('tp-cg-card__swatch--active');
+        });
+        swatch.classList.add('tp-cg-card__swatch--active');
+
+        /*
+        var metaEl = self.querySelector('.tp-cg-card__meta');
+        if (metaEl) {
+          var base = metaEl.dataset.base || '';
+          metaEl.textContent = base ? base + ' · ' + color : color;
+        }
+
+        */
+        var colorIdx = self._data.colorOptionIndex || 0;
+        var matched = null;
+        if (self._data.variants) {
+          for (var i = 0; i < self._data.variants.length; i++) {
+            var v = self._data.variants[i];
+            if (v.options && v.options[colorIdx] === color) {
+              if (!matched || v.available) {
+                matched = v;
+                if (v.available) break;
+              }
+            }
+          }
+        }
+        if (matched) {
+          var url = self._data.productUrl + '?variant=' + matched.id;
+          self.querySelectorAll('.tp-cg-card__media-link, .tp-cg-card__info-link').forEach(function (link) {
+            link.href = url;
+          });
+        }
+
+        self._renderBuySizes(color);
+        self._initSwiper();
+      });
+    });
+  }
+
+  _renderBuySizes(color) {
+    var sizesEl = this.querySelector('.tp-cg-card__buy-sizes');
+    if (!sizesEl) return;
+
+    var sizeIdx = this._data.sizeOptionIndex;
+    if (sizeIdx == null || sizeIdx < 0) {
+      sizesEl.innerHTML = '';
+      return;
+    }
+
+    var colorIdx = this._data.colorOptionIndex || 0;
+    var variants = this._data.variants || [];
+    var productUrl = this._data.productUrl || '';
+
+    var colorVariants = variants.filter(function (v) {
+      return v.options && v.options[colorIdx] === color;
+    });
+
+    if (colorVariants.length === 0) {
+      sizesEl.innerHTML = '';
+      return;
+    }
+
+    sizesEl.innerHTML = colorVariants.map(function (v) {
+      var size = v.options[sizeIdx] || '?';
+      var url = productUrl + '?variant=' + v.id;
+      var cls = 'tp-cg-card__size-btn' + (v.available ? '' : ' tp-cg-card__size-btn--unavailable');
+      return '<a href="' + url + '" class="' + cls + '">' + size + '</a>';
+    }).join('');
+  }
+}
+
+if (!customElements.get('tp-color-card')) {
+  customElements.define('tp-color-card', TpColorCard);
+}
+
+class ResColorCard extends HTMLElement {
+  connectedCallback() {
+    var dataEl = this.querySelector('.res-card__data');
+    if (!dataEl) return;
+    try {
+      this._data = JSON.parse(dataEl.textContent);
+    } catch (e) {
+      return;
+    }
+    this._activeColor = (this._data.colorValues && this._data.colorValues.length > 0)
+      ? this._data.colorValues[0]
+      : null;
+    this._swiper = null;
+    this._initSwiper();
+    this._bindSwatches();
+    this._renderBuySizes(this._activeColor);
+  }
+
+  disconnectedCallback() {
+    this._destroySwiper();
+  }
+
+  _destroySwiper() {
+    if (this._swiper) {
+      this._swiper.destroy(true, true);
+      this._swiper = null;
+    }
+  }
+
+  _getImagesForColor(color) {
+    if (!color || !this._data.images || this._data.images.length === 0) {
+      return this._data.images || [];
+    }
+    var colorLower = color.toLowerCase();
+    var filtered = this._data.images.filter(function (img) {
+      return img.alt && img.alt.toLowerCase() === colorLower;
+    });
+    return filtered.length > 0 ? filtered : this._data.images;
+  }
+
+  _initSwiper() {
+    this._destroySwiper();
+
+    var images = this._activeColor
+      ? this._getImagesForColor(this._activeColor)
+      : (this._data.images || []);
+
+    if (images.length === 0) return;
+
+    var wrapper = this.querySelector('.swiper-wrapper');
+    if (!wrapper) return;
+
+    wrapper.innerHTML = images.map(function (img) {
+      return (
+        '<div class="swiper-slide">' +
+        '<img class="res-card__img" src="' + img.src + '" alt="' + (img.alt || '') + '"' +
+        ' width="' + img.width + '" height="' + img.height + '" loading="lazy">' +
+        '</div>'
+      );
+    }).join('');
+
+    if (typeof Swiper === 'undefined') return;
+
+    var multiSlide = images.length > 1;
+    var paginationEl = this.querySelector('.res-card__img-dots');
+    var prevEl = this.querySelector('.res-card__nav--prev');
+    var nextEl = this.querySelector('.res-card__nav--next');
+
+    /* Esconde dots e arrows quando só há 1 imagem para a cor ativa */
+    if (paginationEl) paginationEl.style.display = multiSlide ? '' : 'none';
+    if (prevEl) prevEl.style.display = multiSlide ? '' : 'none';
+    if (nextEl) nextEl.style.display = multiSlide ? '' : 'none';
+
+    var config = { loop: multiSlide };
+    if (multiSlide && paginationEl) {
+      config.pagination = { el: paginationEl, clickable: true };
+    }
+    if (multiSlide && prevEl && nextEl) {
+      config.navigation = { prevEl: prevEl, nextEl: nextEl };
+    }
+
+    this._swiper = new Swiper(this.querySelector('.res-card__swiper'), config);
+  }
+
+  _bindSwatches() {
+    var self = this;
+    this.querySelectorAll('.res-card__swatch').forEach(function (swatch) {
+      swatch.addEventListener('click', function (e) {
+        e.preventDefault();
+        var color = swatch.dataset.color;
+        if (color === self._activeColor) return;
+        self._activeColor = color;
+
+        self.querySelectorAll('.res-card__swatch').forEach(function (s) {
+          s.classList.remove('res-card__swatch--active');
+        });
+        swatch.classList.add('res-card__swatch--active');
+
+        self._renderBuySizes(color);
+        self._initSwiper();
+      });
+    });
+  }
+
+  /* Atualiza o input[name="id"] do product-form e o estado do botão */
+  _updateVariant(variantId, available) {
+    var input = this.querySelector('.product-variant-id');
+    if (input) {
+      input.value = variantId;
+      input.disabled = !available;
+    }
+
+    var btn = this.querySelector('.res-card__btn[type="submit"]');
+    if (btn) {
+      btn.disabled = !available;
+      btn.classList.toggle('res-card__btn--disabled', !available);
+    }
+
+    /* Atualiza hrefs dos links para variante correta */
+    var url = this._data.productUrl + '?variant=' + variantId;
+    this.querySelectorAll('.res-card__media-link, .res-card__title-link, .res-card__price-link').forEach(function (link) {
+      link.href = url;
+    });
+  }
+
+  _renderBuySizes(color) {
+    var self = this;
+    var sizesEl = this.querySelector('.res-card__buy-sizes');
+    if (!sizesEl) return;
+
+    var sizeIdx = this._data.sizeOptionIndex;
+    if (sizeIdx == null || sizeIdx < 0) {
+      /* Sem opção de tamanho: seleciona a variante pela cor diretamente */
+      var colorIdx = this._data.colorOptionIndex || 0;
+      var matched = null;
+      (this._data.variants || []).forEach(function (v) {
+        if (v.options && v.options[colorIdx] === color) {
+          if (!matched || v.available) matched = v;
+        }
+      });
+      if (matched) self._updateVariant(matched.id, matched.available);
+      sizesEl.innerHTML = '';
+      return;
+    }
+
+    var colorIdx = this._data.colorOptionIndex || 0;
+    var colorVariants = (this._data.variants || []).filter(function (v) {
+      return v.options && v.options[colorIdx] === color;
+    });
+
+    if (colorVariants.length === 0) {
+      sizesEl.innerHTML = '';
+      return;
+    }
+
+    /* Renderiza botões de tamanho (sem href — apenas seleção) */
+    var firstActive = true;
+    sizesEl.innerHTML = colorVariants.map(function (v) {
+      var size = v.options[sizeIdx] || '?';
+      var cls = 'res-card__size-btn';
+      if (!v.available) {
+        cls += ' res-card__size-btn--unavailable';
+      } else if (firstActive) {
+        cls += ' res-card__size-btn--active';
+        firstActive = false;
+      }
+      return (
+        '<button type="button" class="' + cls + '"' +
+        ' data-variant-id="' + v.id + '"' +
+        ' data-available="' + v.available + '">' +
+        size + '</button>'
+      );
+    }).join('');
+
+    /* Pré-seleciona o primeiro tamanho disponível */
+    var firstAvailable = colorVariants.find(function (v) { return v.available; });
+    var preselect = firstAvailable || colorVariants[0];
+    if (preselect) self._updateVariant(preselect.id, preselect.available);
+
+    /* Bind clique nos botões de tamanho */
+    sizesEl.querySelectorAll('.res-card__size-btn:not(.res-card__size-btn--unavailable)').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        sizesEl.querySelectorAll('.res-card__size-btn').forEach(function (b) {
+          b.classList.remove('res-card__size-btn--active');
+        });
+        btn.classList.add('res-card__size-btn--active');
+        self._updateVariant(btn.dataset.variantId, btn.dataset.available === 'true');
+      });
+    });
+  }
+}
+
+class ResWishlistBtn extends HTMLElement {
+  static STORAGE_KEY = 'res-wishlist';
+
+  connectedCallback() {
+    this._handle = this.dataset.handle;
+    this._sync();
+    this.addEventListener('click', this._toggle.bind(this));
+    this.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' || e.code === 'Enter') {
+        e.preventDefault();
+        this._toggle();
+      }
+    });
+  }
+
+  disconnectedCallback() {
+    this.removeEventListener('click', this._toggle);
+  }
+
+  _getList() {
+    try {
+      return JSON.parse(localStorage.getItem(ResWishlistBtn.STORAGE_KEY) || '[]');
+    } catch {
+      return [];
+    }
+  }
+
+  _saveList(list) {
+    localStorage.setItem(ResWishlistBtn.STORAGE_KEY, JSON.stringify(list));
+  }
+
+  _isActive() {
+    return this._handle ? this._getList().includes(this._handle) : false;
+  }
+
+  _sync() {
+    const active = this._isActive();
+    this.classList.toggle('res-card__wishlist--active', active);
+    this.setAttribute('aria-pressed', String(active));
+    const path = this.querySelector('svg path');
+    if (path) path.setAttribute('fill', active ? 'currentColor' : 'none');
+  }
+
+  _toggle() {
+    if (!this._handle) return;
+    const list = this._getList();
+    const idx = list.indexOf(this._handle);
+    if (idx === -1) {
+      list.push(this._handle);
+    } else {
+      list.splice(idx, 1);
+    }
+    this._saveList(list);
+    this._sync();
+    this.dispatchEvent(new CustomEvent('wishlist:change', {
+      bubbles: true,
+      detail: { handle: this._handle, active: this._isActive() }
+    }));
+  }
+}
+
+if (!customElements.get('res-wishlist-btn')) {
+  customElements.define('res-wishlist-btn', ResWishlistBtn);
+}
+
+if (!customElements.get('res-color-card')) {
+  customElements.define('res-color-card', ResColorCard);
+}
