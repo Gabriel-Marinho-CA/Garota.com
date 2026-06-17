@@ -1,2 +1,2 @@
 {% assign pix_price = tp_price | times: 0.95 | round %}
-<p>{{ pix_price | money }} com PIX ou 3x de {{ tp_price | divided_by: 3.0 | money }} sem juros</p>
+<p class="tp-installments">{{ pix_price | money }} com PIX ou 3x de {{ tp_price | divided_by: 3.0 | money }} sem juros</p>
