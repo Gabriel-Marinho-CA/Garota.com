@@ -100,6 +100,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   padding-right: 3rem;
 }
 
+* {
+  font-family:'Figtree',sans-serif;
+}
+
 @media screen and (min-width: 750px) {
   .page-width {
     padding: 0 5rem;
