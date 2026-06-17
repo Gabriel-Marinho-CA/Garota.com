@@ -34,23 +34,58 @@
         "pagination_color_active": "#000"
       }
     },
-    "res_featured_collection_6hKjp7": {
+    "res_featured_collection_kihWDH": {
       "type": "res-featured-collection",
+      "blocks": {
+        "collection_tab_YNE7Ft": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "VESTIDOS",
+            "collection": "vestidos"
+          }
+        },
+        "collection_tab_WwzbiY": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "CONJUNTOS",
+            "collection": "conjuntos"
+          }
+        },
+        "collection_tab_VmjH4h": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "SALE",
+            "collection": "lancamentos"
+          }
+        },
+        "collection_tab_tyjmex": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "TOPS",
+            "collection": "tops"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_YNE7Ft",
+        "collection_tab_WwzbiY",
+        "collection_tab_VmjH4h",
+        "collection_tab_tyjmex"
+      ],
       "name": "Vitrine Result",
       "settings": {
-        "title": "Coleção em Destaque",
-        "view_more_text": "Ver mais",
+        "title": "COMPRE POR CATEGORIA",
+        "view_more_text": "",
         "view_more_url": "",
-        "collection": "lancamentos",
-        "product_list": [],
         "show_button": false,
         "add_to_cart": false,
         "show_installments": true,
         "two_rows": false,
         "autoplay": false,
         "autoplay_time": 4,
-        "pagination_color": "#2b2b2b",
-        "pagination_color_active": "#2b2b2b",
+        "tab_color": "#1B1B1B",
+        "tab_active_bg": "#1B1B1B",
+        "tab_active_color": "#FFFFFF",
         "background_type": "color",
         "background_color": "#ffffff",
         "background_gradient": "",
@@ -68,6 +103,6 @@
   },
   "order": [
     "main_banner_NttY7H",
-    "res_featured_collection_6hKjp7"
+    "res_featured_collection_kihWDH"
   ]
 }
