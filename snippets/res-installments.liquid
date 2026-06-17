@@ -1,15 +1,4 @@
-{% if settings.installment == true %}
-  {% liquid
-    assign installment_number = settings.installment_number
-    assign minimum_installment_value = settings.minimum_installment_value | times: 100
-  %}
-  <div class="tp-installments">
-    {% for number in (2..installment_number) reversed %}
-      {% assign installment_value = tp_price | divided_by: number %}
-      {% if installment_value >= minimum_installment_value %}
-           ou {{ number }}x de {{ installment_value | money_with_currency | remove: 'BRL' | strip }} sem juros
-        {% break %}
-      {% endif %}
-    {% endfor %}
-  </div>
-{% endif %}
+{% assign pix_value = 0.05 %}
+{% assign pix_price = product.price | times: pix_value | minus: product.price | abs%}
+
+{{pix_price}} com PIX ou 3x de {{ product.price | divided_by: 3 | money }} sem juros
