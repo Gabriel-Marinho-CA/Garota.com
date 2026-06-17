@@ -172,6 +172,10 @@ wishlist-button[active] svg {
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
+
+  product-form {
+    width:100%;
+  }
 }
 
 .res-card:hover .res-card__hover-actions {
