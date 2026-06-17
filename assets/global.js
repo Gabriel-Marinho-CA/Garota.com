@@ -1543,6 +1543,7 @@ class ResColorCard extends HTMLElement {
       : (this._data.images || []);
 
     if (images.length === 0) return;
+    images = images.slice(0, 5);
 
     var wrapper = this.querySelector('.swiper-wrapper');
     if (!wrapper) return;
