@@ -30,12 +30,44 @@
         "autoplay": true,
         "tempo_autoplay": 3,
         "pagination": true,
-        "pagination_color": "#B1BFAB",
+        "pagination_color": "#b1bfab",
         "pagination_color_active": "#000"
+      }
+    },
+    "res_featured_collection_6hKjp7": {
+      "type": "res-featured-collection",
+      "name": "Vitrine Result",
+      "settings": {
+        "title": "Coleção em Destaque",
+        "view_more_text": "Ver mais",
+        "view_more_url": "",
+        "collection": "frontpage",
+        "product_list": [],
+        "show_button": false,
+        "add_to_cart": false,
+        "show_installments": true,
+        "two_rows": true,
+        "autoplay": false,
+        "autoplay_time": 4,
+        "pagination_color": "#2B2B2B",
+        "pagination_color_active": "#2B2B2B",
+        "background_type": "color",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "title_custom": false,
+        "title_color": "",
+        "title_font_size_desktop": 36,
+        "title_font_size_mobile": 24,
+        "title_font_weight": "700",
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 48,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 96
       }
     }
   },
   "order": [
-    "main_banner_NttY7H"
+    "main_banner_NttY7H",
+    "res_featured_collection_6hKjp7"
   ]
 }
