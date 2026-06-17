@@ -209,10 +209,10 @@ wishlist-button[active] svg {
   min-height: 28px;
   padding: 0 8px;
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #000;
   border-radius: 50%;
   color: #05122B;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 400;
   text-transform: uppercase;
   text-decoration: none;
