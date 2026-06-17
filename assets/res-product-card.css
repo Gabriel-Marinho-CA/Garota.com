@@ -166,7 +166,8 @@ wishlist-button[active] svg {
   align-items: center;
   gap: 8px;
   padding: 16px 12px;
-  background: rgba(255, 255, 255, 0.95);
+ background: #FFFFFF7A;
+    backdrop-filter: blur(4px);
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -245,10 +246,10 @@ wishlist-button[active] svg {
   width: 100%;
   height: 44px;
   padding: 0 16px;
-  border: 1px solid #968C82;
+  border: 1px solid #000000;
   border-radius: 3px;
-  background: transparent;
-  color: #000000;
+  background: #000000;
+  color: #FFF;
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -265,9 +266,9 @@ wishlist-button[active] svg {
 }
 
 .res-card__btn:hover {
-  background: #968C82;
-  color: #fff;
-  border-color: #968C82;
+  background: #FFF;
+  color: #000;
+  border-color: #FFF;
 }
 
 .res-card__btn--disabled {
