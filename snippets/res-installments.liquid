@@ -1,4 +1,4 @@
 {% assign pix_value = 0.05 %}
-{% assign pix_price = product.price | times: pix_value | minus: product.price | abs%}
+{% assign pix_price = product.price | times: pix_value %}
 
 {{pix_price}} com PIX ou 3x de {{ product.price | divided_by: 3 | money }} sem juros
