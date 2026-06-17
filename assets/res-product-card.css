@@ -203,10 +203,12 @@ wishlist-button[active] svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 32px;
-  height: 32px;
+  min-width: 28px;
+  height: 28px;
+  width: 28px;
+  min-height: 28px;
   padding: 0 8px;
-  background: transparent;
+  background: #fff;
   border: 1px solid #ccc;
   border-radius: 50%;
   color: #05122B;
@@ -324,12 +326,12 @@ wishlist-button[active] svg {
 .res-card__swatches {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 12px;
 }
 
 .res-card__swatch {
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: 2px solid transparent;
   outline: 1px solid #E0E0E0;
