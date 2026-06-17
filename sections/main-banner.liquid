@@ -1,0 +1,231 @@
+{{ 'res-hero.css' | asset_url | stylesheet_tag }}
+
+{% liquid
+  assign autoplay = section.settings.autoplay
+  assign autoplay_time = section.settings.tempo_autoplay | times: 1000
+  assign pagination = section.settings.pagination
+%}
+
+{% style %}
+  .{{ section.id }} {
+      {% if pagination %}
+          .swiper-pagination {
+              .swiper-pagination-bullet {
+                  background: {{ section.settings.pagination_color }}
+              }
+
+              .swiper-pagination-bullet-active {
+                  background: {{ section.settings.pagination_color_active }};
+              }
+          }
+      {% endif %}
+  }
+{% endstyle %}
+
+<section class="res-hero {{ section.id }}">
+  <div class="res-wrapper--full-width">
+    <div class="swiper">
+      <div class="swiper-wrapper">
+        {% for banner in section.blocks %}
+          {% liquid
+            assign banner_url = false
+            if banner.settings.url != blank
+              assign banner_url = true
+            endif
+            assign is_first = forloop.first
+          %}
+
+          <div class="swiper-slide">
+            {% if banner_url %}
+              <a class="res-slide" href="{{ banner.settings.url }}">
+            {% else %}
+              <div class="res-slide">
+            {% endif %}
+            {% if banner.type == 'video_banner' %}
+              {% if banner.settings.video_mobile != blank %}
+                {{
+                  banner.settings.video_mobile
+                  | video_tag:
+                    autoplay: true,
+                    muted: true,
+                    loop: true,
+                    playsinline: true,
+                    preload: 'metadata',
+                    class: 'video--mobile'
+                }}
+              {% endif %}
+              {% if banner.settings.video_desktop != blank %}
+                {{
+                  banner.settings.video_desktop
+                  | video_tag:
+                    autoplay: true,
+                    muted: true,
+                    loop: true,
+                    playsinline: true,
+                    preload: 'metadata',
+                    class: 'video--desktop'
+                }}
+              {% endif %}
+            {% else %}
+              {% if banner.settings.image_mobile != blank %}
+                <img
+                  class="image--mobile"
+                  src="{{ banner.settings.image_mobile | image_url }}"
+                  alt="{{ banner.settings.image_alt }}"
+                  loading="{% if is_first %}eager{% else %}lazy{% endif %}"
+                  {% if is_first %}
+                    fetchpriority="high"
+                  {% endif %}
+                >
+              {% endif %}
+              {% if banner.settings.image_desktop != blank %}
+                <img
+                  class="image--desktop"
+                  src="{{ banner.settings.image_desktop | image_url }}"
+                  alt="{{ banner.settings.image_alt }}"
+                  loading="{% if is_first %}eager{% else %}lazy{% endif %}"
+                  {% if is_first %}
+                    fetchpriority="high"
+                  {% endif %}
+                >
+              {% endif %}
+            {% endif %}
+            {% if banner_url %}
+              </a>
+            {% else %}
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+      {% if pagination %}
+        <div class="swiper-pagination"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const swiper_{{ section.id | replace: '-', '_' }} = new Swiper('.{{ section.id }} .swiper', {
+          slidesPerView: 1,
+          {% if autoplay %}
+              autoplay: {
+                  delay: {{ autoplay_time }},
+              },
+          {% endif %}
+          loop: true,
+          {% if pagination %}
+              pagination: {
+                  el: '.{{ section.id }} .swiper-pagination',
+                  clickable: true,
+              }
+          {% endif %}
+      });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "res - Banner Principal",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": true,
+      "info": "Autoplay nos slides"
+    },
+    {
+      "type": "range",
+      "id": "tempo_autoplay",
+      "label": "Tempo de autoplay",
+      "default": 3,
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "info": "Tempo de delay em cada passada de slide",
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "checkbox",
+      "default": true,
+      "id": "pagination",
+      "label": "Paginação",
+      "info": "Paginação nos slides"
+    },
+    {
+      "type": "color",
+      "label": "Cor da Paginação",
+      "default": "#B1BFAB",
+      "id": "pagination_color",
+      "visible_if": "{{ section.settings.pagination }}"
+    },
+    {
+      "type": "color",
+      "label": "Cor da Paginação Ativa",
+      "default": "#000",
+      "id": "pagination_color_active",
+      "visible_if": "{{ section.settings.pagination }}"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Image Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image Mobile"
+        },
+
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        },
+        {
+          "type": "text",
+          "default": "Imagem Hero",
+          "label": "Alt da Imagem",
+          "id": "image_alt"
+        }
+      ]
+    },
+    {
+      "type": "video_banner",
+      "name": "Banner Vídeo",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video_mobile",
+          "label": "Vídeo Mobile"
+        },
+        {
+          "type": "video",
+          "id": "video_desktop",
+          "label": "Vídeo Desktop"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Banner Principal",
+      "category": "Res - Seções"
+    }
+  ]
+}
+{% endschema %}
