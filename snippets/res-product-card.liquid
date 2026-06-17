@@ -28,9 +28,11 @@
   {%- comment -%} ===== IMAGEM + HOVER OVERLAY ===== {%- endcomment -%}
   <div class="res-card__media-wrapper">
 
-    {% if res_product.compare_at_price > res_product.price %}
+    {% if res_product.tags.size > 0 %}
       <div class="res-card__badges">
-        <span class="res-card__badge">COMPRE 3 PAGUE 2</span>
+        {% for tag in res_product.tags %}
+          <span class="res-card__badge">{{ tag }}</span>
+        {% endfor %}
       </div>
     {% endif %}
 
@@ -79,52 +81,50 @@
     </a>
 
     {%- comment -%} Hover overlay: tamanhos + botão comprar {%- endcomment -%}
-    {% if show_button %}
-      <div class="res-card__hover-actions">
-        {% if res_size_option_index >= 0 %}
-          <div class="res-card__buy-sizes"></div>
-        {% endif %}
+    <div class="res-card__hover-actions">
+      {% if res_size_option_index >= 0 %}
+        <div class="res-card__buy-sizes"></div>
+      {% endif %}
 
-        {%- assign res_form_id = 'res-form-' | append: section.id | append: '-' | append: res_product.id -%}
-        {% if res_product.available %}
-          <product-form data-section-id="{{ section.id }}">
-            {%- form 'product',
-              res_product,
-              id: res_form_id,
-              class: 'res-card__form form',
-              novalidate: 'novalidate',
-              data-type: 'add-to-cart-form'
-            -%}
-              <input
-                type="hidden"
-                name="id"
-                value="{{ res_product.selected_or_first_available_variant.id }}"
-                class="product-variant-id"
-              >
-              <button
-                id="{{ res_form_id }}-submit"
-                type="submit"
-                name="add"
-                class="quick-add__submit res-card__btn button button--full-width button--secondary"
-                aria-haspopup="dialog"
-                aria-live="polite"
-                data-sold-out-message="true"
-                {% if res_product.selected_or_first_available_variant.available == false %}
-                  disabled
-                {% endif %}
-              >
-                <span>ADICIONAR AO CARRINHO</span>
-                {%- render 'loading-spinner' -%}
-              </button>
-            {%- endform -%}
-          </product-form>
-        {% else %}
-          <button class="res-card__btn res-card__btn--disabled" type="button" disabled aria-disabled="true">
-            ESGOTADO
-          </button>
-        {% endif %}
-      </div>
-    {% endif %}
+      {%- assign res_form_id = 'res-form-' | append: section.id | append: '-' | append: res_product.id -%}
+      {% if res_product.available %}
+        <product-form data-section-id="{{ section.id }}">
+          {%- form 'product',
+            res_product,
+            id: res_form_id,
+            class: 'res-card__form form',
+            novalidate: 'novalidate',
+            data-type: 'add-to-cart-form'
+          -%}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ res_product.selected_or_first_available_variant.id }}"
+              class="product-variant-id"
+            >
+            <button
+              id="{{ res_form_id }}-submit"
+              type="submit"
+              name="add"
+              class="quick-add__submit res-card__btn button button--full-width button--secondary"
+              aria-haspopup="dialog"
+              aria-live="polite"
+              data-sold-out-message="true"
+              {% if res_product.selected_or_first_available_variant.available == false %}
+                disabled
+              {% endif %}
+            >
+              <span>ADICIONAR AO CARRINHO</span>
+              {%- render 'loading-spinner' -%}
+            </button>
+          {%- endform -%}
+        </product-form>
+      {% else %}
+        <button class="res-card__btn res-card__btn--disabled" type="button" disabled aria-disabled="true">
+          ESGOTADO
+        </button>
+      {% endif %}
+    </div>
 
     {%- comment -%} Indicador de imagens (barrinhas) {%- endcomment -%}
     {% if res_product.images.size > 1 %}
