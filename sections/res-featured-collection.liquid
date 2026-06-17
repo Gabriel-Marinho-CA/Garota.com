@@ -1,0 +1,510 @@
+{{ 'res-featured-collection.css' | asset_url | stylesheet_tag }}
+{% if section.settings.show_button %}
+  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
+{% endif %}
+
+{% liquid
+  assign autoplay = section.settings.autoplay
+  assign autoplay_time = section.settings.autoplay_time | times: 1000
+  assign show_button = section.settings.show_button
+  assign add_to_cart = section.settings.add_to_cart
+  assign show_installments = section.settings.show_installments
+
+  if section.settings.product_list.size > 0
+    assign products = section.settings.product_list
+  elsif section.settings.collection != blank
+    assign products = section.settings.collection.products
+  endif
+%}
+
+{% style %}
+  .{{ section.id }} {
+    display:block;
+    {% if section.settings.background_type == 'image' and section.settings.background_image_mobile != blank %}
+      background-image: url('{{ section.settings.background_image_mobile | image_url }}');
+    {% elsif section.settings.background_type == 'color' and section.settings.background_color != blank %}
+      background: {{ section.settings.background_color }};
+    {% elsif section.settings.background_type == 'gradient' and section.settings.background_gradient != blank %}
+      background: {{ section.settings.background_gradient }};
+    {% endif %}
+    padding-top: {{ section.settings.pad_top_mobile }}px;
+    padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .{{ section.id }} {
+      {% if section.settings.background_type == 'image' and section.settings.background_image_desktop != blank %}
+        background-image: url('{{ section.settings.background_image_desktop | image_url }}');
+      {% endif %}
+      padding-top: {{ section.settings.pad_top_desktop }}px;
+      padding-bottom: {{ section.settings.pad_bottom_desktop }}px;
+    }
+  }
+
+  {% if section.settings.title_custom %}
+    .{{ section.id }} .res-fc__title {
+      {% if section.settings.title_color != blank %}color: {{ section.settings.title_color }};{% endif %}
+      {% if section.settings.title_font_size_mobile > 0 %}font-size: {{ section.settings.title_font_size_mobile }}px;{% endif %}
+      {% if section.settings.title_font_weight != blank %}font-weight: {{ section.settings.title_font_weight }};{% endif %}
+    }
+    {% if section.settings.title_font_size_desktop > 0 %}
+      @media screen and (min-width: 750px) {
+        .{{ section.id }} .res-fc__title { font-size: {{ section.settings.title_font_size_desktop }}px; }
+      }
+    {% endif %}
+  {% endif %}
+
+  {% if section.settings.pagination_color != blank %}
+    .{{ section.id }} .res-fc__pagination .swiper-pagination-bullet {
+      background: {{ section.settings.pagination_color }};
+      border-color: {{ section.settings.pagination_color }};
+    }
+  {% endif %}
+  {% if section.settings.pagination_color_active != blank %}
+    .{{ section.id }} .res-fc__pagination .swiper-pagination-bullet-active {
+      background: transparent;
+      border-color: {{ section.settings.pagination_color_active }};
+    }
+  {% endif %}
+{% endstyle %}
+
+<res-featured-collection
+  class="res-fc {{ section.id }} scroll-trigger animate--fade-in"
+  data-autoplay="{{ autoplay }}"
+  data-autoplay-time="{{ autoplay_time }}"
+  data-two-rows="{{ section.settings.two_rows }}"
+>
+  <div class="res-fc__wrapper page-width">
+    {%- comment -%} Header: título + botão "Ver mais" (desktop) {%- endcomment -%}
+    <div class="res-fc__header">
+      {% if section.settings.title != blank %}
+        <h2 class="res-fc__title">{{ section.settings.title | escape }}</h2>
+      {% endif %}
+
+      {% if section.settings.view_more_text != blank %}
+        <a class="res-fc__view-more res-fc__view-more--desktop" href="{{ section.settings.view_more_url }}">
+          {{ section.settings.view_more_text | escape }}
+        </a>
+      {% endif %}
+    </div>
+
+    {%- comment -%} Carousel {%- endcomment -%}
+    <div class="res-fc__carousel">
+      <div class="swiper res-fc__swiper">
+        <div class="swiper-wrapper">
+          {% if products != blank %}
+            {% for product in products %}
+              <div class="swiper-slide">
+                {% render 'res-product-card',
+                  res_product: product,
+                  show_price: true,
+                  show_button: show_button,
+                  add_to_cart: add_to_cart,
+                  show_installments: show_installments
+                %}
+              </div>
+            {% endfor %}
+          {% else %}
+            {% for i in (1..4) %}
+              <div class="swiper-slide">
+                {% render 'res-product-card',
+                  show_price: true,
+                  show_button: show_button,
+                  show_installments: show_installments
+                %}
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      {%- comment -%} Controles: prev · dots · next (apenas desktop) {%- endcomment -%}
+      <div class="res-fc__controls">
+        <button class="res-fc__nav res-fc__nav--prev" aria-label="Anterior">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div class="res-fc__pagination swiper-pagination"></div>
+        <button class="res-fc__nav res-fc__nav--next" aria-label="Próximo">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    {%- comment -%} Botão "Ver mais" — apenas mobile (abaixo do carousel) {%- endcomment -%}
+    {% if section.settings.view_more_text != blank %}
+      <a class="res-fc__view-more res-fc__view-more--mobile" href="{{ section.settings.view_more_url }}">
+        {{ section.settings.view_more_text | escape }}
+      </a>
+    {% endif %}
+  </div>
+</res-featured-collection>
+
+<script>
+  (function () {
+    class ResFeaturedCollection extends HTMLElement {
+      connectedCallback() {
+        if ('IntersectionObserver' in window) {
+          const io = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              io.disconnect();
+              this._init();
+            }
+          }, { threshold: 0 });
+          io.observe(this);
+        } else {
+          requestAnimationFrame(() => this._init());
+        }
+      }
+
+      disconnectedCallback() {
+        if (this._swiper) {
+          this._swiper.destroy(true, true);
+          this._swiper = null;
+        }
+      }
+
+      _init() {
+        if (this._swiper) {
+          this._swiper.destroy(true, true);
+        }
+
+        const autoplay     = this.dataset.autoplay === 'true';
+        const autoplayMs   = parseInt(this.dataset.autoplayTime) || 3000;
+        const twoRows      = this.dataset.twoRows === 'true';
+        const prevEl       = this.querySelector('.res-fc__nav--prev');
+        const nextEl       = this.querySelector('.res-fc__nav--next');
+        const paginationEl = this.querySelector('.res-fc__pagination');
+
+
+        let config = "";
+
+        if(twoRows) {
+            config = {
+            slidesPerView: 2.2,
+            spaceBetween: 12,
+            observer: true,
+            observeParents: true,
+            breakpoints: {
+              750: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+                  grid: { rows: 2, fill: 'row' }
+              },
+              1024: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+                  grid: { rows: 2, fill: 'row' }
+              }
+            },
+            pagination: {
+              el: paginationEl,
+              clickable: true
+            },
+            navigation: {
+              prevEl: prevEl,
+              nextEl: nextEl
+            }
+          };
+        } else {
+                   config = {
+          slidesPerView: 2.2,
+          spaceBetween: 12,
+          observer: true,
+          observeParents: true,
+          breakpoints: {
+            750: {
+              slidesPerView: 2,
+              spaceBetween: 16,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 20,
+            }
+          },
+          pagination: {
+            el: paginationEl,
+            clickable: true
+          },
+          navigation: {
+            prevEl: prevEl,
+            nextEl: nextEl
+          }
+        };
+        }
+
+
+
+        if (autoplay) {
+          config.autoplay = { delay: autoplayMs, disableOnInteraction: false };
+        }
+
+        this._swiper = new Swiper(this.querySelector('.res-fc__swiper'), config);
+        setTimeout(() => { if (this._swiper) this._swiper.update(); }, 150);
+      }
+    }
+
+    if (!customElements.get('res-featured-collection')) {
+      customElements.define('res-featured-collection', ResFeaturedCollection);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Vitrine Result",
+  "class": "RES__FEATURED_COLLECTION__V1",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Conteúdo"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Coleção em Destaque"
+    },
+    {
+      "type": "text",
+      "id": "view_more_text",
+      "label": "Texto do botão \"Ver mais\"",
+      "default": "Ver mais"
+    },
+    {
+      "type": "url",
+      "id": "view_more_url",
+      "label": "Link do botão"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "product_list",
+      "id": "product_list",
+      "label": "Lista de produtos"
+    },
+    {
+      "type": "header",
+      "content": "Cartão de Produto"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Exibir botão no card",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add_to_cart",
+      "label": "Adicionar ao carrinho",
+      "default": false,
+      "visible_if": "{{ section.settings.show_button }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_installments",
+      "label": "Exibir parcelas",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Slider"
+    },
+    {
+      "type": "checkbox",
+      "id": "two_rows",
+      "label": "Exibir 2 linhas",
+      "default": true,
+      "info": "Ativo: 2 linhas de produtos. Inativo: 1 linha."
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Autoplay",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "autoplay_time",
+      "label": "Tempo",
+      "default": 4,
+      "min": 2,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "visible_if": "{{ section.settings.autoplay }}"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Cor dos pontos",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color_active",
+      "label": "Cor do ponto ativo",
+      "default": "#2B2B2B"
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "select",
+      "id": "background_type",
+      "label": "Tipo de fundo",
+      "default": "color",
+      "options": [
+        { "label": "Cor", "value": "color" },
+        { "label": "Gradiente", "value": "gradient" },
+        { "label": "Imagem", "value": "image" }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Cor",
+      "default": "#FFFFFF",
+      "visible_if": "{{ section.settings.background_type == 'color' }}"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Gradiente",
+      "visible_if": "{{ section.settings.background_type == 'gradient' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Imagem (mobile)",
+      "visible_if": "{{ section.settings.background_type == 'image' }}"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_desktop",
+      "label": "Imagem (desktop)",
+      "visible_if": "{{ section.settings.background_type == 'image' }}"
+    },
+    {
+      "type": "header",
+      "content": "Tipografia"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_custom",
+      "label": "Personalizar título",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor",
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Tamanho (desktop)",
+      "min": 16,
+      "max": 72,
+      "step": 1,
+      "default": 36,
+      "unit": "px",
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Tamanho (mobile)",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "default": 24,
+      "unit": "px",
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Peso",
+      "default": "700",
+      "options": [
+        { "label": "Regular (400)", "value": "400" },
+        { "label": "Médio (500)", "value": "500" },
+        { "label": "Semi Bold (600)", "value": "600" },
+        { "label": "Bold (700)", "value": "700" }
+      ],
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_mobile",
+      "label": "Padding TOP (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_mobile",
+      "label": "Padding BOTTOM (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_desktop",
+      "label": "Padding TOP (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_desktop",
+      "label": "Padding BOTTOM (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 96,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vitrine Result",
+      "category": "Coleção",
+      "settings": {
+        "title": "Coleção em Destaque",
+        "view_more_text": "Ver mais",
+        "background_type": "color",
+        "background_color": "#FFFFFF",
+        "show_button": false,
+        "show_installments": true,
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 48,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 96
+      }
+    }
+  ]
+}
+{% endschema %}

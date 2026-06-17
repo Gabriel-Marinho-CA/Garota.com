@@ -1,0 +1,218 @@
+/* RES__FEATURED_COLLECTION__V1 */
+
+.res-fc {
+  width: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* ── Wrapper ── */
+
+.res-fc__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--tp-space-8, 32px);
+  max-width: var(--page-width);
+  padding-left: 1.5rem;
+  padding-right: 0;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .res-fc__wrapper {
+    padding-left: 5rem;
+    padding-right: 5rem;
+    gap: 48px;
+  }
+}
+
+/* ── Header ── */
+
+.res-fc__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--tp-space-4, 16px);
+}
+
+.res-fc__title {
+  color: var(--tp-color-text-primary);
+  font-family: var(--tp-font-heading);
+  font-weight: var(--tp-font-bold, 700);
+  font-size: 2.4rem;
+  line-height: var(--tp-leading-tight, 1.2);
+  margin: 0;
+  @media (max-width:750px) {
+  text-align:center;
+}
+}
+
+@media screen and (min-width: 750px) {
+  .res-fc__title {
+    font-size: var(--tp-font-size-4xl, 36px);
+  }
+}
+
+/* ── View more button (shared styles) ── */
+
+.res-fc__view-more {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: opacity var(--tp-transition-base, 300ms);
+  box-sizing: border-box;
+  border-bottom: 1px solid #826A4F;
+  color: #131313;
+    padding-right: 0;
+    padding-left: 10rem;
+    font-weight: 400;
+    font-style: Regular;
+    font-size: 20px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 10%;
+
+    @media (max-width:750px) {
+      border: 1px solid #826A4F;
+      font-family: Montserrat;
+      font-weight: 400;
+      font-style: Regular;
+       height: 38px;
+       width:91%;
+      font-size: 14px;
+      leading-trim: NONE;
+      line-height: 100%;
+      letter-spacing: 10%;
+      text-transform: uppercase;
+      padding-left: 0;
+    }
+}
+
+.res-fc__view-more:hover {
+  opacity: 0.85;
+}
+
+/* Desktop: botão no header, esconde o do footer */
+.res-fc__view-more--desktop {
+  display: none;
+}
+
+.res-fc__view-more--mobile {
+  display: inline-flex;
+  align-self: center;
+}
+
+@media screen and (min-width: 750px) {
+  .res-fc__view-more--desktop {
+    display: inline-flex;
+  }
+
+  .res-fc__view-more--mobile {
+    display: none;
+  }
+}
+
+/* ── Carousel ── */
+
+.res-fc__carousel {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--tp-space-6, 24px);
+}
+
+.res-fc__swiper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.res-fc__swiper .swiper-slide {
+  height: auto !important;
+
+  res-color-card {
+    height: 100%;
+    .res-card__info {
+      justify-content:space-between;
+    }
+  }
+}
+
+/* ── Controls bar (prev · pagination · next) ── */
+
+.res-fc__controls {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tp-space-4, 16px);
+
+
+}
+.res-fc__controls:has(.res-fc__nav--prev.swiper-button-disabled):has(.res-fc__nav--next.swiper-button-disabled) {
+  display: none;
+}
+
+@media screen and (min-width: 750px) {
+  .res-fc__controls {
+    display: flex;
+  }
+}
+
+/* ── Nav buttons ── */
+
+.res-fc__nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--tp-color-bg-primary, #fff);
+  border: none;
+  color: var(--tp-color-text-primary, #111);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: opacity var(--tp-transition-base, 300ms);
+}
+
+.res-fc__nav:hover {
+  opacity: 0.7;
+}
+
+.res-fc__nav.swiper-button-disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Pagination dots ── */
+
+.res-fc__pagination.swiper-pagination {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tp-space-2, 8px);
+  width: auto;
+}
+
+.res-fc__pagination .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #B7B7B7 !important;
+  opacity: 1;
+  margin: 0;
+  transition: background var(--tp-transition-base, 300ms);
+  cursor: pointer;
+}
+
+.res-fc__pagination .swiper-pagination-bullet-active {
+  background: #131313 !important;
+}
