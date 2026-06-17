@@ -9,17 +9,12 @@
   assign show_button = section.settings.show_button
   assign add_to_cart = section.settings.add_to_cart
   assign show_installments = section.settings.show_installments
-
-  if section.settings.product_list.size > 0
-    assign products = section.settings.product_list
-  elsif section.settings.collection != blank
-    assign products = section.settings.collection.products
-  endif
+  assign tab_blocks = section.blocks | where: 'type', 'collection_tab'
 %}
 
 {% style %}
   .{{ section.id }} {
-    display:block;
+    display: block;
     {% if section.settings.background_type == 'image' and section.settings.background_image_mobile != blank %}
       background-image: url('{{ section.settings.background_image_mobile | image_url }}');
     {% elsif section.settings.background_type == 'color' and section.settings.background_color != blank %}
@@ -54,17 +49,14 @@
     {% endif %}
   {% endif %}
 
-  {% if section.settings.pagination_color != blank %}
-    .{{ section.id }} .res-fc__pagination .swiper-pagination-bullet {
-      background: {{ section.settings.pagination_color }};
-      border-color: {{ section.settings.pagination_color }};
-    }
+  {% if section.settings.tab_color != blank %}
+    .{{ section.id }} .res-fc__tab { color: {{ section.settings.tab_color }}; border-color: {{ section.settings.tab_color }}; }
   {% endif %}
-  {% if section.settings.pagination_color_active != blank %}
-    .{{ section.id }} .res-fc__pagination .swiper-pagination-bullet-active {
-      background: transparent;
-      border-color: {{ section.settings.pagination_color_active }};
-    }
+  {% if section.settings.tab_active_bg != blank %}
+    .{{ section.id }} .res-fc__tab--active { background-color: {{ section.settings.tab_active_bg }}; border-color: {{ section.settings.tab_active_bg }}; }
+  {% endif %}
+  {% if section.settings.tab_active_color != blank %}
+    .{{ section.id }} .res-fc__tab--active { color: {{ section.settings.tab_active_color }}; }
   {% endif %}
 {% endstyle %}
 
@@ -75,66 +67,103 @@
   data-two-rows="{{ section.settings.two_rows }}"
 >
   <div class="res-fc__wrapper page-width">
-    {%- comment -%} Header: título + botão "Ver mais" (desktop) {%- endcomment -%}
-    <div class="res-fc__header">
-      {% if section.settings.title != blank %}
+
+    {%- comment -%} Titulo {%- endcomment -%}
+    {% if section.settings.title != blank %}
+      <div class="res-fc__header">
         <h2 class="res-fc__title">{{ section.settings.title | escape }}</h2>
-      {% endif %}
+      </div>
+    {% endif %}
 
-      {% if section.settings.view_more_text != blank %}
-        <a class="res-fc__view-more res-fc__view-more--desktop" href="{{ section.settings.view_more_url }}">
-          {{ section.settings.view_more_text | escape }}
-        </a>
-      {% endif %}
-    </div>
+    {%- comment -%} Tabs {%- endcomment -%}
+    {% if tab_blocks.size > 0 %}
+      <div class="res-fc__tabs">
+        {% for block in tab_blocks %}
+          <button
+            class="res-fc__tab{% if forloop.first %} res-fc__tab--active{% endif %}"
+            data-tab-index="{{ forloop.index0 }}"
+            type="button"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.tab_name | escape }}
+          </button>
+        {% endfor %}
+      </div>
+    {% endif %}
 
-    {%- comment -%} Carousel {%- endcomment -%}
+    {%- comment -%} Carousel com setas fora {%- endcomment -%}
     <div class="res-fc__carousel">
-      <div class="swiper res-fc__swiper">
-        <div class="swiper-wrapper">
-          {% if products != blank %}
-            {% for product in products %}
-              <div class="swiper-slide">
-                {% render 'res-product-card',
-                  res_product: product,
-                  show_price: true,
-                  show_button: show_button,
-                  add_to_cart: add_to_cart,
-                  show_installments: show_installments
-                %}
+      <button class="res-fc__nav res-fc__nav--prev" aria-label="Anterior">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <div class="res-fc__slider-area">
+        {% for block in tab_blocks %}
+          {%- assign products = block.settings.collection.products -%}
+          <div
+            class="res-fc__tab-panel{% if forloop.first %} res-fc__tab-panel--active{% endif %}"
+            data-tab-index="{{ forloop.index0 }}"
+          >
+            <div class="swiper res-fc__swiper">
+              <div class="swiper-wrapper">
+                {% if products != blank %}
+                  {% for product in products %}
+                    <div class="swiper-slide">
+                      {% render 'res-product-card',
+                        res_product: product,
+                        show_price: true,
+                        show_button: show_button,
+                        add_to_cart: add_to_cart,
+                        show_installments: show_installments
+                      %}
+                    </div>
+                  {% endfor %}
+                {% else %}
+                  {% for i in (1..4) %}
+                    <div class="swiper-slide">
+                      {% render 'res-product-card',
+                        show_price: true,
+                        show_button: show_button,
+                        show_installments: show_installments
+                      %}
+                    </div>
+                  {% endfor %}
+                {% endif %}
               </div>
-            {% endfor %}
-          {% else %}
-            {% for i in (1..4) %}
-              <div class="swiper-slide">
-                {% render 'res-product-card',
-                  show_price: true,
-                  show_button: show_button,
-                  show_installments: show_installments
-                %}
+            </div>
+          </div>
+        {% endfor %}
+
+        {%- comment -%} Fallback: nenhum block adicionado {%- endcomment -%}
+        {% if tab_blocks.size == 0 %}
+          <div class="res-fc__tab-panel res-fc__tab-panel--active" data-tab-index="0">
+            <div class="swiper res-fc__swiper">
+              <div class="swiper-wrapper">
+                {% for i in (1..4) %}
+                  <div class="swiper-slide">
+                    {% render 'res-product-card',
+                      show_price: true,
+                      show_button: show_button,
+                      show_installments: show_installments
+                    %}
+                  </div>
+                {% endfor %}
               </div>
-            {% endfor %}
-          {% endif %}
-        </div>
+            </div>
+          </div>
+        {% endif %}
       </div>
 
-      {%- comment -%} Controles: prev · dots · next (apenas desktop) {%- endcomment -%}
-      <div class="res-fc__controls">
-        <button class="res-fc__nav res-fc__nav--prev" aria-label="Anterior">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <div class="res-fc__pagination swiper-pagination"></div>
-        <button class="res-fc__nav res-fc__nav--next" aria-label="Próximo">
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
+      <button class="res-fc__nav res-fc__nav--next" aria-label="Próximo">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
     </div>
 
-    {%- comment -%} Botão "Ver mais" — apenas mobile (abaixo do carousel) {%- endcomment -%}
+    {%- comment -%} Botao "Ver mais" mobile {%- endcomment -%}
     {% if section.settings.view_more_text != blank %}
       <a class="res-fc__view-more res-fc__view-more--mobile" href="{{ section.settings.view_more_url }}">
         {{ section.settings.view_more_text | escape }}
@@ -161,89 +190,111 @@
       }
 
       disconnectedCallback() {
-        if (this._swiper) {
-          this._swiper.destroy(true, true);
-          this._swiper = null;
+        this._destroySwipers();
+      }
+
+      _destroySwipers() {
+        if (this._swipers) {
+          this._swipers.forEach(s => s && s.destroy(true, true));
+          this._swipers = [];
         }
       }
 
       _init() {
-        if (this._swiper) {
-          this._swiper.destroy(true, true);
-        }
+        this._destroySwipers();
 
-        const autoplay     = this.dataset.autoplay === 'true';
-        const autoplayMs   = parseInt(this.dataset.autoplayTime) || 3000;
-        const twoRows      = this.dataset.twoRows === 'true';
-        const prevEl       = this.querySelector('.res-fc__nav--prev');
-        const nextEl       = this.querySelector('.res-fc__nav--next');
-        const paginationEl = this.querySelector('.res-fc__pagination');
+        const autoplay   = this.dataset.autoplay === 'true';
+        const autoplayMs = parseInt(this.dataset.autoplayTime) || 3000;
+        const twoRows    = this.dataset.twoRows === 'true';
+        const prevEl     = this.querySelector('.res-fc__nav--prev');
+        const nextEl     = this.querySelector('.res-fc__nav--next');
+        const panels     = this.querySelectorAll('.res-fc__tab-panel');
+        const tabs       = this.querySelectorAll('.res-fc__tab');
 
+        this._swipers = [];
+        this._activeIndex = 0;
 
-        let config = "";
+        panels.forEach((panel, i) => {
+          const swiperEl = panel.querySelector('.res-fc__swiper');
+          if (!swiperEl) return;
 
-        if(twoRows) {
+          let config;
+          if (twoRows) {
             config = {
-            slidesPerView: 2.2,
-            spaceBetween: 12,
-            observer: true,
-            observeParents: true,
-            breakpoints: {
-              750: {
-                slidesPerView: 2,
-                spaceBetween: 16,
-                  grid: { rows: 2, fill: 'row' }
-              },
-              1024: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-                  grid: { rows: 2, fill: 'row' }
+              slidesPerView: 2.2,
+              spaceBetween: 12,
+              observer: true,
+              observeParents: true,
+              breakpoints: {
+                750: { slidesPerView: 2, spaceBetween: 16, grid: { rows: 2, fill: 'row' } },
+                1024: { slidesPerView: 4, spaceBetween: 20, grid: { rows: 2, fill: 'row' } }
               }
-            },
-            pagination: {
-              el: paginationEl,
-              clickable: true
-            },
-            navigation: {
-              prevEl: prevEl,
-              nextEl: nextEl
-            }
-          };
-        } else {
-                   config = {
-          slidesPerView: 2.2,
-          spaceBetween: 12,
-          observer: true,
-          observeParents: true,
-          breakpoints: {
-            750: {
-              slidesPerView: 2,
-              spaceBetween: 16,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 20,
-            }
-          },
-          pagination: {
-            el: paginationEl,
-            clickable: true
-          },
-          navigation: {
-            prevEl: prevEl,
-            nextEl: nextEl
+            };
+          } else {
+            config = {
+              slidesPerView: 2.2,
+              spaceBetween: 12,
+              observer: true,
+              observeParents: true,
+              breakpoints: {
+                750: { slidesPerView: 2, spaceBetween: 16 },
+                1024: { slidesPerView: 4, spaceBetween: 20 }
+              }
+            };
           }
-        };
+
+          if (autoplay) {
+            config.autoplay = { delay: autoplayMs, disableOnInteraction: false };
+          }
+
+          const swiper = new Swiper(swiperEl, config);
+          this._swipers.push(swiper);
+        });
+
+        /* Nav buttons -> active swiper */
+        if (prevEl) {
+          prevEl.addEventListener('click', () => {
+            const s = this._swipers[this._activeIndex];
+            if (s) s.slidePrev();
+          });
+        }
+        if (nextEl) {
+          nextEl.addEventListener('click', () => {
+            const s = this._swipers[this._activeIndex];
+            if (s) s.slideNext();
+          });
         }
 
+        /* Tab switching */
+        tabs.forEach((tab) => {
+          tab.addEventListener('click', () => {
+            const idx = parseInt(tab.dataset.tabIndex);
+            if (idx === this._activeIndex) return;
 
+            /* Update tab active state */
+            tabs.forEach(t => t.classList.remove('res-fc__tab--active'));
+            tab.classList.add('res-fc__tab--active');
 
-        if (autoplay) {
-          config.autoplay = { delay: autoplayMs, disableOnInteraction: false };
-        }
+            /* Switch panel */
+            panels.forEach(p => p.classList.remove('res-fc__tab-panel--active'));
+            panels[idx].classList.add('res-fc__tab-panel--active');
 
-        this._swiper = new Swiper(this.querySelector('.res-fc__swiper'), config);
-        setTimeout(() => { if (this._swiper) this._swiper.update(); }, 150);
+            this._activeIndex = idx;
+
+            /* Update the newly visible swiper */
+            const s = this._swipers[idx];
+            if (s) {
+              s.update();
+              s.slideTo(0, 0);
+            }
+          });
+        });
+
+        /* Initial update */
+        setTimeout(() => {
+          const s = this._swipers[this._activeIndex];
+          if (s) s.update();
+        }, 150);
       }
     }
 
@@ -257,6 +308,7 @@
 {
   "name": "Vitrine Result",
   "class": "RES__FEATURED_COLLECTION__V1",
+  "max_blocks": 10,
   "settings": [
     {
       "type": "header",
@@ -266,28 +318,17 @@
       "type": "text",
       "id": "title",
       "label": "Título",
-      "default": "Coleção em Destaque"
+      "default": "COMPRE POR CATEGORIA"
     },
     {
       "type": "text",
       "id": "view_more_text",
-      "label": "Texto do botão \"Ver mais\"",
-      "default": "Ver mais"
+      "label": "Texto do botão \"Ver mais\""
     },
     {
       "type": "url",
       "id": "view_more_url",
       "label": "Link do botão"
-    },
-    {
-      "type": "collection",
-      "id": "collection",
-      "label": "Coleção"
-    },
-    {
-      "type": "product_list",
-      "id": "product_list",
-      "label": "Lista de produtos"
     },
     {
       "type": "header",
@@ -320,7 +361,7 @@
       "type": "checkbox",
       "id": "two_rows",
       "label": "Exibir 2 linhas",
-      "default": true,
+      "default": false,
       "info": "Ativo: 2 linhas de produtos. Inativo: 1 linha."
     },
     {
@@ -341,16 +382,26 @@
       "visible_if": "{{ section.settings.autoplay }}"
     },
     {
-      "type": "color",
-      "id": "pagination_color",
-      "label": "Cor dos pontos",
-      "default": "#2B2B2B"
+      "type": "header",
+      "content": "Tabs"
     },
     {
       "type": "color",
-      "id": "pagination_color_active",
-      "label": "Cor do ponto ativo",
-      "default": "#2B2B2B"
+      "id": "tab_color",
+      "label": "Cor do texto/borda da tab",
+      "default": "#1B1B1B"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Fundo da tab ativa",
+      "default": "#1B1B1B"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Cor do texto da tab ativa",
+      "default": "#FFFFFF"
     },
     {
       "type": "header",
@@ -488,22 +539,43 @@
       "unit": "px"
     }
   ],
+  "blocks": [
+    {
+      "type": "collection_tab",
+      "name": "Aba de Coleção",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_name",
+          "label": "Nome da aba",
+          "default": "Coleção"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Coleção"
+        }
+      ]
+    }
+  ],
   "presets": [
     {
       "name": "Vitrine Result",
       "category": "Coleção",
       "settings": {
-        "title": "Coleção em Destaque",
-        "view_more_text": "Ver mais",
+        "title": "COMPRE POR CATEGORIA",
         "background_type": "color",
         "background_color": "#FFFFFF",
         "show_button": false,
         "show_installments": true,
-        "pad_top_mobile": 32,
-        "pad_bottom_mobile": 48,
-        "pad_top_desktop": 64,
-        "pad_bottom_desktop": 96
-      }
+        "two_rows": false
+      },
+      "blocks": [
+        { "type": "collection_tab", "settings": { "tab_name": "VESTIDOS" } },
+        { "type": "collection_tab", "settings": { "tab_name": "CONJUNTOS" } },
+        { "type": "collection_tab", "settings": { "tab_name": "SALE" } },
+        { "type": "collection_tab", "settings": { "tab_name": "TOPS" } }
+      ]
     }
   ]
 }
