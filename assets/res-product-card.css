@@ -357,11 +357,12 @@ wishlist-button[active] svg {
 }
 
 .res-card__title {
-  font-family: "Montserrat";
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
+font-weight: 400;
+font-size: 16px;
+line-height: 100%;
+letter-spacing: 0.5px;
+vertical-align: middle;
+color:#000;
   text-transform: uppercase;
   margin: 0;
 }
@@ -386,11 +387,13 @@ wishlist-button[active] svg {
 }
 
 .res-card__regular-price {
-  font-family: "Montserrat";
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 100%;
-  color: #131313;
+font-weight: 400;
+font-size: 14px;
+line-height: 100%;
+letter-spacing: 0.5px;
+vertical-align: middle;
+color:#999999;
+
 }
 
 @media (max-width: 547px) {
@@ -419,8 +422,12 @@ wishlist-button[active] svg {
 }
 
 .res-card__installments-wrap .tp-installments {
-  font-size: 11px;
-  color: #6D727C;
+
+font-weight: 400;
+font-size: 12px;
+line-height: 100%;
+letter-spacing: 0.5px;
+color:#999999;
 }
 
 /* ── Placeholder state ── */
