@@ -1,7 +1,5 @@
 {{ 'res-featured-collection.css' | asset_url | stylesheet_tag }}
-{% if section.settings.show_button %}
-  <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-{% endif %}
+<script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
 
 {% liquid
   assign autoplay = section.settings.autoplay
