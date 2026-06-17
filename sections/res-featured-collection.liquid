@@ -65,6 +65,7 @@
   data-autoplay="{{ autoplay }}"
   data-autoplay-time="{{ autoplay_time }}"
   data-two-rows="{{ section.settings.two_rows }}"
+  data-center-insufficient="true"
 >
   <div class="res-fc__wrapper page-width">
 
@@ -203,9 +204,10 @@
       _init() {
         this._destroySwipers();
 
-        const autoplay   = this.dataset.autoplay === 'true';
-        const autoplayMs = parseInt(this.dataset.autoplayTime) || 3000;
-        const twoRows    = this.dataset.twoRows === 'true';
+        const autoplay            = this.dataset.autoplay === 'true';
+        const autoplayMs          = parseInt(this.dataset.autoplayTime) || 3000;
+        const twoRows             = this.dataset.twoRows === 'true';
+        const centerInsufficient  = this.dataset.centerInsufficient === 'true';
         const prevEl     = this.querySelector('.res-fc__nav--prev');
         const nextEl     = this.querySelector('.res-fc__nav--next');
         const panels     = this.querySelectorAll('.res-fc__tab-panel');
@@ -225,6 +227,7 @@
               spaceBetween: 12,
               observer: true,
               observeParents: true,
+              centerInsufficientSlides: centerInsufficient,
               breakpoints: {
                 750: { slidesPerView: 2, spaceBetween: 16, grid: { rows: 2, fill: 'row' } },
                 1024: { slidesPerView: 4, spaceBetween: 20, grid: { rows: 2, fill: 'row' } }
@@ -236,6 +239,7 @@
               spaceBetween: 12,
               observer: true,
               observeParents: true,
+              centerInsufficientSlides: centerInsufficient,
               breakpoints: {
                 750: { slidesPerView: 2, spaceBetween: 16 },
                 1024: { slidesPerView: 4, spaceBetween: 20 }
