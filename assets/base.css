@@ -407,7 +407,13 @@ blockquote {
   line-height: calc(1 + 0.5 / var(--font-body-scale));
   letter-spacing: 0.04rem;
 }
-
+.icon-wishlist {
+      width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .color-foreground {
   color: rgb(var(--color-foreground));
 }
