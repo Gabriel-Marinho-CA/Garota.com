@@ -65,7 +65,7 @@
 }
 
 .res-ic__title {
-  margin: 0 0 1.2rem 0;
+  margin: 1.2rem 0 0 0;
   color: var(--res-ic-title-color, inherit);
   font-weight: var(--res-ic-title-weight, 700);
   text-align: var(--res-ic-title-align, center);
