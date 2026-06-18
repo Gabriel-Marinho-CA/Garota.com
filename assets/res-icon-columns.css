@@ -1,0 +1,103 @@
+/* RES__ICON_COLUMNS__V1 */
+
+.res-ic {
+  width: 100%;
+}
+
+.res-ic__wrapper {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  box-sizing: border-box;
+}
+
+@media screen and (min-width: 750px) {
+  .res-ic__wrapper {
+    padding-left: 5rem;
+    padding-right: 5rem;
+  }
+}
+
+.res-ic__grid {
+  display: grid;
+  grid-template-columns: repeat(var(--res-ic-columns-mobile, 2), 1fr);
+  gap: var(--res-ic-gap-mobile, 24px) 16px;
+}
+
+@media screen and (min-width: 750px) {
+  .res-ic__grid {
+    grid-template-columns: repeat(var(--res-ic-columns-desktop, 4), 1fr);
+    gap: var(--res-ic-gap-desktop, 32px);
+  }
+}
+
+.res-ic__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.res-ic__icon {
+  display: inline-flex;
+  width: var(--res-ic-icon-size-mobile, 24px);
+  height: var(--res-ic-icon-size-mobile, 24px);
+  flex-shrink: 0;
+}
+
+.res-ic__icon img,
+.res-ic__icon svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+@media screen and (min-width: 750px) {
+  .res-ic__icon {
+    width: var(--res-ic-icon-size-desktop, 28px);
+    height: var(--res-ic-icon-size-desktop, 28px);
+  }
+}
+
+.res-ic__title {
+  margin: 0;
+  color: var(--res-ic-title-color, inherit);
+  font-weight: var(--res-ic-title-weight, 700);
+  text-align: var(--res-ic-title-align, center);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-size: var(--res-ic-title-size-mobile, 12px);
+}
+
+.res-ic__title :where(p) {
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .res-ic__title {
+    font-size: var(--res-ic-title-size-desktop, 14px);
+  }
+}
+
+.res-ic__text {
+  margin: 0;
+  color: var(--res-ic-text-color, rgba(var(--color-foreground), 0.75));
+  font-weight: var(--res-ic-text-weight, 400);
+  text-align: var(--res-ic-text-align, center);
+  font-size: var(--res-ic-text-size-mobile, 11px);
+}
+
+.res-ic__text :where(p) {
+  margin: 0;
+}
+
+@media screen and (min-width: 750px) {
+  .res-ic__text {
+    font-size: var(--res-ic-text-size-desktop, 13px);
+  }
+}
