@@ -230,96 +230,24 @@
             "icon_size_mobile": 24,
             "url": "",
             "title": "<p>FRETE GRÁTIS</p>",
-            "title_custom": false,
+            "title_custom": true,
             "title_color": "",
             "title_font_size_desktop": 14,
             "title_font_size_mobile": 12,
-            "title_font_weight": "700",
+            "title_font_weight": "600",
             "title_align": "center",
             "text": "<p>nas compras acima de R$350,00</p>",
-            "text_custom": false,
+            "text_custom": true,
             "text_color": "",
-            "text_font_size_desktop": 13,
-            "text_font_size_mobile": 11,
-            "text_font_weight": "400",
-            "text_align": "center"
-          }
-        },
-        "item_GeEfRD": {
-          "type": "item",
-          "settings": {
-            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
-            "url": "",
-            "title": "<p>10% OFF</p>",
-            "title_custom": false,
-            "title_color": "",
-            "title_font_size_desktop": 14,
-            "title_font_size_mobile": 12,
-            "title_font_weight": "700",
-            "title_align": "center",
-            "text": "<p>na primeira compra</p>",
-            "text_custom": false,
-            "text_color": "",
-            "text_font_size_desktop": 13,
-            "text_font_size_mobile": 11,
-            "text_font_weight": "400",
-            "text_align": "center"
-          }
-        },
-        "item_8bXK8a": {
-          "type": "item",
-          "settings": {
-            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
-            "url": "",
-            "title": "<p>ATE 4X SEM JUROS</p>",
-            "title_custom": false,
-            "title_color": "",
-            "title_font_size_desktop": 14,
-            "title_font_size_mobile": 12,
-            "title_font_weight": "700",
-            "title_align": "center",
-            "text": "<p>nos cartões de crédito</p>",
-            "text_custom": false,
-            "text_color": "",
-            "text_font_size_desktop": 13,
-            "text_font_size_mobile": 11,
-            "text_font_weight": "400",
-            "text_align": "center"
-          }
-        },
-        "item_TwgtYc": {
-          "type": "item",
-          "settings": {
-            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
-            "url": "",
-            "title": "<p>COMPRE PELO WHATSAPP</p>",
-            "title_custom": false,
-            "title_color": "",
-            "title_font_size_desktop": 14,
-            "title_font_size_mobile": 12,
-            "title_font_weight": "700",
-            "title_align": "center",
-            "text": "<p>direto com uma vendedora</p>",
-            "text_custom": false,
-            "text_color": "",
-            "text_font_size_desktop": 13,
-            "text_font_size_mobile": 11,
+            "text_font_size_desktop": 14,
+            "text_font_size_mobile": 12,
             "text_font_weight": "400",
             "text_align": "center"
           }
         }
       },
       "block_order": [
-        "item_aBQXiV",
-        "item_GeEfRD",
-        "item_8bXK8a",
-        "item_TwgtYc"
+        "item_aBQXiV"
       ],
       "name": "res - Barra de Vantagens",
       "settings": {
