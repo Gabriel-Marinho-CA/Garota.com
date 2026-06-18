@@ -37,7 +37,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 10px;
+  gap: 0;
   text-align: center;
   text-decoration: none;
   color: inherit;
@@ -69,8 +69,8 @@
   color: var(--res-ic-title-color, inherit);
   font-weight: var(--res-ic-title-weight, 700);
   text-align: var(--res-ic-title-align, center);
+  line-height:1;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
   font-size: var(--res-ic-title-size-mobile, 12px);
 }
 
@@ -89,6 +89,7 @@
   color: var(--res-ic-text-color, rgba(var(--color-foreground), 0.75));
   font-weight: var(--res-ic-text-weight, 400);
   text-align: var(--res-ic-text-align, center);
+  line-height:1;
   font-size: var(--res-ic-text-size-mobile, 11px);
 }
 
