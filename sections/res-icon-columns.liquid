@@ -1,0 +1,380 @@
+{{ 'res-icon-columns.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .{{ section.id }} {
+    --res-ic-columns-mobile: {{ section.settings.columns_mobile }};
+    --res-ic-columns-desktop: {{ section.settings.columns_desktop }};
+    --res-ic-gap-mobile: {{ section.settings.gap_mobile }}px;
+    --res-ic-gap-desktop: {{ section.settings.gap_desktop }}px;
+    padding-top: {{ section.settings.pad_top_mobile }}px;
+    padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .{{ section.id }} {
+      padding-top: {{ section.settings.pad_top_desktop }}px;
+      padding-bottom: {{ section.settings.pad_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="res-ic {{ section.id }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <div class="res-ic__wrapper page-width">
+    <div class="res-ic__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign has_link = false
+          if block.settings.url != blank
+            assign has_link = true
+          endif
+          assign icon_alt = block.settings.title | strip_html
+        %}
+        {% if has_link %}
+          <a class="res-ic__item" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>
+        {% else %}
+          <div class="res-ic__item" {{ block.shopify_attributes }}>
+        {% endif %}
+          {% if block.settings.icon != blank %}
+            <span
+              class="res-ic__icon"
+              style="--res-ic-icon-size-mobile: {{ block.settings.icon_size_mobile }}px; --res-ic-icon-size-desktop: {{ block.settings.icon_size_desktop }}px;"
+            >
+              {{ block.settings.icon | image_url: width: 200 | image_tag: alt: icon_alt }}
+            </span>
+          {% endif %}
+          {% if block.settings.title != blank %}
+            <div
+              class="res-ic__title rte"
+              {% if block.settings.title_custom %}
+                style="
+                  {% if block.settings.title_color != blank %}--res-ic-title-color: {{ block.settings.title_color }};{% endif %}
+                  --res-ic-title-weight: {{ block.settings.title_font_weight }};
+                  --res-ic-title-align: {{ block.settings.title_align }};
+                  --res-ic-title-size-mobile: {{ block.settings.title_font_size_mobile }}px;
+                  --res-ic-title-size-desktop: {{ block.settings.title_font_size_desktop }}px;
+                "
+              {% endif %}
+            >
+              {{ block.settings.title }}
+            </div>
+          {% endif %}
+          {% if block.settings.text != blank %}
+            <div
+              class="res-ic__text rte"
+              {% if block.settings.text_custom %}
+                style="
+                  {% if block.settings.text_color != blank %}--res-ic-text-color: {{ block.settings.text_color }};{% endif %}
+                  --res-ic-text-weight: {{ block.settings.text_font_weight }};
+                  --res-ic-text-align: {{ block.settings.text_align }};
+                  --res-ic-text-size-mobile: {{ block.settings.text_font_size_mobile }}px;
+                  --res-ic-text-size-desktop: {{ block.settings.text_font_size_desktop }}px;
+                "
+              {% endif %}
+            >
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+        {% if has_link %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "res - Barra de Vantagens",
+  "class": "RES__ICON_COLUMNS__V1",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Grade"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colunas (desktop)",
+      "default": 4,
+      "min": 2,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Colunas (mobile)",
+      "default": 2,
+      "min": 1,
+      "max": 4,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Espaçamento (desktop)",
+      "default": 32,
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Espaçamento (mobile)",
+      "default": 24,
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento da seção"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_mobile",
+      "label": "Padding TOP (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_mobile",
+      "label": "Padding BOTTOM (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_desktop",
+      "label": "Padding TOP (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_desktop",
+      "label": "Padding BOTTOM (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Ícone"
+        },
+        {
+          "type": "range",
+          "id": "icon_size_desktop",
+          "label": "Tamanho do ícone (desktop)",
+          "min": 10,
+          "max": 64,
+          "step": 1,
+          "unit": "px",
+          "default": 28
+        },
+        {
+          "type": "range",
+          "id": "icon_size_mobile",
+          "label": "Tamanho do ícone (mobile)",
+          "min": 10,
+          "max": 64,
+          "step": 1,
+          "unit": "px",
+          "default": 24
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "richtext",
+          "id": "title",
+          "label": "Título",
+          "default": "<p>FRETE GRÁTIS</p>"
+        },
+        {
+          "type": "header",
+          "content": "Personalização do título"
+        },
+        {
+          "type": "checkbox",
+          "id": "title_custom",
+          "label": "Personalizar texto",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Cor",
+          "visible_if": "{{ block.settings.title_custom }}"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_desktop",
+          "label": "Tamanho da fonte (desktop)",
+          "min": 10,
+          "max": 48,
+          "step": 1,
+          "unit": "px",
+          "default": 14,
+          "visible_if": "{{ block.settings.title_custom }}"
+        },
+        {
+          "type": "range",
+          "id": "title_font_size_mobile",
+          "label": "Tamanho da fonte (mobile)",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 12,
+          "visible_if": "{{ block.settings.title_custom }}"
+        },
+        {
+          "type": "select",
+          "id": "title_font_weight",
+          "label": "Peso da fonte",
+          "default": "700",
+          "options": [
+            { "value": "400", "label": "Regular (400)" },
+            { "value": "500", "label": "Médio (500)" },
+            { "value": "600", "label": "Semi Bold (600)" },
+            { "value": "700", "label": "Bold (700)" }
+          ],
+          "visible_if": "{{ block.settings.title_custom }}"
+        },
+        {
+          "type": "select",
+          "id": "title_align",
+          "label": "Alinhamento",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Esquerda" },
+            { "value": "center", "label": "Centro" },
+            { "value": "right", "label": "Direita" }
+          ],
+          "visible_if": "{{ block.settings.title_custom }}"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texto",
+          "default": "<p>nas compras acima de R$350,00</p>"
+        },
+        {
+          "type": "header",
+          "content": "Personalização do texto"
+        },
+        {
+          "type": "checkbox",
+          "id": "text_custom",
+          "label": "Personalizar texto",
+          "default": false
+        },
+        {
+          "type": "color",
+          "id": "text_color",
+          "label": "Cor",
+          "visible_if": "{{ block.settings.text_custom }}"
+        },
+        {
+          "type": "range",
+          "id": "text_font_size_desktop",
+          "label": "Tamanho da fonte (desktop)",
+          "min": 10,
+          "max": 40,
+          "step": 1,
+          "unit": "px",
+          "default": 13,
+          "visible_if": "{{ block.settings.text_custom }}"
+        },
+        {
+          "type": "range",
+          "id": "text_font_size_mobile",
+          "label": "Tamanho da fonte (mobile)",
+          "min": 10,
+          "max": 32,
+          "step": 1,
+          "unit": "px",
+          "default": 11,
+          "visible_if": "{{ block.settings.text_custom }}"
+        },
+        {
+          "type": "select",
+          "id": "text_font_weight",
+          "label": "Peso da fonte",
+          "default": "400",
+          "options": [
+            { "value": "400", "label": "Regular (400)" },
+            { "value": "500", "label": "Médio (500)" },
+            { "value": "600", "label": "Semi Bold (600)" },
+            { "value": "700", "label": "Bold (700)" }
+          ],
+          "visible_if": "{{ block.settings.text_custom }}"
+        },
+        {
+          "type": "select",
+          "id": "text_align",
+          "label": "Alinhamento",
+          "default": "center",
+          "options": [
+            { "value": "left", "label": "Esquerda" },
+            { "value": "center", "label": "Centro" },
+            { "value": "right", "label": "Direita" }
+          ],
+          "visible_if": "{{ block.settings.text_custom }}"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Barra de Vantagens",
+      "category": "Res - Seções",
+      "blocks": [
+        {
+          "type": "item",
+          "settings": { "title": "<p>FRETE GRÁTIS</p>", "text": "<p>nas compras acima de R$350,00</p>" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "<p>10% OFF</p>", "text": "<p>na primeira compra</p>" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "<p>ATE 4X SEM JUROS</p>", "text": "<p>nos cartões de crédito</p>" }
+        },
+        {
+          "type": "item",
+          "settings": { "title": "<p>COMPRE PELO WHATSAPP</p>", "text": "<p>direto com uma vendedora</p>" }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
