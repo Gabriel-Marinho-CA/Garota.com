@@ -6,6 +6,8 @@
     --res-ig-columns-desktop: {{ section.settings.columns_desktop }};
     --res-ig-gap-mobile: {{ section.settings.gap_mobile }}px;
     --res-ig-gap-desktop: {{ section.settings.gap_desktop }}px;
+    --res-ig-icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    --res-ig-icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
     padding-top: {{ section.settings.pad_top_mobile }}px;
     padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
   }
@@ -42,7 +44,13 @@
         <div class="res-ig__header">
       {% endif %}
         {% if section.settings.show_instagram_icon %}
-          <span class="res-ig__icon">{{ 'icon-instagram.svg' | inline_asset_content }}</span>
+          <span class="res-ig__icon">
+            {% if section.settings.custom_icon != blank %}
+              {{ section.settings.custom_icon | image_url: width: 200 | image_tag: alt: 'Instagram' }}
+            {% else %}
+              {{ 'icon-instagram.svg' | inline_asset_content }}
+            {% endif %}
+          </span>
         {% endif %}
         <div class="res-ig__title rte">{{ section.settings.title }}</div>
       {% if settings.social_instagram_link != blank %}
@@ -78,6 +86,35 @@
       "id": "show_instagram_icon",
       "label": "Exibir ícone do Instagram",
       "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_icon",
+      "label": "Ícone personalizado",
+      "info": "Se vazio, usa o ícone padrão do Instagram.",
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "label": "Tamanho do ícone (desktop)",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Tamanho do ícone (mobile)",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
     },
     {
       "type": "header",
