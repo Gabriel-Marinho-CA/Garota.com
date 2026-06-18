@@ -1,0 +1,218 @@
+{{ 'res-banner-blocks.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .{{ section.id }} {
+    --res-bb-columns-mobile: {{ section.settings.columns_mobile }};
+    --res-bb-columns-desktop: {{ section.settings.columns_desktop }};
+    --res-bb-gap-mobile: {{ section.settings.gap_mobile }}px;
+    --res-bb-gap-desktop: {{ section.settings.gap_desktop }}px;
+    padding-top: {{ section.settings.pad_top_mobile }}px;
+    padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .{{ section.id }} {
+      padding-top: {{ section.settings.pad_top_desktop }}px;
+      padding-bottom: {{ section.settings.pad_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="res-bb {{ section.id }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <div class="res-bb__wrapper page-width">
+    {% if section.settings.title != blank %}
+      <h2 class="res-bb__title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="res-bb__grid">
+      {% for block in section.blocks %}
+        {% liquid
+          assign has_link = false
+          if block.settings.url != blank
+            assign has_link = true
+          endif
+          assign loading_attr = 'lazy'
+          if forloop.first
+            assign loading_attr = 'eager'
+          endif
+        %}
+        {% if has_link %}
+          <a class="res-bb__item" href="{{ block.settings.url }}" {{ block.shopify_attributes }}>
+        {% else %}
+          <div class="res-bb__item" {{ block.shopify_attributes }}>
+        {% endif %}
+          {% if block.settings.image_mobile != blank %}
+            {{
+              block.settings.image_mobile
+              | image_url: width: 1500
+              | image_tag:
+                class: 'res-bb__image res-bb__image--mobile',
+                alt: block.settings.image_alt,
+                loading: loading_attr,
+                sizes: '100vw',
+                widths: '375, 550, 750, 1100, 1500'
+            }}
+          {% endif %}
+          {% if block.settings.image_desktop != blank %}
+            {{
+              block.settings.image_desktop
+              | image_url: width: 1500
+              | image_tag:
+                class: 'res-bb__image res-bb__image--desktop',
+                alt: block.settings.image_alt,
+                loading: loading_attr,
+                sizes: '(min-width: 750px) 50vw, 100vw',
+                widths: '375, 550, 750, 1100, 1500'
+            }}
+          {% endif %}
+          {% if block.settings.image_mobile == blank and block.settings.image_desktop == blank %}
+            {{ 'image' | placeholder_svg_tag: 'placeholder-svg res-bb__image' }}
+          {% endif %}
+        {% if has_link %}
+          </a>
+        {% else %}
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "res - Blocos de Banner",
+  "class": "RES__BANNER_BLOCKS__V1",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título"
+    },
+    {
+      "type": "header",
+      "content": "Grade"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colunas (desktop)",
+      "default": 2,
+      "min": 1,
+      "max": 6,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Colunas (mobile)",
+      "default": 1,
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Espaçamento (desktop)",
+      "default": 24,
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Espaçamento (mobile)",
+      "default": 12,
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento da seção"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_mobile",
+      "label": "Padding TOP (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_mobile",
+      "label": "Padding BOTTOM (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_desktop",
+      "label": "Padding TOP (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_desktop",
+      "label": "Padding BOTTOM (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "banner",
+      "name": "Banner",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Imagem Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Imagem Mobile"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "text",
+          "id": "image_alt",
+          "label": "Texto alternativo (alt)",
+          "default": "Banner"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Blocos de Banner",
+      "category": "Res - Seções",
+      "blocks": [
+        { "type": "banner" },
+        { "type": "banner" }
+      ]
+    }
+  ]
+}
+{% endschema %}
