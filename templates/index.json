@@ -194,12 +194,35 @@
         "pad_top_desktop": 64,
         "pad_bottom_desktop": 64
       }
+    },
+    "res_instagram_feed_e49hQ8": {
+      "type": "res-instagram-feed",
+      "name": "res - Feed Instagram",
+      "settings": {
+        "title": "<p>SIGA @LOJAGAROTACOM</p>",
+        "show_instagram_icon": true,
+        "title_custom": true,
+        "title_color": "#000000",
+        "title_font_size_desktop": 24,
+        "title_font_size_mobile": 18,
+        "title_font_weight": "400",
+        "title_align": "center",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "gap_desktop": 16,
+        "gap_mobile": 8,
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 32,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 64
+      }
     }
   },
   "order": [
     "main_banner_NttY7H",
     "res_featured_collection_kihWDH",
     "res_featured_collection_UwENYa",
-    "res_banner_blocks_REtry4"
+    "res_banner_blocks_REtry4",
+    "res_instagram_feed_e49hQ8"
   ]
 }
