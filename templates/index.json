@@ -226,8 +226,8 @@
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
             "url": "",
             "title": "<p>FRETE GRÁTIS</p>",
             "title_custom": true,
@@ -249,8 +249,8 @@
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
             "url": "",
             "title": "<p>FRETE GRÁTIS</p>",
             "title_custom": true,
@@ -272,8 +272,8 @@
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
             "url": "",
             "title": "<p>FRETE GRÁTIS</p>",
             "title_custom": true,
@@ -295,8 +295,8 @@
           "type": "item",
           "settings": {
             "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
-            "icon_size_desktop": 28,
-            "icon_size_mobile": 24,
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
             "url": "",
             "title": "<p>FRETE GRÁTIS</p>",
             "title_custom": true,
