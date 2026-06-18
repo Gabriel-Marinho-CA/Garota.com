@@ -83,9 +83,67 @@
         "two_rows": false,
         "autoplay": false,
         "autoplay_time": 4,
-        "tab_color": "#1B1B1B",
-        "tab_active_bg": "#1B1B1B",
-        "tab_active_color": "#FFFFFF",
+        "tab_color": "#1b1b1b",
+        "tab_active_bg": "#1b1b1b",
+        "tab_active_color": "#ffffff",
+        "background_type": "color",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "title_custom": false,
+        "title_color": "",
+        "title_font_size_desktop": 36,
+        "title_font_size_mobile": 24,
+        "title_font_weight": "700",
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 48,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 96
+      }
+    },
+    "res_featured_collection_UwENYa": {
+      "type": "res-featured-collection",
+      "blocks": {
+        "collection_tab_echznj": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "Novidades",
+            "collection": "conjuntos"
+          }
+        },
+        "collection_tab_8BYnUz": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "mais vendidos",
+            "collection": "vestidos"
+          }
+        },
+        "collection_tab_9xyc79": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "essenciais",
+            "collection": "vestidos"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_echznj",
+        "collection_tab_8BYnUz",
+        "collection_tab_9xyc79"
+      ],
+      "name": "Vitrine Result",
+      "settings": {
+        "title": "BEST-SELLERS",
+        "view_more_text": "",
+        "view_more_url": "",
+        "show_button": false,
+        "add_to_cart": false,
+        "show_installments": true,
+        "two_rows": false,
+        "autoplay": false,
+        "autoplay_time": 4,
+        "tab_color": "#1b1b1b",
+        "tab_active_bg": "#1b1b1b",
+        "tab_active_color": "#ffffff",
         "background_type": "color",
         "background_color": "#ffffff",
         "background_gradient": "",
@@ -103,6 +161,7 @@
   },
   "order": [
     "main_banner_NttY7H",
-    "res_featured_collection_kihWDH"
+    "res_featured_collection_kihWDH",
+    "res_featured_collection_UwENYa"
   ]
 }
