@@ -111,9 +111,9 @@
         "column_gap_desktop": 48,
         "column_gap_mobile": 32,
         "pad_top_desktop": 56,
-        "pad_bottom_desktop": 40,
+        "pad_bottom_desktop": 0,
         "pad_top_mobile": 40,
-        "pad_bottom_mobile": 32
+        "pad_bottom_mobile": 8
       }
     },
     "footer": {
