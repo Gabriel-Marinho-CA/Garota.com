@@ -7,6 +7,10 @@ product-info {
   flex-wrap: wrap;
   gap: 0.6rem;
   margin: 0 0 1.2rem;
+
+  @media (max-width:547px) {
+    margin-top: 2rem;
+  }
 }
 
 .product__tag {
