@@ -32,11 +32,11 @@
           "settings": {
             "heading": "<p>ATENDIMENTO</p>",
             "menu": "ajuda",
-            "heading_custom": false,
-            "heading_color": "",
+            "heading_custom": true,
+            "heading_color": "#000000",
             "heading_font_size_desktop": 14,
             "heading_font_size_mobile": 13,
-            "heading_font_weight": "600",
+            "heading_font_weight": "400",
             "heading_align": "left"
           }
         },
@@ -44,11 +44,11 @@
           "type": "contact",
           "settings": {
             "heading": "<p>CONTATO</p>",
-            "heading_custom": false,
-            "heading_color": "",
+            "heading_custom": true,
+            "heading_color": "#000000",
             "heading_font_size_desktop": 14,
             "heading_font_size_mobile": 13,
-            "heading_font_weight": "600",
+            "heading_font_weight": "400",
             "heading_align": "left",
             "text_1": "<p>+5511915542496</p>",
             "url_1": "",
@@ -97,7 +97,7 @@
         "contact_icon_size_mobile": 16,
         "payment_enable": true,
         "copyright_text": "<p>Copyright garota.com - 48.751.501/0001-36 - 2026. Todos os direitos reservados</p>",
-        "copyright_custom": false,
+        "copyright_custom": true,
         "copyright_color": "",
         "copyright_font_size_desktop": 12,
         "copyright_font_size_mobile": 11,
