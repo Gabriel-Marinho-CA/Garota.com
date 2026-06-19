@@ -1571,7 +1571,7 @@ class ResColorCard extends HTMLElement {
     if (prevEl) prevEl.style.display = multiSlide ? '' : 'none';
     if (nextEl) nextEl.style.display = multiSlide ? '' : 'none';
 
-    var config = { loop: multiSlide, spaceBetween: 8 };
+    var config = { loop: multiSlide, spaceBetween: 8, nested: true };
     if (multiSlide && paginationEl) {
       config.pagination = { el: paginationEl, clickable: true };
     }
