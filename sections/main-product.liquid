@@ -121,6 +121,8 @@
               if (!picker) return;
               const colorFieldset = picker.querySelectorAll('fieldset')[this.colorIndex];
               if (colorFieldset && colorFieldset.contains(e.target)) {
+                // Marca que, após a galeria atualizar, devemos destacar a 1ª foto da nova cor.
+                this._pendingSelect = true;
                 this._refilter();
               }
             });
@@ -130,7 +132,10 @@
             // imagem destacada da nova cor ser exibida sem depender de clicar num thumbnail.
             const gallery = document.getElementById('MediaGallery-' + this.sectionId);
             if (gallery && 'MutationObserver' in window) {
-              this._observer = new MutationObserver(this._refilter);
+              this._observer = new MutationObserver(() => {
+                this._mutated = true;
+                this._refilter();
+              });
               this._observer.observe(gallery, { childList: true, subtree: true });
             }
           }
@@ -141,7 +146,33 @@
 
           _refilter() {
             cancelAnimationFrame(this._raf);
-            this._raf = requestAnimationFrame(() => this._filter(this._currentColor()));
+            this._raf = requestAnimationFrame(() => {
+              const color = this._currentColor();
+              this._filter(color);
+              // Só destaca a 1ª thumbnail da cor depois que a galeria realmente mudou
+              // (mutação vinda do updateMedia/setActiveMedia), nunca no filtro síncrono inicial.
+              if (this._pendingSelect && this._mutated && this._selectFirstThumb(color)) {
+                this._pendingSelect = false;
+              }
+              this._mutated = false;
+            });
+          }
+
+          _selectFirstThumb(color) {
+            if (!color) return false;
+            const thumbs = document.getElementById('GalleryThumbnails-' + this.sectionId);
+            if (!thumbs) return false;
+            const items = thumbs.querySelectorAll('.thumbnail-list__item[data-group-color]');
+            for (const item of items) {
+              if (item.style.display === 'none') continue;
+              if (this._normalize(item.dataset.groupColor) !== color) continue;
+              const btn = item.querySelector('button');
+              if (!btn) return false;
+              // Já é a foto destacada: nada a fazer.
+              if (btn.getAttribute('aria-current') !== 'true') btn.click();
+              return true;
+            }
+            return false;
           }
 
           _normalize(str) {
