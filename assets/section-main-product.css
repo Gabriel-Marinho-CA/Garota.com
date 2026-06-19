@@ -21,6 +21,124 @@ product-info {
   border-radius: 2px;
 }
 
+/* ── Quantity + Buy button on one row ── */
+.product-form__qty-buy {
+  --qty-buy-height: 4.8rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.product-form__qty-buy .product-form__quantity {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+/* keep the row clean: hide the label/rules so it's just the stepper next to the button */
+.product-form__qty-buy .quantity__label,
+.product-form__qty-buy .quantity__rules {
+  display: none;
+}
+
+.product-form__qty-buy .quantity {
+  height: var(--qty-buy-height);
+}
+
+/* the buy-buttons wrapper fills the remaining width */
+.product-form__qty-buy > div:last-child {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.product-form__qty-buy .product-form__buttons {
+  max-width: none;
+}
+
+.product-form__qty-buy .product-form__submit {
+  min-height: var(--qty-buy-height);
+  margin: 0;
+}
+
+/* ── Shipping calculator block ── */
+.shipping-calculator {
+  display: block;
+  margin: 1.6rem 0;
+  padding: 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.14);
+  border-radius: 4px;
+}
+
+.shipping__header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.5rem;
+}
+
+.shipping__header .svg-wrapper {
+  display: inline-flex;
+  flex-shrink: 0;
+}
+
+.shipping__form {
+  display: flex;
+  gap: 1rem;
+}
+
+.shipping__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 4.8rem;
+  padding: 0 1.4rem;
+  border: 1px solid rgba(var(--color-foreground), 0.25);
+  border-radius: 0;
+  background: rgb(var(--color-background));
+  color: rgb(var(--color-foreground));
+  font-size: 1.4rem;
+}
+
+.shipping__input::placeholder {
+  color: rgba(var(--color-foreground), 0.5);
+}
+
+.shipping__button.button {
+  flex: 0 0 auto;
+  height: 4.8rem;
+  min-height: 4.8rem;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.shipping__help {
+  display: block;
+  width: 100%;
+  margin-top: 0.8rem;
+  text-align: right;
+  font-size: 1.3rem;
+  color: rgb(var(--color-foreground));
+  text-decoration: underline;
+}
+
+.shipping__response {
+  margin-top: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.shipping__response.loading {
+  opacity: 0.5;
+}
+
+.shipping__response .response__rates {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
 /* ── Wishlist block ── */
 .wishlist-wrapper {
   margin-top: 1rem;

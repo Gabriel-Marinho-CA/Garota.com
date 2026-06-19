@@ -1,0 +1,54 @@
+{% comment %}
+  Renders the shipping (frete) calculator.
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} block object (optional, for settings/shopify_attributes).
+
+  Usage:
+  {% render 'shipping-calculator', product: product, block: block %}
+{% endcomment %}
+<shipping-calculator class="shipping-calculator" {{ block.shopify_attributes }}>
+  <div class="shipping__header">
+    <span class="svg-wrapper">
+      {{- 'icon-shipping.svg' | inline_asset_content -}}
+    </span>
+    <span class="shipping__title">
+      {{- block.settings.heading | default: 'Consulte o prazo e valor do frete' -}}
+    </span>
+  </div>
+
+  <input type="hidden" name="variant_id" value="{{ product.selected_or_first_available_variant.id }}">
+
+  <div class="shipping__form">
+    <input
+      type="text"
+      class="js-zip shipping__input"
+      placeholder="{{ block.settings.placeholder | default: 'Digite seu CEP' }}"
+      inputmode="numeric"
+      maxlength="9"
+      autocomplete="postal-code"
+      aria-label="{{ block.settings.placeholder | default: 'Digite seu CEP' }}"
+    >
+    <button type="button" class="js-button shipping__button button button--primary">
+      {{- block.settings.button_label | default: 'CONSULTAR' -}}
+    </button>
+  </div>
+
+  {%- if block.settings.help_link != blank -%}
+    <a href="{{ block.settings.help_link }}" class="shipping__help" target="_blank" rel="noopener">
+      {{- block.settings.help_label | default: 'Não sei meu CEP' -}}
+    </a>
+  {%- else -%}
+    <a
+      href="https://buscacepinter.correios.com.br/app/endereco/index.php"
+      class="shipping__help"
+      target="_blank"
+      rel="noopener"
+    >
+      {{- block.settings.help_label | default: 'Não sei meu CEP' -}}
+    </a>
+  {%- endif -%}
+
+  <div class="shipping__response" role="status" aria-live="polite"></div>
+</shipping-calculator>

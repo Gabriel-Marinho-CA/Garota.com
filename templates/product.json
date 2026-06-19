@@ -45,6 +45,10 @@
         "wishlist": {
           "type": "wishlist",
           "settings": {}
+        },
+        "shipping_calculator": {
+          "type": "shipping_calculator",
+          "settings": {}
         }
       },
       "block_order": [
@@ -54,7 +58,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
-        "wishlist"
+        "wishlist",
+        "shipping_calculator"
       ],
       "settings": {
         "enable_sticky_info": true,
