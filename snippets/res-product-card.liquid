@@ -30,7 +30,7 @@
 
     {% if res_product.tags.size > 0 %}
       <div class="res-card__badges">
-        {% for tag in res_product.tags  | limit: 3%}
+        {% for tag in res_product.tags limit: 3%}
           <span class="res-card__badge">{{ tag }}</span>
         {% endfor %}
       </div>
