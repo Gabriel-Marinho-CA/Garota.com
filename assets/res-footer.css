@@ -2,6 +2,7 @@
 
 .res-ft {
   width: 100%;
+  border-top: 1px solid #000;
 }
 
 .res-ft__wrapper {
@@ -318,7 +319,7 @@ a.res-ft__contact-text:hover {
 
 /* ---------- Bottom bar ---------- */
 .res-ft__bottom {
-  border-top: 1px solid rgba(var(--color-foreground), 0.12);
+  border-top: 1px solid #000;
   margin-top: 32px;
   padding-top: 20px;
   padding-bottom: 20px;
