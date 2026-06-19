@@ -71,7 +71,7 @@
                 data-selected-value
                 class="dropdown-swatch"
               >
-                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape, color_name: option.selected_value %}
               </span>
             {%- endif -%}
             <select
