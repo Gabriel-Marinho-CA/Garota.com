@@ -247,6 +247,28 @@
                     </div>
                   </details>
                 </div>
+              {%- when 'faq' -%}
+                {%- assign faq_content = product.metafields.custom.duvidas_frequentes -%}
+                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
+                  <details id="Details-{{ block.id }}-{{ section.id }}">
+                    <summary>
+                      <div class="summary__title">
+                        <h2 class="h4 accordion__title inline-richtext">
+                          {{ block.settings.heading | default: block.settings.page.title | escape }}
+                        </h2>
+                      </div>
+                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                    </summary>
+                    <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+                      {%- if faq_content != blank -%}
+                        {{ faq_content }}
+                      {%- else -%}
+                        {{ block.settings.content }}
+                        {{ block.settings.page.content }}
+                      {%- endif -%}
+                    </div>
+                  </details>
+                </div>
               {%- when 'quantity_selector' -%}
                 <div class="product-form__qty-buy">
                 <div
@@ -1129,6 +1151,33 @@
           "type": "image_picker",
           "id": "image",
           "label": "Imagem (fallback)"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Página (fallback)"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Dúvidas frequentes",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Dúvidas frequentes/Prazos"
+        },
+        {
+          "type": "paragraph",
+          "content": "O conteúdo vem do metafield product.metafields.custom.duvidas_frequentes. Os campos abaixo são usados como fallback quando o metafield estiver vazio."
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Conteúdo (fallback)"
         },
         {
           "type": "page",

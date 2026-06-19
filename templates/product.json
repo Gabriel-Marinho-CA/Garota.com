@@ -75,6 +75,12 @@
             "content": "{{ product.description }}",
             "page": ""
           }
+        },
+        "faq": {
+          "type": "faq",
+          "settings": {
+            "heading": "Dúvidas frequentes/Prazos"
+          }
         }
       },
       "block_order": [
@@ -87,7 +93,8 @@
         "wishlist",
         "shipping_calculator",
         "size_chart_tGQEcV",
-        "collapsible_tab_BdUV6V"
+        "collapsible_tab_BdUV6V",
+        "faq"
       ],
       "settings": {
         "enable_sticky_info": true,
