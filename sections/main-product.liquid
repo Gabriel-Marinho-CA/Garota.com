@@ -38,7 +38,7 @@
       }
     }
 
-    {% comment %}
+
           {%- for option in product.options_with_values -%}
       {%- assign opt_lower = option.name | downcase -%}
       {%- if opt_lower == 'cor' or opt_lower == 'color' or opt_lower == 'colour' or opt_lower == 'cores' -%}
@@ -49,8 +49,6 @@
         {%- endfor -%}
       {%- endif -%}
     {%- endfor -%}
-    {% endcomment %}
-
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
