@@ -30,7 +30,7 @@
 
 <div class="facets-container{% if filter_type == 'drawer' %} facets-container-drawer{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
   {%- if filter_type == 'vertical' or filter_type == 'horizontal' -%}
-    <facet-filters-form class="facets small-hide">
+    <facet-filters-form class="facets">
       <form
         id="FacetFiltersForm"
         class="{% if filter_type == 'horizontal' %}facets__form{% else %}facets__form-vertical{% endif %}"
@@ -68,7 +68,7 @@
                   {%- endunless -%}
                   <facet-remove class="active-facets__button-wrapper">
                     <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-                      <span>{{ 'products.facets.clear_all' | t }}</span>
+                      <span>LIMPAR TUDO</span>
                     </a>
                   </facet-remove>
                 </div>
@@ -113,6 +113,11 @@
               {% liquid
                 assign total_active_values = total_active_values | plus: filter.active_values.size
                 assign presentation = filter.presentation | default: default_presentation
+
+                assign filter_label_lower = filter.label | downcase
+                if filter_label_lower == 'cor' or filter_label_lower == 'color' or filter_label_lower == 'colour' or filter_label_lower == 'cores'
+                  assign presentation = 'swatch'
+                endif
 
                 if presentation == 'image'
                   assign show_more_number = 12
@@ -228,6 +233,7 @@
                                       type: 'checkbox',
                                       name: value.param_name,
                                       value: value.value,
+                                      color_name: value.value,
                                       product_form_id: 'FacetFiltersForm',
                                       swatch: value.swatch,
                                       checked: value.active,
@@ -372,7 +378,7 @@
               {%- endfor -%}
               <facet-remove class="active-facets__button-wrapper">
                 <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-                  <span>{{ 'products.facets.clear_all' | t }}</span>
+                  <span>LIMPAR TUDO</span>
                 </a>
               </facet-remove>
             </div>
@@ -385,6 +391,23 @@
 
         {%- if filter_type == 'horizontal' -%}
           {% comment %} Sorting and product count are the last elements when filter type is horizontal {% endcomment %}
+                  <div class="product-count light" role="status">
+            <h2 class="product-count__text text-body">
+              <span id="ProductCountDesktop">
+                {%- if results.results_count -%}
+                  {{ collection.products_count }} Resultados
+                {%- elsif results.products_count == results.all_products_count -%}
+                  {{ collection.products_count }} Resultados
+                {%- else -%}
+                  {{
+                    'products.facets.product_count'
+                    | t: product_count: results.products_count, count: results.all_products_count
+                  }}
+                {%- endif -%}
+              </span>
+            </h2>
+            {%- render 'loading-spinner' -%}
+          </div>
           {%- if enable_sorting -%}
             <div class="facet-filters sorting caption">
               <div class="facet-filters__field">
@@ -417,23 +440,7 @@
               </div>
             </div>
           {%- endif -%}
-          <div class="product-count light" role="status">
-            <h2 class="product-count__text text-body">
-              <span id="ProductCountDesktop">
-                {%- if results.results_count -%}
-                  {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
-                {%- elsif results.products_count == results.all_products_count -%}
-                  {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
-                {%- else -%}
-                  {{
-                    'products.facets.product_count'
-                    | t: product_count: results.products_count, count: results.all_products_count
-                  }}
-                {%- endif -%}
-              </span>
-            </h2>
-            {%- render 'loading-spinner' -%}
-          </div>
+   
         {%- endif -%}
       </form>
     </facet-filters-form>
@@ -451,7 +458,7 @@
           </span>
           <span class="mobile-facets__open-label button-label medium-hide large-up-hide">
             {%- if enable_filtering and enable_sorting -%}
-              {{ 'products.facets.filter_and_sort' | t }}
+             FILTRO
             {%- elsif enable_filtering -%}
               {{ 'products.facets.filter_button' | t }}
             {%- elsif enable_sorting -%}
@@ -511,6 +518,12 @@
                 {%- for filter in results.filters -%}
                   {% liquid
                     assign presentation = filter.presentation | default: default_presentation
+
+                    assign filter_label_lower = filter.label | downcase
+                    if filter_label_lower == 'cor' or filter_label_lower == 'color' or filter_label_lower == 'colour' or filter_label_lower == 'cores'
+                      assign presentation = 'swatch'
+                    endif
+
                     if presentation == 'image'
                       assign visual_layout_class = 'facets-layout facets-layout-grid facets-layout-grid--' | append: presentation
                     else
@@ -597,6 +610,7 @@
                                         type: 'checkbox',
                                         name: value.param_name,
                                         value: value.value,
+                                        color_name: value.value,
                                         product_form_id: 'FacetFiltersFormMobile',
                                         swatch: value.swatch,
                                         checked: value.active,
@@ -818,15 +832,15 @@
     {%- endfor -%}
     <facet-remove class="active-facets__button-wrapper">
       <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-        <span>{{ 'products.facets.clear_all' | t }}</span>
+        <span>LIMPAR TUDO</span>
       </a>
     </facet-remove>
   </div>
   {% comment %} Sort, product count and filter pills at the end when filter is type of Drawer for the correct tabbing order {% endcomment %}
   {%- if enable_sorting and filter_type == 'drawer' -%}
-    <facet-filters-form class="facets small-hide">
+    <facet-filters-form class="facets">
       <form id="FacetSortDrawerForm" class="facets__form">
-        <div class="facet-filters sorting caption small-hide">
+        <div class="facet-filters sorting caption">
           <div class="facet-filters__field">
             <h2 class="facet-filters__label caption-large text-body">
               <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
@@ -875,9 +889,9 @@
     <h2 class="product-count__text text-body">
       <span id="ProductCount">
         {%- if results.results_count -%}
-          {{ 'templates.search.results_with_count' | t: terms: results.terms, count: results.results_count }}
+         {{ collection.products_count }} Resultados
         {%- elsif results.products_count == results.all_products_count -%}
-          {{ 'products.facets.product_count_simple' | t: count: results.products_count }}
+          {{ collection.products_count }} Resultados
         {%- else -%}
           {{
             'products.facets.product_count'
@@ -890,6 +904,9 @@
   </div>
   {%- if filter_type == 'drawer' -%}
     <facet-filters-form class="facets facets-pill small-hide">
+      <p class="facet-pill-title small-hide">
+        Filtros:
+      </p>
       <form id="FacetFiltersPillsForm" class="facets__form">
         <div class="active-facets active-facets-desktop">
           {%- for filter in results.filters -%}
@@ -927,7 +944,7 @@
           {%- endfor -%}
           <facet-remove class="active-facets__button-wrapper">
             <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
-              <span>{{ 'products.facets.clear_all' | t }}</span>
+              <span>LIMPAR TUDO</span>
             </a>
           </facet-remove>
         </div>
