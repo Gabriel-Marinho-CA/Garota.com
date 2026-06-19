@@ -49,6 +49,10 @@
         "shipping_calculator": {
           "type": "shipping_calculator",
           "settings": {}
+        },
+        "size_chart": {
+          "type": "size_chart",
+          "settings": {}
         }
       },
       "block_order": [
@@ -59,7 +63,8 @@
         "quantity_selector",
         "buy_buttons",
         "wishlist",
-        "shipping_calculator"
+        "shipping_calculator",
+        "size_chart"
       ],
       "settings": {
         "enable_sticky_info": true,

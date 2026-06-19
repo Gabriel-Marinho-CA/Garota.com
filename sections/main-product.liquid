@@ -520,6 +520,40 @@
                 </div>
               {%- when 'shipping_calculator' -%}
                 {% render 'shipping-calculator', product: product, block: block %}
+              {%- when 'size_chart' -%}
+                {%- liquid
+                  assign chart_image = product.metafields.custom.tabela_medidas.value
+                  if chart_image == blank
+                    assign chart_image = block.settings.image
+                  endif
+                  assign has_chart = false
+                  if chart_image != blank or block.settings.page != blank
+                    assign has_chart = true
+                  endif
+                -%}
+                {%- if has_chart -%}
+                  <modal-opener
+                    class="size-chart quick-add-hidden"
+                    data-modal="#SizeChartModal-{{ block.id }}"
+                    {{ block.shopify_attributes }}
+                  >
+                    <div class="size-chart__prompt">
+                      <span class="svg-wrapper">
+                        {{- 'icon-medidas.svg' | inline_asset_content -}}
+                      </span>
+                      <span>{{ block.settings.heading | default: 'Na dúvida sobre qual é o melhor tamanho para você?' }}</span>
+                    </div>
+                    <button
+                      id="SizeChartOpener-{{ block.id }}"
+                      class="size-chart__link link animate-arrow"
+                      type="button"
+                      aria-haspopup="dialog"
+                    >
+                      {{ block.settings.link_label | default: 'Acessar a tabela de medidas' }}
+                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                    </button>
+                  </modal-opener>
+                {%- endif -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
@@ -742,6 +776,45 @@
           <div class="product-popup-modal__content-info">
             <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
             {{ block.settings.page.content }}
+          </div>
+        </div>
+      </modal-dialog>
+    {%- endfor -%}
+
+    {% assign size_charts = section.blocks | where: 'type', 'size_chart' %}
+    {%- for block in size_charts -%}
+      {%- liquid
+        assign chart_image = product.metafields.custom.tabela_medidas.value
+        if chart_image == blank
+          assign chart_image = block.settings.image
+        endif
+      -%}
+      <modal-dialog id="SizeChartModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
+        <div
+          role="dialog"
+          aria-label="{{ block.settings.heading | default: 'Tabela de medidas' | escape }}"
+          aria-modal="true"
+          class="product-popup-modal__content"
+          tabindex="-1"
+        >
+          <button
+            id="ModalClose-{{ block.id }}"
+            type="button"
+            class="product-popup-modal__toggle"
+            aria-label="{{ 'accessibility.close' | t }}"
+          >
+            {{- 'icon-close.svg' | inline_asset_content -}}
+          </button>
+          <div class="product-popup-modal__content-info size-chart__modal">
+            {%- if chart_image != blank -%}
+              {{
+                chart_image
+                | image_url: width: 1400
+                | image_tag: loading: 'lazy', class: 'size-chart__image', widths: '400, 600, 800, 1000, 1400'
+              }}
+            {%- elsif block.settings.page != blank -%}
+              <div class="rte">{{ block.settings.page.content }}</div>
+            {%- endif -%}
           </div>
         </div>
       </modal-dialog>
@@ -1015,6 +1088,39 @@
           "id": "help_link",
           "label": "Link de ajuda",
           "info": "Se vazio, usa a busca de CEP dos Correios."
+        }
+      ]
+    },
+    {
+      "type": "size_chart",
+      "name": "Tabela de medidas",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Na dúvida sobre qual é o melhor tamanho para você?"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Texto do link",
+          "default": "Acessar a tabela de medidas"
+        },
+        {
+          "type": "paragraph",
+          "content": "A imagem exibida vem do metafield product.metafields.custom.tabela_medidas. Os campos abaixo são usados como fallback quando o metafield não tiver imagem."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem (fallback)"
+        },
+        {
+          "type": "page",
+          "id": "page",
+          "label": "Página (fallback)"
         }
       ]
     },
