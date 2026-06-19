@@ -138,7 +138,7 @@
   {%- comment -%} ===== INFO: cores, titulo, preço (sempre visível) ===== {%- endcomment -%}
   <div class="res-card__info">
 
-    {% if res_color_values.size > 1 %}
+    {% if res_color_values.size > 1 and res_product.options contains 'Cor' %}
       <div class="res-card__swatches">
         {% for color_value in res_color_values %}
           {%- liquid
