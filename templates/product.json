@@ -66,6 +66,15 @@
             "image": "shopify://shop_images/TABELA_DE_MEDIDAS_-_DONNA_K6_1.webp",
             "page": ""
           }
+        },
+        "collapsible_tab_BdUV6V": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Descriçao",
+            "icon": "none",
+            "content": "{{ product.description }}",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -77,7 +86,8 @@
         "buy_buttons",
         "wishlist",
         "shipping_calculator",
-        "size_chart_tGQEcV"
+        "size_chart_tGQEcV",
+        "collapsible_tab_BdUV6V"
       ],
       "settings": {
         "enable_sticky_info": true,
