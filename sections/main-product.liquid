@@ -85,6 +85,76 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+    {%- liquid
+    assign _tp_color_index = null
+    for _opt in product.options
+      assign _opt_lower = _opt | downcase
+      if _opt_lower == 'cor' or _opt_lower == 'color' or _opt_lower == 'colour' or _opt_lower == 'cores'
+        assign _tp_color_index = forloop.index0
+        break
+      endif
+    endfor
+  -%}
+
+  {% if _tp_color_index != null %}
+    <tp-color-gallery data-section="{{ section.id }}" data-color-index="{{ _tp_color_index }}"></tp-color-gallery>
+    <script>
+      (function () {
+        if (customElements.get('tp-color-gallery')) return;
+        class TpColorGallery extends HTMLElement {
+          connectedCallback() {
+            this.sectionId = this.dataset.section;
+            this.colorIndex = parseInt(this.dataset.colorIndex, 10);
+
+            // Aguarda o DOM completo para a leitura inicial do swatch selecionado
+            if (document.readyState === 'loading') {
+              document.addEventListener('DOMContentLoaded', () => this._filter(this._currentColor()), { once: true });
+            } else {
+              this._filter(this._currentColor());
+            }
+
+            // Usa evento DOM nativo (sempre disponível, sem depender de pubsub.js)
+            document.addEventListener('change', (e) => {
+              const picker = document.querySelector('variant-radios, variant-selects');
+              if (!picker) return;
+              const colorFieldset = picker.querySelectorAll('fieldset')[this.colorIndex];
+              if (colorFieldset && colorFieldset.contains(e.target)) {
+                this._filter(this._currentColor());
+              }
+            });
+          }
+
+          _normalize(str) {
+            return (str || '').toLowerCase().replace(/\s+/g, '-');
+          }
+
+          _currentColor() {
+            const picker = document.querySelector('variant-radios, variant-selects');
+            if (!picker) return '';
+            const colorFieldset = picker.querySelectorAll('fieldset')[this.colorIndex];
+            if (colorFieldset) {
+              const checked = colorFieldset.querySelector('input:checked');
+              if (checked) return this._normalize(checked.value);
+            }
+            const colorSelect = picker.querySelectorAll('select')[this.colorIndex];
+            if (colorSelect) return this._normalize(colorSelect.value);
+            return '';
+          }
+
+          _filter(color) {
+            if (!color) return;
+            const gallery = document.getElementById('MediaGallery-' + this.sectionId);
+            if (!gallery) return;
+            gallery.querySelectorAll('[data-group-color]').forEach((el) => {
+              const group = this._normalize(el.dataset.groupColor);
+              el.style.display = !el.dataset.groupColor || group === color ? '' : 'none';
+            });
+          }
+        }
+        customElements.define('tp-color-gallery', TpColorGallery);
+      })();
+    </script>
+  {% endif %}
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
