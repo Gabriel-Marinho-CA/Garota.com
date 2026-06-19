@@ -175,7 +175,10 @@ class ResProductGallery extends HTMLElement {
     const self = this;
     this._main = new Swiper(this.mainEl, {
       slidesPerView: 1,
-      spaceBetween: 0,
+      spaceBetween: 8,
+      breakpoints: {
+        750: { slidesPerView: 2, spaceBetween: 12 },
+      },
       navigation: {
         prevEl: this.querySelector('.res-pg__nav--prev'),
         nextEl: this.querySelector('.res-pg__nav--next'),

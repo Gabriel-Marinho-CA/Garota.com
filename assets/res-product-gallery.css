@@ -189,7 +189,7 @@
 }
 
 .res-pg__nav.swiper-button-disabled {
-  opacity: 0;
+  opacity: 0.5 !important;
   pointer-events: none;
 }
 
