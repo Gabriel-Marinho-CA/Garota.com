@@ -35,7 +35,7 @@ product-info {
 .product-form__qty-buy {
   --qty-buy-height: 4.8rem;
   display: flex;
-  margin-top: 2.5rem !important;
+  margin-top: 2.85rem !important;
   align-items: center !important;
   align-items: flex-start;
   gap: 1rem;
