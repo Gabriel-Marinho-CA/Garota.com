@@ -28,12 +28,11 @@
       {%- endif -%}
     </p>
     <div class="free-shipping-bar__track">
-      <div class="free-shipping-bar__fill" style="width: {{ percent }}%;"></div>
+      <div class="free-shipping-bar__fill" style="width: {{ percent }}%; display:block;"></div>
       <div class="free-shipping-bar__thumb" style="left: {{ percent }}%;">
         <span class="free-shipping-bar__icon">
           {{- 'icon-truck.svg' | inline_asset_content -}}
         </span>
-        <p class="free-shipping-bar__label">Entrega grátis</p>
       </div>
     </div>
   </div>
