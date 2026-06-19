@@ -79,7 +79,9 @@
         "faq": {
           "type": "faq",
           "settings": {
-            "heading": "Dúvidas frequentes/Prazos"
+            "heading": "Dúvidas frequentes/Prazos",
+            "content": "",
+            "page": ""
           }
         },
         "complete_look": {
@@ -88,7 +90,7 @@
             "heading": "COMPLETE O LOOK",
             "add_label": "+ ADD",
             "products_to_show": 2,
-            "product_list_limit": 10
+            "product_list_limit": 2
           }
         }
       },
