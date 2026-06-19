@@ -75,10 +75,21 @@
         </button>
       </div>
       {% if settings.img_cart != blank%}
-              <picture>
-        <source media="(max-width: 600px)" srcset="{{ settings.img_cart_mobile | asset_url }}">
-        <img src="{{ settings.img_cart | asset_url }}" alt="Imagem carrinho">
-      </picture>
+<picture>
+  {% if settings.img_cart_mobile %}
+    <source
+      media="(max-width: 600px)"
+      srcset="{{ settings.img_cart_mobile | image_url }}">
+  {% endif %}
+
+  {% if settings.img_cart %}
+    {{
+      settings.img_cart
+      | image_url
+      | image_tag: alt: 'Imagem carrinho'
+    }}
+  {% endif %}
+</picture>
       {% endif %}
 
        {%- render 'shipping-bar' -%}
