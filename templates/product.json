@@ -81,6 +81,15 @@
           "settings": {
             "heading": "Dúvidas frequentes/Prazos"
           }
+        },
+        "complete_look": {
+          "type": "complete_look",
+          "settings": {
+            "heading": "COMPLETE O LOOK",
+            "add_label": "+ ADD",
+            "products_to_show": 2,
+            "product_list_limit": 10
+          }
         }
       },
       "block_order": [
@@ -94,7 +103,8 @@
         "shipping_calculator",
         "size_chart_tGQEcV",
         "collapsible_tab_BdUV6V",
-        "faq"
+        "faq",
+        "complete_look"
       ],
       "settings": {
         "enable_sticky_info": true,

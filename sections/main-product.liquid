@@ -637,6 +637,7 @@
                 {%- endif -%}
               {%- when 'complementary' -%}
                 <product-recommendations
+                  id="ComplementaryProducts-{{ block.id }}"
                   class="complementary-products quick-add-hidden{% if block.settings.make_collapsible_row %} is-accordion{% endif %}{% if block.settings.enable_quick_add %} complementary-products-contains-quick-add{% endif %}"
                   data-url="{{ routes.product_recommendations_url }}?limit={{ block.settings.product_list_limit }}&intent=complementary"
                   data-section-id="{{ section.id }}"
@@ -782,6 +783,73 @@
                   {%- if block.settings.enable_quick_add -%}
                     {{ 'quick-add.css' | asset_url | stylesheet_tag }}
                     <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
+                  {%- endif -%}
+                </product-recommendations>
+              {%- when 'complete_look' -%}
+                <product-recommendations
+                  id="CompleteLook-{{ block.id }}"
+                  class="complete-look quick-add-hidden"
+                  data-url="{{ routes.product_recommendations_url }}?limit={{ block.settings.product_list_limit }}&intent=complementary"
+                  data-section-id="{{ section.id }}"
+                  data-product-id="{{ product.id }}"
+                >
+                  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+                    <div class="complete-look__container" {{ block.shopify_attributes }}>
+                      <h2 class="h3 complete-look__heading">{{ block.settings.heading }}</h2>
+                      <ul class="complete-look__list list-unstyled" role="list">
+                        {%- for look_product in recommendations.products limit: block.settings.products_to_show -%}
+                          {%- assign look_variant = look_product.selected_or_first_available_variant -%}
+                          {%- assign look_form_id = 'CompleteLookForm-' | append: block.id | append: '-' | append: look_product.id -%}
+                          <li class="complete-look__item">
+                            <a href="{{ look_product.url }}" class="complete-look__media" aria-hidden="true" tabindex="-1">
+                              {%- if look_product.featured_media -%}
+                                {{
+                                  look_product.featured_media
+                                  | image_url: width: 200
+                                  | image_tag: loading: 'lazy', widths: '100, 150, 200', class: 'complete-look__image', alt: look_product.title
+                                }}
+                              {%- else -%}
+                                {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg complete-look__image' }}
+                              {%- endif -%}
+                            </a>
+                            <div class="complete-look__info">
+                              <a href="{{ look_product.url }}" class="complete-look__title-link">
+                                <p class="complete-look__title">{{ look_product.title | escape }}</p>
+                              </a>
+                              {% render 'price', product: look_product, price_class: 'complete-look__price', show_compare_at_price: false %}
+                            </div>
+                            {%- if look_product.available -%}
+                              <product-form data-section-id="{{ section.id }}">
+                                {%- form 'product',
+                                  look_product,
+                                  id: look_form_id,
+                                  class: 'complete-look__form form',
+                                  novalidate: 'novalidate',
+                                  data-type: 'add-to-cart-form'
+                                -%}
+                                  <input type="hidden" name="id" value="{{ look_variant.id }}" class="product-variant-id">
+                                  <button
+                                    id="{{ look_form_id }}-submit"
+                                    type="submit"
+                                    name="add"
+                                    class="complete-look__add button button--tertiary"
+                                    aria-live="polite"
+                                    data-sold-out-message="true"
+                                  >
+                                    <span>{{ block.settings.add_label | default: '+ ADD' }}</span>
+                                    {%- render 'loading-spinner' -%}
+                                  </button>
+                                {%- endform -%}
+                              </product-form>
+                            {%- else -%}
+                              <button class="complete-look__add complete-look__add--disabled button button--tertiary" type="button" disabled>
+                                {{ 'products.product.sold_out' | t }}
+                              </button>
+                            {%- endif -%}
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </div>
                   {%- endif -%}
                 </product-recommendations>
               {%- when 'icon-with-text' -%}
@@ -1183,6 +1251,43 @@
           "type": "page",
           "id": "page",
           "label": "Página (fallback)"
+        }
+      ]
+    },
+    {
+      "type": "complete_look",
+      "name": "Complete o look",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "COMPLETE O LOOK"
+        },
+        {
+          "type": "text",
+          "id": "add_label",
+          "label": "Texto do botão",
+          "default": "+ ADD"
+        },
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 2,
+          "label": "Produtos a exibir"
+        },
+        {
+          "type": "range",
+          "id": "product_list_limit",
+          "min": 1,
+          "max": 10,
+          "step": 1,
+          "default": 10,
+          "label": "Limite de produtos buscados"
         }
       ]
     },
