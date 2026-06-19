@@ -28,9 +28,10 @@
   {%- comment -%} ===== IMAGEM + HOVER OVERLAY ===== {%- endcomment -%}
   <div class="res-card__media-wrapper">
 
-    {% if res_product.tags.size > 0 %}
+    {% assign res_product_tags = res_product.metafields.custom.tags_produto.value %}
+    {% if res_product_tags.size > 0 %}
       <div class="res-card__badges">
-        {% for tag in res_product.tags limit: 3%}
+        {% for tag in res_product_tags %}
           <span class="res-card__badge">{{ tag }}</span>
         {% endfor %}
       </div>
