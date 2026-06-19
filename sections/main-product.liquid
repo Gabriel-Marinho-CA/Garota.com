@@ -249,7 +249,8 @@
                 </div>
               {%- when 'faq' -%}
                 {%- assign faq_content = product.metafields.custom.duvidas_frequentes -%}
-                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
+                {% if faq_content != blank %}
+  <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                   <details id="Details-{{ block.id }}-{{ section.id }}">
                     <summary>
                       <div class="summary__title">
@@ -269,6 +270,8 @@
                     </div>
                   </details>
                 </div>
+                {% endif %}
+              
               {%- when 'quantity_selector' -%}
                 <div class="product-form__qty-buy">
                 <div
