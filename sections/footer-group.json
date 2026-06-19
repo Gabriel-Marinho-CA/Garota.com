@@ -116,6 +116,39 @@
         "pad_bottom_mobile": 8
       }
     },
+    "custom_colors_Lz9Yc4": {
+      "type": "custom-colors",
+      "blocks": {
+        "cor_Qh36Be": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Preto",
+            "color_value": "#000000"
+          }
+        },
+        "cor_TTrfjr": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Marrom",
+            "color_value": "#654542"
+          }
+        },
+        "cor_eLnHac": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Vinho",
+            "color_value": "#4F1A1E"
+          }
+        }
+      },
+      "block_order": [
+        "cor_Qh36Be",
+        "cor_TTrfjr",
+        "cor_eLnHac"
+      ],
+      "name": "Cores de Variantes",
+      "settings": {}
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -165,6 +198,7 @@
   },
   "order": [
     "res_footer_eDhdWh",
+    "custom_colors_Lz9Yc4",
     "footer"
   ]
 }
