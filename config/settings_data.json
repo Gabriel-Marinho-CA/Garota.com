@@ -119,6 +119,7 @@
     "predictive_search_show_price": false,
     "currency_code_enabled": false,
     "cart_type": "drawer",
+    "img_cart": "shopify://shop_images/CUPOMGAROTA10.png",
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
