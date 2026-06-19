@@ -629,7 +629,126 @@ a.product__text {
 .product__title {
   word-break: break-word;
   margin-bottom: 1.5rem;
+
+  * {
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 24px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #000;
+  }
 }
+
+.product__info-container {
+
+  .res-card__regular-price {
+    font-weight: 500;
+    font-style: Medium;
+    font-size: 18px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+    color: #000;
+
+  }
+
+  .tp-installments {
+    font-weight: 400;
+    font-size: 14px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+    color: #999999;
+  }
+
+
+  .form__label {
+    font-weight: 400;
+    font-size: 14px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+    color: #000;
+  }
+
+  .product-form__input--size input[type=radio]+label {
+    width: 40px;
+    height: 40px;
+    font-weight: 400;
+    font-size: 12px;
+    leading-trim: NONE;
+    line-height: 30px;
+    letter-spacing: 0%;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+
+  }
+
+
+
+
+  .product-form__input--size {
+    padding-bottom: 0 !important;
+  }
+
+  quantity-input.quantity {
+    width: 118px;
+  }
+
+  wishlist-button.wishlist-btn {
+    font-weight: 400;
+    font-size: 14px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    text-align: center;
+    vertical-align: middle;
+    text-transform: uppercase;
+  }
+
+  .shipping__title {
+    font-weight: 400;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+
+  }
+
+  .shipping__help {
+    @media (min-widht:1000px) {
+      padding-right: 150px;
+    }
+  }
+
+  .size-chart__prompt {
+    font-weight: 400;
+    font-size: 16px;
+    leading-trim: NONE;
+    line-height: 100%;
+    letter-spacing: 0.5px;
+    vertical-align: middle;
+    color:#000;
+
+    .svg-wrapper {
+      width: 26px;
+    height: auto;
+    }
+
+  }
+}
+
 
 .product__title>* {
   margin: 0;
@@ -646,15 +765,17 @@ a.product__text {
 .product__text.caption-with-letter-spacing+.product__title {
   margin-top: 0;
 }
+
 .complete-look__container {
   margin-top: 2.5rem;
 }
+
 .product__accordion .accordion__content {
   padding: 0 1rem;
 }
 
 .product__accordion.accordion {
-  margin-bottom:1.5rem !important;
+  margin-bottom: 1.5rem !important;
 }
 
 .product .price .badge {
