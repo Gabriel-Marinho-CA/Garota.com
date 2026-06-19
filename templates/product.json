@@ -44,15 +44,37 @@
         },
         "wishlist": {
           "type": "wishlist",
-          "settings": {}
+          "settings": {
+            "label": "adicionar aos favoritos"
+          }
         },
         "shipping_calculator": {
           "type": "shipping_calculator",
-          "settings": {}
+          "settings": {
+            "heading": "Consulte o prazo e valor do frete",
+            "placeholder": "Digite seu CEP",
+            "button_label": "CONSULTAR",
+            "help_label": "Não sei meu CEP",
+            "help_link": ""
+          }
         },
-        "size_chart": {
+        "size_chart_tGQEcV": {
           "type": "size_chart",
-          "settings": {}
+          "settings": {
+            "heading": "Na dúvida sobre qual é o melhor tamanho para você?",
+            "link_label": "Acessar a tabela de medidas",
+            "image": "shopify://shop_images/TABELA_DE_MEDIDAS_-_DONNA_K6_1.webp",
+            "page": ""
+          }
+        },
+        "collapsible_tab_BdUV6V": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Descriçao",
+            "icon": "none",
+            "content": "{{ product.description }}",
+            "page": ""
+          }
         }
       },
       "block_order": [
@@ -64,7 +86,8 @@
         "buy_buttons",
         "wishlist",
         "shipping_calculator",
-        "size_chart"
+        "size_chart_tGQEcV",
+        "collapsible_tab_BdUV6V"
       ],
       "settings": {
         "enable_sticky_info": true,
