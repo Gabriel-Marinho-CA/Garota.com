@@ -33,7 +33,7 @@
 thead,
 cart-drawer-items,
 .drawer__footer {
-  padding-inline:1.5rem;
+  padding-inline:1.5rem !important;
 }
 .drawer__inner-empty {
   height: 100%;
