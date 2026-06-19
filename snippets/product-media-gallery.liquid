@@ -88,7 +88,7 @@
           id="Slide-{{ section.id }}-{{ featured_media.id }}"
           class="product__media-item grid__item slider__slide is-active{% if single_media_visible %} product__media-item--single{% endif %}{% if featured_media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
           data-media-id="{{ section.id }}-{{ featured_media.id }}"
-          data-group-color="{{ featured_group_color }}"
+          data-group-color="{{ featured_group_color | strip }}"
         >
           {%- assign media_position = 1 -%}
           {% render 'product-thumbnail',
@@ -122,7 +122,7 @@
             id="Slide-{{ section.id }}-{{ media.id }}"
             class="product__media-item grid__item slider__slide{% if single_media_visible %} product__media-item--single{% endif %}{% if product.selected_or_first_available_variant.featured_media == nil and forloop.index == 1 %} is-active{% endif %}{% if media.media_type != 'image' %} product__media-item--full{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}"
             data-media-id="{{ section.id }}-{{ media.id }}"
-            data-group-color="{{ media_group_color }}"
+            data-group-color="{{ media_group_color | strip }}"
           >
             {%- liquid
               assign media_position = media_position | default: 0 | plus: 1
@@ -251,7 +251,7 @@
             class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains featured_media.src %} thumbnail-list_item--variant{% endif %}"
             data-target="{{ section.id }}-{{ featured_media.id }}"
             data-media-position="{{ media_index }}"
-            data-group-color="{{ featured_thumb_group_color }}"
+            data-group-color="{{ featured_thumb_group_color | strip }}"
           >
             {%- capture thumbnail_id -%}
               Thumbnail-{{ section.id }}-0
@@ -297,7 +297,7 @@
               class="thumbnail-list__item slider__slide{% if section.settings.hide_variants and variant_images contains media.src %} thumbnail-list_item--variant{% endif %}"
               data-target="{{ section.id }}-{{ media.id }}"
               data-media-position="{{ media_index }}"
-              data-group-color="{{ thumb_group_color }}"
+              data-group-color="{{ thumb_group_color | strip }}"
             >
               {%- if media.media_type == 'model' -%}
                 <span class="thumbnail__badge" aria-hidden="true">
