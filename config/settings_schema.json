@@ -199,8 +199,7 @@
       }
     ]
   },
-  {
-    "type": "pix_value",
+    {
     "name": "Valor do pix",
     "settings": [
       {
@@ -212,7 +211,6 @@
     ]
   },
   {
-    "type": "installments_value",
     "name": "Quantidade das parcelas",
     "settings": [
       {
