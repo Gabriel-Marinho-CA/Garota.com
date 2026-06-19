@@ -100,6 +100,10 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
   padding-right: 3rem;
 }
 
+* {
+  font-family:'Figtree',sans-serif;
+}
+
 @media screen and (min-width: 750px) {
   .page-width {
     padding: 0 5rem;
@@ -3667,6 +3671,34 @@ details-disclosure > details {
   padding: 3rem 0;
   z-index: 100;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
+
+
+  @media (min-width:1250px){
+    top: calc(var(--header-height) - 20px);
+  }
+}
+
+
+@media (min-width:1000px) and (max-width:1200px) {
+  .header {
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .header__heading {
+    order: -2;
+  }
+  .header__inline-menu {
+    min-width: 100%;
+
+    ul {
+      justify-content: center;
+    }
+  }
+  .header__icons.header__icons--localization.header-localization {
+    order:-1;
+  }
+  }
 }
 
 .header__inline-menu .nav-item.dropdown:hover .mega-menu-panel {

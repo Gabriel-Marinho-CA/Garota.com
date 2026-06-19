@@ -83,9 +83,9 @@
         "two_rows": false,
         "autoplay": false,
         "autoplay_time": 4,
-        "tab_color": "#1B1B1B",
-        "tab_active_bg": "#1B1B1B",
-        "tab_active_color": "#FFFFFF",
+        "tab_color": "#1b1b1b",
+        "tab_active_bg": "#1b1b1b",
+        "tab_active_color": "#ffffff",
         "background_type": "color",
         "background_color": "#ffffff",
         "background_gradient": "",
@@ -99,10 +99,247 @@
         "pad_top_desktop": 64,
         "pad_bottom_desktop": 96
       }
+    },
+    "res_featured_collection_UwENYa": {
+      "type": "res-featured-collection",
+      "blocks": {
+        "collection_tab_echznj": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "Novidades",
+            "collection": "conjuntos"
+          }
+        },
+        "collection_tab_8BYnUz": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "mais vendidos",
+            "collection": "vestidos"
+          }
+        },
+        "collection_tab_9xyc79": {
+          "type": "collection_tab",
+          "settings": {
+            "tab_name": "essenciais",
+            "collection": "vestidos"
+          }
+        }
+      },
+      "block_order": [
+        "collection_tab_echznj",
+        "collection_tab_8BYnUz",
+        "collection_tab_9xyc79"
+      ],
+      "name": "Vitrine Result",
+      "settings": {
+        "title": "BEST-SELLERS",
+        "view_more_text": "",
+        "view_more_url": "",
+        "show_button": false,
+        "add_to_cart": false,
+        "show_installments": true,
+        "two_rows": false,
+        "autoplay": false,
+        "autoplay_time": 4,
+        "tab_color": "#1b1b1b",
+        "tab_active_bg": "#1b1b1b",
+        "tab_active_color": "#ffffff",
+        "background_type": "color",
+        "background_color": "#ffffff",
+        "background_gradient": "",
+        "title_custom": false,
+        "title_color": "",
+        "title_font_size_desktop": 36,
+        "title_font_size_mobile": 24,
+        "title_font_weight": "700",
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 48,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 96
+      }
+    },
+    "res_banner_blocks_REtry4": {
+      "type": "res-banner-blocks",
+      "blocks": {
+        "banner_W6E4kM": {
+          "type": "banner",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Item_margin.png",
+            "url": "",
+            "image_alt": "Banner"
+          }
+        },
+        "banner_iFMnVX": {
+          "type": "banner",
+          "settings": {
+            "image_desktop": "shopify://shop_images/Item_margin.png",
+            "url": "",
+            "image_alt": "Banner"
+          }
+        }
+      },
+      "block_order": [
+        "banner_W6E4kM",
+        "banner_iFMnVX"
+      ],
+      "name": "res - Blocos de Banner",
+      "settings": {
+        "title": "",
+        "columns_desktop": 2,
+        "columns_mobile": 1,
+        "gap_desktop": 24,
+        "gap_mobile": 12,
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 32,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 64
+      }
+    },
+    "res_instagram_feed_e49hQ8": {
+      "type": "res-instagram-feed",
+      "name": "res - Feed Instagram",
+      "settings": {
+        "title": "<p>SIGA @LOJAGAROTACOM</p>",
+        "show_instagram_icon": true,
+        "icon_size_desktop": 18,
+        "icon_size_mobile": 16,
+        "title_custom": true,
+        "title_color": "#000000",
+        "title_font_size_desktop": 24,
+        "title_font_size_mobile": 18,
+        "title_font_weight": "400",
+        "title_align": "center",
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "gap_desktop": 16,
+        "gap_mobile": 8,
+        "pad_top_mobile": 32,
+        "pad_bottom_mobile": 32,
+        "pad_top_desktop": 64,
+        "pad_bottom_desktop": 64
+      }
+    },
+    "res_icon_columns_3VkkYJ": {
+      "type": "res-icon-columns",
+      "blocks": {
+        "item_aBQXiV": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
+            "url": "",
+            "title": "<p>FRETE GRÁTIS</p>",
+            "title_custom": true,
+            "title_color": "",
+            "title_font_size_desktop": 14,
+            "title_font_size_mobile": 12,
+            "title_font_weight": "600",
+            "title_align": "center",
+            "text": "<p>nas compras acima de R$350,00</p>",
+            "text_custom": true,
+            "text_color": "#000000",
+            "text_font_size_desktop": 14,
+            "text_font_size_mobile": 12,
+            "text_font_weight": "300",
+            "text_align": "center"
+          }
+        },
+        "item_d6c7hp": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
+            "url": "",
+            "title": "<p>FRETE GRÁTIS</p>",
+            "title_custom": true,
+            "title_color": "",
+            "title_font_size_desktop": 14,
+            "title_font_size_mobile": 12,
+            "title_font_weight": "600",
+            "title_align": "center",
+            "text": "<p>nas compras acima de R$350,00</p>",
+            "text_custom": true,
+            "text_color": "#000000",
+            "text_font_size_desktop": 14,
+            "text_font_size_mobile": 12,
+            "text_font_weight": "300",
+            "text_align": "center"
+          }
+        },
+        "item_6bLmpy": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
+            "url": "",
+            "title": "<p>FRETE GRÁTIS</p>",
+            "title_custom": true,
+            "title_color": "",
+            "title_font_size_desktop": 14,
+            "title_font_size_mobile": 12,
+            "title_font_weight": "600",
+            "title_align": "center",
+            "text": "<p>nas compras acima de R$350,00</p>",
+            "text_custom": true,
+            "text_color": "#000000",
+            "text_font_size_desktop": 14,
+            "text_font_size_mobile": 12,
+            "text_font_weight": "300",
+            "text_align": "center"
+          }
+        },
+        "item_D77dXw": {
+          "type": "item",
+          "settings": {
+            "icon": "shopify://shop_images/Delivery_Truck_Fast.svg",
+            "icon_size_desktop": 56,
+            "icon_size_mobile": 32,
+            "url": "",
+            "title": "<p>FRETE GRÁTIS</p>",
+            "title_custom": true,
+            "title_color": "",
+            "title_font_size_desktop": 14,
+            "title_font_size_mobile": 12,
+            "title_font_weight": "600",
+            "title_align": "center",
+            "text": "<p>nas compras acima de R$350,00</p>",
+            "text_custom": true,
+            "text_color": "#000000",
+            "text_font_size_desktop": 14,
+            "text_font_size_mobile": 12,
+            "text_font_weight": "300",
+            "text_align": "center"
+          }
+        }
+      },
+      "block_order": [
+        "item_aBQXiV",
+        "item_d6c7hp",
+        "item_6bLmpy",
+        "item_D77dXw"
+      ],
+      "name": "res - Barra de Vantagens",
+      "settings": {
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "gap_desktop": 32,
+        "gap_mobile": 24,
+        "pad_top_mobile": 24,
+        "pad_bottom_mobile": 24,
+        "pad_top_desktop": 40,
+        "pad_bottom_desktop": 40
+      }
     }
   },
   "order": [
     "main_banner_NttY7H",
-    "res_featured_collection_kihWDH"
+    "res_featured_collection_kihWDH",
+    "res_featured_collection_UwENYa",
+    "res_banner_blocks_REtry4",
+    "res_instagram_feed_e49hQ8",
+    "res_icon_columns_3VkkYJ"
   ]
 }

@@ -37,6 +37,17 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+          {%- for option in product.options_with_values -%}
+      {%- assign opt_lower = option.name | downcase -%}
+      {%- if opt_lower == 'cor' or opt_lower == 'color' or opt_lower == 'colour' or opt_lower == 'cores' -%}
+        {%- for value in option.values -%}
+          #MainProduct-{{ section.id }}:has(.product-form__input--swatch input[value="{{ value | escape }}"]:checked) .product__media-item[data-group-color]:not([data-group-color="{{ value | escape }}"]) {
+            display: none;
+          }
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -52,6 +63,7 @@
   {%- if request.design_mode -%}
     <script src="{{ 'theme-editor.js' | asset_url }}" defer="defer"></script>
   {%- endif -%}
+
 
   {%- assign first_3d_model = product.media | where: 'media_type', 'model' | first -%}
   {%- if first_3d_model -%}

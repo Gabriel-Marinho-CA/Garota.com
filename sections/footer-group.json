@@ -1,7 +1,154 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "res_footer_eDhdWh": {
+      "type": "res-footer",
+      "blocks": {
+        "menu_arhVGR": {
+          "type": "menu",
+          "settings": {
+            "heading": "<p>MENU PRINCIPAL</p>",
+            "menu": "main-menu",
+            "heading_custom": true,
+            "heading_color": "#000000",
+            "heading_font_size_desktop": 14,
+            "heading_font_size_mobile": 13,
+            "heading_font_weight": "400",
+            "heading_align": "left"
+          }
+        },
+        "menu_MGb4HB": {
+          "type": "menu",
+          "settings": {
+            "heading": "<p>ATENDIMENTO</p>",
+            "menu": "ajuda",
+            "heading_custom": true,
+            "heading_color": "#000000",
+            "heading_font_size_desktop": 14,
+            "heading_font_size_mobile": 13,
+            "heading_font_weight": "400",
+            "heading_align": "left"
+          }
+        },
+        "contact_BRUnpj": {
+          "type": "contact",
+          "settings": {
+            "heading": "<p>CONTATO</p>",
+            "heading_custom": true,
+            "heading_color": "#000000",
+            "heading_font_size_desktop": 14,
+            "heading_font_size_mobile": 13,
+            "heading_font_weight": "400",
+            "heading_align": "left",
+            "text_1": "<p>+5511915542496</p>",
+            "url_1": "",
+            "text_2": "<p>(11) 91554-2496</p>",
+            "url_2": "",
+            "text_3": "",
+            "url_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "menu_arhVGR",
+        "menu_MGb4HB",
+        "contact_BRUnpj"
+      ],
+      "name": "res - Footer",
+      "settings": {
+        "color_scheme": "",
+        "logo": "shopify://shop_images/225271c2646b7fb1a939f3962813d342bdc6d220.png",
+        "logo_width_desktop": 165,
+        "logo_width_mobile": 150,
+        "newsletter_enable": true,
+        "newsletter_heading": "<p>SE INSCREVA EM NOSSA NEWSLETTER</p>",
+        "newsletter_heading_custom": true,
+        "newsletter_heading_color": "#000000",
+        "newsletter_heading_font_size_desktop": 24,
+        "newsletter_heading_font_size_mobile": 18,
+        "newsletter_heading_font_weight": "400",
+        "newsletter_heading_align": "left",
+        "newsletter_subtitle": "<p>E GANHE 10% OFF</p>",
+        "newsletter_subtitle_custom": true,
+        "newsletter_subtitle_color": "#000000",
+        "newsletter_subtitle_font_size_desktop": 14,
+        "newsletter_subtitle_font_size_mobile": 12,
+        "newsletter_subtitle_font_weight": "400",
+        "newsletter_subtitle_align": "left",
+        "newsletter_placeholder": "Seu endereço de email...",
+        "show_social": true,
+        "social_whatsapp_link": "#",
+        "social_whatsapp_icon": "shopify://shop_images/Component_12.svg",
+        "social_instagram_link": "#",
+        "social_instagram_icon": "shopify://shop_images/Component_12_1.svg",
+        "social_icon_size_desktop": 28,
+        "social_icon_size_mobile": 18,
+        "contact_icon_size_desktop": 18,
+        "contact_icon_size_mobile": 16,
+        "payment_enable": true,
+        "copyright_text": "<p>Copyright garota.com - 48.751.501/0001-36 - 2026. Todos os direitos reservados</p>",
+        "copyright_custom": true,
+        "copyright_color": "",
+        "copyright_font_size_desktop": 12,
+        "copyright_font_size_mobile": 11,
+        "copyright_font_weight": "400",
+        "copyright_align": "left",
+        "tech_enable": true,
+        "tech_label": "Tecnologia:",
+        "tech_logo": "shopify://shop_images/Frame_1317.svg",
+        "tech_text": "resultate",
+        "tech_link": "https://resultate.com.br",
+        "column_gap_desktop": 48,
+        "column_gap_mobile": 32,
+        "pad_top_desktop": 56,
+        "pad_bottom_desktop": 0,
+        "pad_top_mobile": 40,
+        "pad_bottom_mobile": 8
+      }
+    },
+    "custom_colors_Lz9Yc4": {
+      "type": "custom-colors",
+      "blocks": {
+        "cor_Qh36Be": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Preto",
+            "color_value": "#000000"
+          }
+        },
+        "cor_TTrfjr": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Marrom",
+            "color_value": "#654542"
+          }
+        },
+        "cor_eLnHac": {
+          "type": "cor",
+          "settings": {
+            "color_name": "Vinho",
+            "color_value": "#4F1A1E"
+          }
+        }
+      },
+      "block_order": [
+        "cor_Qh36Be",
+        "cor_TTrfjr",
+        "cor_eLnHac"
+      ],
+      "name": "Cores de Variantes",
+      "settings": {}
+    },
     "footer": {
       "type": "footer",
       "blocks": {
@@ -23,7 +170,7 @@
           "type": "text",
           "settings": {
             "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "subtext": "<p>Share contact information, store details, and brand content with your customers.</p>"
           }
         }
       },
@@ -32,10 +179,12 @@
         "footer-1",
         "footer-2"
       ],
+      "disabled": true,
       "settings": {
         "color_scheme": "scheme-1",
         "newsletter_enable": true,
         "newsletter_heading": "Subscribe to our emails",
+        "enable_follow_on_shop": true,
         "show_social": true,
         "enable_country_selector": false,
         "enable_language_selector": false,
@@ -48,6 +197,8 @@
     }
   },
   "order": [
+    "res_footer_eDhdWh",
+    "custom_colors_Lz9Yc4",
     "footer"
   ]
 }

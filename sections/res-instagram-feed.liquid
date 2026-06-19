@@ -1,0 +1,281 @@
+{{ 'res-instagram-feed.css' | asset_url | stylesheet_tag }}
+
+{% style %}
+  .{{ section.id }} {
+    --res-ig-columns-mobile: {{ section.settings.columns_mobile }};
+    --res-ig-columns-desktop: {{ section.settings.columns_desktop }};
+    --res-ig-gap-mobile: {{ section.settings.gap_mobile }}px;
+    --res-ig-gap-desktop: {{ section.settings.gap_desktop }}px;
+    --res-ig-icon-size-mobile: {{ section.settings.icon_size_mobile }}px;
+    --res-ig-icon-size-desktop: {{ section.settings.icon_size_desktop }}px;
+    padding-top: {{ section.settings.pad_top_mobile }}px;
+    padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
+  }
+
+  .{{ section.id }} .res-ig__title {
+    {% if section.settings.title_custom %}
+      {% if section.settings.title_color != blank %}color: {{ section.settings.title_color }};{% endif %}
+      font-weight: {{ section.settings.title_font_weight }};
+      text-align: {{ section.settings.title_align }};
+      font-size: {{ section.settings.title_font_size_mobile }}px;
+    {% endif %}
+  }
+
+  @media screen and (min-width: 750px) {
+    .{{ section.id }} {
+      padding-top: {{ section.settings.pad_top_desktop }}px;
+      padding-bottom: {{ section.settings.pad_bottom_desktop }}px;
+    }
+
+    .{{ section.id }} .res-ig__title {
+      {% if section.settings.title_custom %}
+        font-size: {{ section.settings.title_font_size_desktop }}px;
+      {% endif %}
+    }
+  }
+{% endstyle %}
+
+<div class="res-ig {{ section.id }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+  <div class="res-ig__wrapper page-width">
+    {% if section.settings.title != blank %}
+      {% if settings.social_instagram_link != blank %}
+        <a class="res-ig__header" href="{{ settings.social_instagram_link }}">
+      {% else %}
+        <div class="res-ig__header">
+      {% endif %}
+        {% if section.settings.show_instagram_icon %}
+          <span class="res-ig__icon">
+            {% if section.settings.custom_icon != blank %}
+              {{ section.settings.custom_icon | image_url: width: 200 | image_tag: alt: 'Instagram' }}
+            {% else %}
+              {{ 'icon-instagram.svg' | inline_asset_content }}
+            {% endif %}
+          </span>
+        {% endif %}
+        <div class="res-ig__title rte">{{ section.settings.title }}</div>
+      {% if settings.social_instagram_link != blank %}
+        </a>
+      {% else %}
+        </div>
+      {% endif %}
+    {% endif %}
+
+    <div class="res-ig__grid">
+      {% for block in section.blocks %}
+        <div class="res-ig__item" {{ block.shopify_attributes }}>
+          {% render block %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "res - Feed Instagram",
+  "class": "RES__INSTAGRAM_FEED__V1",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "title",
+      "label": "Título",
+      "default": "<p>SIGA @LOJAGAROTACOM</p>"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_instagram_icon",
+      "label": "Exibir ícone do Instagram",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "custom_icon",
+      "label": "Ícone personalizado",
+      "info": "Se vazio, usa o ícone padrão do Instagram.",
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_desktop",
+      "label": "Tamanho do ícone (desktop)",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
+    },
+    {
+      "type": "range",
+      "id": "icon_size_mobile",
+      "label": "Tamanho do ícone (mobile)",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.show_instagram_icon }}"
+    },
+    {
+      "type": "header",
+      "content": "Personalização"
+    },
+    {
+      "type": "checkbox",
+      "id": "title_custom",
+      "label": "Personalizar texto",
+      "default": false
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Cor",
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_desktop",
+      "label": "Tamanho da fonte (desktop)",
+      "min": 10,
+      "max": 96,
+      "step": 1,
+      "unit": "px",
+      "default": 18,
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "range",
+      "id": "title_font_size_mobile",
+      "label": "Tamanho da fonte (mobile)",
+      "min": 10,
+      "max": 64,
+      "step": 1,
+      "unit": "px",
+      "default": 16,
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "select",
+      "id": "title_font_weight",
+      "label": "Peso da fonte",
+      "default": "600",
+      "options": [
+        { "value": "400", "label": "Regular (400)" },
+        { "value": "500", "label": "Médio (500)" },
+        { "value": "600", "label": "Semi Bold (600)" },
+        { "value": "700", "label": "Bold (700)" }
+      ],
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "select",
+      "id": "title_align",
+      "label": "Alinhamento",
+      "default": "center",
+      "options": [
+        { "value": "left", "label": "Esquerda" },
+        { "value": "center", "label": "Centro" },
+        { "value": "right", "label": "Direita" }
+      ],
+      "visible_if": "{{ section.settings.title_custom }}"
+    },
+    {
+      "type": "header",
+      "content": "Grade"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Colunas (desktop)",
+      "default": 4,
+      "min": 2,
+      "max": 8,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Colunas (mobile)",
+      "default": 2,
+      "min": 1,
+      "max": 3,
+      "step": 1
+    },
+    {
+      "type": "range",
+      "id": "gap_desktop",
+      "label": "Espaçamento (desktop)",
+      "default": 16,
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "gap_mobile",
+      "label": "Espaçamento (mobile)",
+      "default": 8,
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento da seção"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_mobile",
+      "label": "Padding TOP (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_mobile",
+      "label": "Padding BOTTOM (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 32,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_desktop",
+      "label": "Padding TOP (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_desktop",
+      "label": "Padding BOTTOM (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "res - Feed Instagram",
+      "category": "Res - Seções"
+    }
+  ]
+}
+{% endschema %}
