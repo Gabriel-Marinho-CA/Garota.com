@@ -86,7 +86,8 @@
 }
 
 .res-fc__tab:hover {
-  opacity: 0.8;
+   background: #1B1B1B;
+     color: #fff;
 }
 
 .res-fc__tab--active {
