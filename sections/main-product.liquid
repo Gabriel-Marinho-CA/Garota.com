@@ -222,11 +222,11 @@
                         {{- res_product.compare_at_price | money_with_currency | remove: 'BRL' -}}
                       </s>
                     {% endif %}
-                    {% if show_installments %}
+                   
                       <div class="res-card__installments-wrap">
                         {% render 'res-installments', tp_price: res_product.price %}
                       </div>
-                    {% endif %}
+                 
                   </div>
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
