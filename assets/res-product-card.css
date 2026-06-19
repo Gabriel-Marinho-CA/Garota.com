@@ -166,23 +166,16 @@ wishlist-button[active] svg {
   align-items: center;
   gap: 8px;
   padding: 16px 12px;
-<<<<<<< HEAD
-  background: rgba(255, 255, 255, 0.95);
-=======
  background: #FFFFFF7A;
     backdrop-filter: blur(4px);
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
   opacity: 0;
   transform: translateY(10px);
   transition: opacity 0.3s ease, transform 0.3s ease;
   pointer-events: none;
-<<<<<<< HEAD
-=======
 
   product-form {
     width:100%;
   }
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
 }
 
 .res-card:hover .res-card__hover-actions {
@@ -210,16 +203,6 @@ wishlist-button[active] svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-<<<<<<< HEAD
-  min-width: 32px;
-  height: 32px;
-  padding: 0 8px;
-  background: transparent;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  color: #05122B;
-  font-size: 13px;
-=======
   min-width: 28px;
   height: 28px;
   width: 28px;
@@ -230,7 +213,6 @@ wishlist-button[active] svg {
   border-radius: 50%;
   color: #05122B;
   font-size: 12px;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
   font-weight: 400;
   text-transform: uppercase;
   text-decoration: none;
@@ -270,17 +252,10 @@ wishlist-button[active] svg {
   width: 100%;
   height: 44px;
   padding: 0 16px;
-<<<<<<< HEAD
-  border: 1px solid #968C82;
-  border-radius: 3px;
-  background: transparent;
-  color: #000000;
-=======
   border: 1px solid #000000;
   border-radius: 3px;
   background: #000000;
   color: #FFF;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -297,15 +272,9 @@ wishlist-button[active] svg {
 }
 
 .res-card__btn:hover {
-<<<<<<< HEAD
-  background: #968C82;
-  color: #fff;
-  border-color: #968C82;
-=======
   background: #FFF;
   color: #000;
   border-color: #FFF;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
 }
 
 .res-card__btn--disabled {
@@ -348,11 +317,7 @@ wishlist-button[active] svg {
   display: flex;
   flex-direction: column;
   gap: 8px;
-<<<<<<< HEAD
-  padding: 10px 0 0;
-=======
   padding: 10px;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
   flex: 1;
 }
 
@@ -361,11 +326,7 @@ wishlist-button[active] svg {
 .res-card__swatches {
   display: flex;
   flex-wrap: wrap;
-<<<<<<< HEAD
-  gap: 8px;
-=======
   gap: 12px;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
 }
 
 .res-card__swatch {
@@ -396,20 +357,12 @@ wishlist-button[active] svg {
 }
 
 .res-card__title {
-<<<<<<< HEAD
-  font-family: "Montserrat";
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
-=======
 font-weight: 400;
 font-size: 16px;
 line-height: 100%;
 letter-spacing: 0.5px;
 vertical-align: middle;
 color:#000;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
   text-transform: uppercase;
   margin: 0;
 }
@@ -434,13 +387,6 @@ color:#000;
 }
 
 .res-card__regular-price {
-<<<<<<< HEAD
-  font-family: "Montserrat";
-  font-weight: 500;
-  font-size: 17px;
-  line-height: 100%;
-  color: #131313;
-=======
 font-weight: 400;
 font-size: 14px;
 line-height: 100%;
@@ -448,7 +394,6 @@ letter-spacing: 0.5px;
 vertical-align: middle;
 color:#999999;
 
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
 }
 
 @media (max-width: 547px) {
@@ -477,17 +422,12 @@ color:#999999;
 }
 
 .res-card__installments-wrap .tp-installments {
-<<<<<<< HEAD
-  font-size: 11px;
-  color: #6D727C;
-=======
 
 font-weight: 400;
 font-size: 12px;
 line-height: 100%;
 letter-spacing: 0.5px;
 color:#999999;
->>>>>>> 4bcc7b3aefc2d003339da9db48c3fe0660ac8c68
 }
 
 /* ── Placeholder state ── */
