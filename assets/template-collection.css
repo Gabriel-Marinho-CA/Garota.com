@@ -87,7 +87,36 @@ h2#verticalTitle {
   text-transform: uppercase;
 }
 
+.facet-id--tamanho {
+  ul.facets-layout.facets-layout-list.facets-layout-list--text.facets__list--vertical.list-unstyled {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .facets__label  {
+    padding: 0;
+  }
+  .list-menu__item  {
+    svg,.svg-wrapper {
+      display: none;
+    }
+    .facet-checkbox__text {
+      font-size: 0;
 
+      .facet-checkbox__text-label {
+           font-size: 12px;
+    border: 1px solid #333333;
+    border-radius: 50%;
+    padding: .15rem;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 25px;
+      }
+    }
+  }
+}
 
 
 @media screen and (min-width: 750px) {
