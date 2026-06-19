@@ -3663,7 +3663,7 @@ details-disclosure > details {
 .mega-menu-panel {
   display: none;
   position: absolute;
-  top: 100%;
+  top: calc(var(--header-height) - 20px);
   left: 0;
   right: 0;
   background-color: rgb(var(--color-background));
@@ -3671,6 +3671,10 @@ details-disclosure > details {
   padding: 3rem 0;
   z-index: 100;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
+
+  @media (max-width:1250px) {
+    
+  }
 }
 
 .header__inline-menu .nav-item.dropdown:hover .mega-menu-panel {
