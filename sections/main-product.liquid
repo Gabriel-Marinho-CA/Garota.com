@@ -475,6 +475,17 @@
                     </volume-pricing>
                   {%- endif -%}
                 </div>
+                {%- assign buy_block = section.blocks | where: 'type', 'buy_buttons' | first -%}
+                {%- if buy_block -%}
+                  {%- render 'buy-buttons',
+                    block: buy_block,
+                    product: product,
+                    product_form_id: product_form_id,
+                    section_id: section.id,
+                    show_pickup_availability: true
+                  -%}
+                {%- endif -%}
+                </div>
               {%- when 'popup' -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
@@ -499,14 +510,22 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
-                {%- render 'buy-buttons',
-                  block: block,
-                  product: product,
-                  product_form_id: product_form_id,
-                  section_id: section.id,
-                  show_pickup_availability: true
-                -%}
-                </div>
+                {%- comment -%}
+                  When a quantity_selector block exists, the buy buttons are rendered
+                  inside the .product-form__qty-buy wrapper (in the quantity_selector
+                  branch) so they sit on the same row. Only render standalone here when
+                  there is no quantity_selector block.
+                {%- endcomment -%}
+                {%- assign qty_block = section.blocks | where: 'type', 'quantity_selector' | first -%}
+                {%- unless qty_block -%}
+                  {%- render 'buy-buttons',
+                    block: block,
+                    product: product,
+                    product_form_id: product_form_id,
+                    section_id: section.id,
+                    show_pickup_availability: true
+                  -%}
+                {%- endunless -%}
               {%- when 'wishlist' -%}
                 <div class="wishlist-wrapper" {{ block.shopify_attributes }}>
                   <wishlist-button product-id="{{ product.selected_or_first_available_variant.id }}" class="wishlist-btn">
@@ -831,14 +850,6 @@
       </script>
       <script src="{{ 'product-model.js' | asset_url }}" defer></script>
     {%- endif -%}
-
-    {%- liquid
-      if product.selected_or_first_available_variant.featured_media
-        assign seo_media = product.selected_or_first_available_variant.featured_media
-      else
-        assign seo_media = product.featured_media
-      endif
-    -%}
 
     <script type="application/ld+json">
       {{ product | structured_data }}
