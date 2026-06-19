@@ -35,6 +35,9 @@ cart-drawer-items,
 .drawer__footer {
   padding-inline:1.5rem !important;
 }
+.totals {
+  margin-bottom: 2rem;
+}
 .drawer__inner-empty {
   height: 100%;
   padding: 0 1.5rem;
