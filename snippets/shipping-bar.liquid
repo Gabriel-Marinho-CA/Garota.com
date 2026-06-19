@@ -30,7 +30,7 @@
     <div class="free-shipping-bar__track">
       <div class="free-shipping-bar__fill" style="width: {{ percent }}%; display:block;"></div>
       <div class="free-shipping-bar__thumb" style="left: {{ percent }}%;">
-        <span class="free-shipping-bar__icon">
+        <span class="free-shipping-bar__icon {% if achieved %}achievied{%endif %}">
           {{- 'icon-truck.svg' | inline_asset_content -}}
         </span>
       </div>
