@@ -98,6 +98,14 @@ cart-drawer.is-empty .drawer__inner {
   align-items: center;
   justify-content: center;
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.08);
+
+  &.achieved {
+    background:#000;
+    svg {
+      fill:#fff;
+      stroke:#fff;
+    }
+  }
 }
 
 .free-shipping-bar__icon svg {
