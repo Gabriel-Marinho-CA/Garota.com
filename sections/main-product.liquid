@@ -556,20 +556,22 @@
                     data-modal="#SizeChartModal-{{ block.id }}"
                     {{ block.shopify_attributes }}
                   >
-                    <div class="size-chart__prompt">
-                      <span class="svg-wrapper">
-                        {{- 'icon-medidas.svg' | inline_asset_content -}}
-                      </span>
-                      <span>{{ block.settings.heading | default: 'Na dúvida sobre qual é o melhor tamanho para você?' }}</span>
-                    </div>
                     <button
                       id="SizeChartOpener-{{ block.id }}"
-                      class="size-chart__link link animate-arrow"
+                      class="size-chart__trigger"
                       type="button"
                       aria-haspopup="dialog"
                     >
-                      {{ block.settings.link_label | default: 'Acessar a tabela de medidas' }}
-                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                      <span class="size-chart__prompt">
+                        <span class="svg-wrapper">
+                          {{- 'icon-medidas.svg' | inline_asset_content -}}
+                        </span>
+                        <span>{{ block.settings.heading | default: 'Na dúvida sobre qual é o melhor tamanho para você?' }}</span>
+                      </span>
+                      <span class="size-chart__link animate-arrow">
+                        {{ block.settings.link_label | default: 'Acessar a tabela de medidas' }}
+                        {{- 'icon-arrow.svg' | inline_asset_content -}}
+                      </span>
                     </button>
                   </modal-opener>
                 {%- endif -%}

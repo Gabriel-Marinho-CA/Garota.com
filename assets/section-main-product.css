@@ -151,6 +151,26 @@ product-info {
   margin: 1.6rem 0;
 }
 
+/* whole box is the trigger: clicking anywhere opens the modal */
+.size-chart__trigger {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 1.6rem;
+  border: 1px solid rgba(var(--color-foreground), 0.18);
+  border-radius: 4px;
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--duration-short) ease;
+}
+
+.size-chart__trigger:hover {
+  border-color: rgb(var(--color-foreground));
+}
+
 .size-chart__prompt {
   display: flex;
   align-items: center;
@@ -167,15 +187,10 @@ product-info {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 0.6rem;
-  padding: 0;
-  border: 0;
-  background: none;
   color: rgb(var(--color-foreground));
   font-size: 1.4rem;
   text-decoration: underline;
   text-underline-offset: 0.3rem;
-  cursor: pointer;
 }
 
 .size-chart__link .icon {
@@ -1094,7 +1109,8 @@ a.product__text {
   .product-popup-modal__content {
     padding-right: 1.5rem;
     margin-top: 10rem;
-    width: 70%;
+    width: 50%;
+    height: fit-content;
     padding: 0 3rem;
   }
 

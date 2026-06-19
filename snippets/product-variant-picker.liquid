@@ -30,14 +30,6 @@
           assign is_size_option = true
         endif
 
-        assign show_low_stock = false
-        assign sel_variant = product.selected_or_first_available_variant
-        if sel_variant.inventory_management == 'shopify' and sel_variant.inventory_policy != 'continue'
-          if sel_variant.inventory_quantity > 0 and sel_variant.inventory_quantity < 5
-            assign show_low_stock = true
-          endif
-        endif
-
         if swatch_count > 0 and block.settings.swatch_shape != 'none'
           if block.settings.picker_type == 'dropdown'
             assign picker_type = 'swatch_dropdown'
@@ -70,11 +62,9 @@
             product: product,
             option: option,
             block: block,
-            picker_type: picker_type
+            picker_type: picker_type,
+            is_size_option: is_size_option
           %}
-          {%- if is_size_option and show_low_stock -%}
-            <p class="product-form__low-stock">Poucas unidades</p>
-          {%- endif -%}
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">

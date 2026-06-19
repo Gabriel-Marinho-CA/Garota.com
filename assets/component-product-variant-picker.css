@@ -136,8 +136,10 @@ variant-selects {
 .product-form__input--size {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: flex-start;
   gap: 1.2rem;
+  /* reserve room for the per-size "Poucas unidades" caption */
+  padding-bottom: 2.2rem;
 }
 
 .product-form__input--size .form__label {
@@ -145,6 +147,7 @@ variant-selects {
 }
 
 .product-form__input--size input[type='radio'] + label {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -176,13 +179,21 @@ variant-selects {
   cursor: not-allowed;
 }
 
-.product-form__low-stock {
-  flex-basis: 100%;
-  margin: 0.4rem 0 0;
-  font-size: 1.1rem;
-  letter-spacing: 0.06em;
+/* per-size "Poucas unidades" caption */
+.product-form__input--size label.low-stock::after {
+  content: 'Poucas unidades';
+  position: absolute;
+  top: calc(100% + 0.4rem);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 6.5rem;
+  text-align: center;
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: #d12a4a;
+  pointer-events: none;
 }
 
 /* Custom styles for Swatch display type */

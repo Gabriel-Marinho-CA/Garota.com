@@ -18,7 +18,41 @@
 {% endcomment %}
 {%- liquid
   assign product_form_id = 'product-form-' | append: section.id
+  assign low_stock_threshold = 5
+  assign size_idx = option.position | minus: 1
 -%}
+
+{%- comment -%}
+  Build a list of the sizes that are low on stock for the currently selected
+  combination of the other options (e.g. the selected color). A size is "low"
+  when its matching variant tracks inventory and has 1..threshold-1 units left.
+  Format: "|P||M|" so we can test with `contains: '|P|'`.
+{%- endcomment -%}
+{%- assign low_stock_sizes = '' -%}
+{%- if is_size_option -%}
+  {%- assign sel_variant = product.selected_or_first_available_variant -%}
+  {%- capture sel_signature -%}
+    {%- for i in (0..2) -%}
+      {%- unless i == size_idx -%}{{ sel_variant.options[i] }}~{%- endunless -%}
+    {%- endfor -%}
+  {%- endcapture -%}
+  {%- for variant in product.variants -%}
+    {%- capture variant_signature -%}
+      {%- for i in (0..2) -%}
+        {%- unless i == size_idx -%}{{ variant.options[i] }}~{%- endunless -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+    {%- if variant_signature == sel_signature -%}
+      {%- if variant.inventory_management == 'shopify'
+        and variant.inventory_policy != 'continue'
+        and variant.inventory_quantity > 0
+        and variant.inventory_quantity < low_stock_threshold
+      -%}
+        {%- assign low_stock_sizes = low_stock_sizes | append: '|' | append: variant.options[size_idx] | append: '|' -%}
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+{%- endif -%}
 
 {%- for value in option.values -%}
   {%- liquid
@@ -95,7 +129,20 @@
       {% endif %}
       {{ input_dataset }}
     >
-    <label for="{{ input_id }}">
+    {%- liquid
+      assign value_low_stock = false
+      if is_size_option
+        capture value_key
+          echo '|'
+          echo value
+          echo '|'
+        endcapture
+        if low_stock_sizes contains value_key
+          assign value_low_stock = true
+        endif
+      endif
+    -%}
+    <label for="{{ input_id }}"{% if value_low_stock %} class="low-stock"{% endif %}>
       {{ value -}}
       {{ label_unavailable }}
     </label>
