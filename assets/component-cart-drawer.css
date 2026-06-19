@@ -99,7 +99,7 @@ cart-drawer.is-empty .drawer__inner {
   justify-content: center;
   box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.08);
 
-  &.achieved {
+  &.achievied {
     background:#000;
     svg {
       fill:#fff;
