@@ -3673,13 +3673,13 @@ details-disclosure > details {
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
 
 
-  @media (min-widht:1250px){
+  @media (min-width:1250px){
     top: calc(var(--header-height) - 20px);
   }
 }
 
 
-@media (min-widht:1000px) and (max-width:1200px) {
+@media (min-width:1000px) and (max-width:1200px) {
   .header {
     display: flex;
   flex-wrap: wrap;
