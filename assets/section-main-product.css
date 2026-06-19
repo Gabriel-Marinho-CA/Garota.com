@@ -21,6 +21,58 @@ product-info {
   border-radius: 2px;
 }
 
+/* ── Wishlist block ── */
+.wishlist-wrapper {
+  margin-top: 1rem;
+}
+
+wishlist-button.wishlist-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.4rem 2rem;
+  border: 1px solid rgb(var(--color-foreground));
+  background: transparent;
+  color: rgb(var(--color-foreground));
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  transition: background var(--duration-short) ease, color var(--duration-short) ease;
+}
+
+wishlist-button.wishlist-btn svg {
+  width: 2rem;
+  height: 2rem;
+  flex-shrink: 0;
+}
+
+wishlist-button.wishlist-btn svg path {
+  stroke: currentColor;
+  transition: fill var(--duration-short) ease;
+}
+
+wishlist-button.wishlist-btn:hover {
+  background: rgba(var(--color-foreground), 0.04);
+}
+
+wishlist-button.wishlist-btn[active] svg path {
+  fill: currentColor;
+}
+
+wishlist-button.wishlist-btn.is-animating svg {
+  animation: wishlist-pop var(--duration-short) ease;
+}
+
+@keyframes wishlist-pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+  100% { transform: scale(1); }
+}
+
 .product {
   margin: 0;
 }

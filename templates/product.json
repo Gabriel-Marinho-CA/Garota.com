@@ -12,6 +12,10 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "product_tags": {
+          "type": "product_tags",
+          "settings": {}
+        },
         "title": {
           "type": "title",
           "settings": {}
@@ -37,14 +41,20 @@
             "show_dynamic_checkout": false,
             "show_gift_card_recipient": false
           }
+        },
+        "wishlist": {
+          "type": "wishlist",
+          "settings": {}
         }
       },
       "block_order": [
+        "product_tags",
         "title",
         "price",
         "variant_picker",
         "quantity_selector",
-        "buy_buttons"
+        "buy_buttons",
+        "wishlist"
       ],
       "settings": {
         "enable_sticky_info": true,
