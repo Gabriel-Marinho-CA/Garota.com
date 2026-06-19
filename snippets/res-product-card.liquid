@@ -23,6 +23,8 @@
   assign res_color_values = res_product.options_with_values[res_color_option_index].values
 -%}
 
+{{  res_product.options | json }}
+
 <res-color-card class="res-card">
 
   {%- comment -%} ===== IMAGEM + HOVER OVERLAY ===== {%- endcomment -%}
@@ -136,7 +138,6 @@
   {%- comment -%} ===== INFO: cores, titulo, preço (sempre visível) ===== {%- endcomment -%}
   <div class="res-card__info">
 
-    {{ res_color_values | json }}
     {% if res_color_values.size > 1 %}
       <div class="res-card__swatches">
         {% for color_value in res_color_values %}
