@@ -1571,15 +1571,13 @@ class ResColorCard extends HTMLElement {
     if (prevEl) prevEl.style.display = multiSlide ? '' : 'none';
     if (nextEl) nextEl.style.display = multiSlide ? '' : 'none';
 
-    var config = { loop: multiSlide };
+    var config = { loop: multiSlide, spaceBetween: 8 };
     if (multiSlide && paginationEl) {
       config.pagination = { el: paginationEl, clickable: true };
     }
     if (multiSlide && prevEl && nextEl) {
       config.navigation = { prevEl: prevEl, nextEl: nextEl };
     }
-
-    config.spaceBetween = 4;
 
     this._swiper = new Swiper(this.querySelector('.res-card__swiper'), config);
   }
