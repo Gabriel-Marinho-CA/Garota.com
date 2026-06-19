@@ -199,7 +199,7 @@
       }
     ]
   },
-    {
+  {
     "name": "Valor do pix",
     "settings": [
       {
@@ -1444,11 +1444,21 @@
         "default": "notification",
         "label": "t:settings_schema.cart.settings.cart_type.label"
       },
-           {
+      {
         "type": "number",
         "id": "shipping_number",
         "label": "Valor minimo para frete grátis",
         "default": 200
+      },
+      {
+        "type": "image_picker",
+        "id": "img_cart",
+        "label": "Imagem carrinho"
+      },
+      {
+        "type": "image_picker",
+        "id": "img_cart_mobile",
+        "label": "Imagem carrinho mobile"
       },
       {
         "type": "checkbox",
