@@ -74,25 +74,24 @@
           </span>
         </button>
       </div>
-      {% if settings.img_cart != blank%}
-<picture>
-  {% if settings.img_cart_mobile %}
-    <source
-      media="(max-width: 600px)"
-      srcset="{{ settings.img_cart_mobile | image_url: width:settings.img_cart_mobile.width   }}">
-  {% endif %}
+      {% if settings.img_cart != blank %}
+        <div class="img-minicart">
+          <picture>
+            {% if settings.img_cart_mobile %}
+              <source
+                media="(max-width: 600px)"
+                srcset="{{ settings.img_cart_mobile | image_url: width:settings.img_cart_mobile.width   }}"
+              >
+            {% endif %}
 
-  {% if settings.img_cart %}
-    {{
-      settings.img_cart
-      | image_url: width:  settings.img_cart.width
-      | image_tag: alt: 'Imagem carrinho'
-    }}
-  {% endif %}
-</picture>
+            {% if settings.img_cart %}
+              {{ settings.img_cart | image_url: width: settings.img_cart.width | image_tag: alt: 'Imagem carrinho' }}
+            {% endif %}
+          </picture>
+        </div>
       {% endif %}
 
-       {%- render 'shipping-bar' -%}
+      {%- render 'shipping-bar' -%}
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
@@ -277,7 +276,10 @@
                             {%- endif -%}
 
                             {%- if item.variant.available and item.unit_price_measurement -%}
-                              {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
+                              {% render 'unit-price',
+                                price: item.unit_price,
+                                measurement: item.unit_price_measurement
+                              %}
                             {%- endif -%}
                           </div>
                         </td>
