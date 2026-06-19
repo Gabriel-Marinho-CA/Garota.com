@@ -642,7 +642,9 @@ a.product__text {
 .product__text.caption-with-letter-spacing+.product__title {
   margin-top: 0;
 }
-
+.complete-look__container {
+  margin-top: 2.5rem;
+}
 .product__accordion .accordion__content {
   padding: 0 1rem;
 }
