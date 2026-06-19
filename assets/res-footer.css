@@ -239,9 +239,15 @@
 }
 
 .res-ft__menu-link {
-  color: rgba(var(--color-foreground), 0.78);
+font-weight: 400;
+font-style: Regular;
+font-size: 14px;
+leading-trim: NONE;
+line-height: 100%;
+letter-spacing: 0.5px;
+vertical-align: middle;
+
   text-decoration: none;
-  font-size: 1.3rem;
   transition: color 0.15s ease;
 }
 
@@ -380,7 +386,7 @@ a.res-ft__contact-text:hover {
 
 .res-ft__tech-logo-img {
   display: block;
-  height: 1.6rem;
+  height: 2rem;
   width: auto;
 }
 
