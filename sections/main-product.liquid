@@ -106,12 +106,13 @@
           connectedCallback() {
             this.sectionId = this.dataset.section;
             this.colorIndex = parseInt(this.dataset.colorIndex, 10);
+            this._refilter = this._refilter.bind(this);
 
             // Aguarda o DOM completo para a leitura inicial do swatch selecionado
             if (document.readyState === 'loading') {
-              document.addEventListener('DOMContentLoaded', () => this._filter(this._currentColor()), { once: true });
+              document.addEventListener('DOMContentLoaded', this._refilter, { once: true });
             } else {
-              this._filter(this._currentColor());
+              this._refilter();
             }
 
             // Usa evento DOM nativo (sempre disponível, sem depender de pubsub.js)
@@ -120,9 +121,27 @@
               if (!picker) return;
               const colorFieldset = picker.querySelectorAll('fieldset')[this.colorIndex];
               if (colorFieldset && colorFieldset.contains(e.target)) {
-                this._filter(this._currentColor());
+                this._refilter();
               }
             });
+
+            // A troca de variante atualiza a galeria de forma assíncrona (fetch + updateMedia
+            // + setActiveMedia). Reaplica o filtro sempre que a lista de mídias muda, para a
+            // imagem destacada da nova cor ser exibida sem depender de clicar num thumbnail.
+            const gallery = document.getElementById('MediaGallery-' + this.sectionId);
+            if (gallery && 'MutationObserver' in window) {
+              this._observer = new MutationObserver(this._refilter);
+              this._observer.observe(gallery, { childList: true, subtree: true });
+            }
+          }
+
+          disconnectedCallback() {
+            this._observer?.disconnect();
+          }
+
+          _refilter() {
+            cancelAnimationFrame(this._raf);
+            this._raf = requestAnimationFrame(() => this._filter(this._currentColor()));
           }
 
           _normalize(str) {
@@ -148,7 +167,11 @@
             if (!gallery) return;
             gallery.querySelectorAll('[data-group-color]').forEach((el) => {
               const group = this._normalize(el.dataset.groupColor);
-              el.style.display = !el.dataset.groupColor || group === color ? '' : 'none';
+              // Nunca esconde o slide ativo (imagem destacada da variante atual),
+              // mesmo que o alt da mídia não bata exatamente com a cor selecionada.
+              const visible = !el.dataset.groupColor || group === color || el.classList.contains('is-active');
+              const next = visible ? '' : 'none';
+              if (el.style.display !== next) el.style.display = next;
             });
           }
         }
