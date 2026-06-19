@@ -95,6 +95,12 @@ h2#verticalTitle {
   }
   .facets__label  {
     padding: 0;
+    &.active {
+        .facet-checkbox__text-label {
+          background-color: #333333;
+          color: #fff;
+        }
+    }
   }
   .list-menu__item  {
     svg,.svg-wrapper {
