@@ -214,12 +214,20 @@
                 </div>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
+                  {% assign res_product = product.selected_or_first_available_variant %}
+                  <div class="res-card__price">
+                    <span class="res-card__regular-price">{{ res_product.price | money_with_currency | remove: 'BRL' }}</span>
+                    {% if res_product.compare_at_price > res_product.price %}
+                      <s class="res-card__compare-price">
+                        {{- res_product.compare_at_price | money_with_currency | remove: 'BRL' -}}
+                      </s>
+                    {% endif %}
+                    {% if show_installments %}
+                      <div class="res-card__installments-wrap">
+                        {% render 'res-installments', tp_price: res_product.price %}
+                      </div>
+                    {% endif %}
+                  </div>
                 </div>
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
