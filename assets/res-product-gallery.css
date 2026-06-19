@@ -1,0 +1,223 @@
+/* RES__PRODUCT_GALLERY__V1 */
+
+.res-pg {
+  display: block;
+  width: 100%;
+}
+
+.res-pg__layout {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* ---------- Thumbnails (coluna vertical à esquerda) ---------- */
+.res-pg__thumbs-col {
+  position: relative;
+  flex: 0 0 84px;
+  width: 84px;
+}
+
+.res-pg__thumbs {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+}
+
+.res-pg__thumb {
+  position: relative;
+  height: auto;
+  cursor: pointer;
+  overflow: hidden;
+  border: 1px solid transparent;
+  background: rgb(var(--color-background));
+  aspect-ratio: 3 / 4;
+}
+
+.res-pg__thumb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.res-pg__thumbs .swiper-slide-thumb-active {
+  border-color: rgb(var(--color-foreground));
+}
+
+.res-pg__thumb-badge {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.15);
+  color: #fff;
+  pointer-events: none;
+}
+
+.res-pg__thumb-badge svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ---------- Slider principal ---------- */
+.res-pg__main-col {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.res-pg__main {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: rgb(var(--color-background));
+}
+
+.res-pg__slide {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.res-pg__media-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ---------- Vídeo ---------- */
+.res-pg__video {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.res-pg__video-poster {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.res-pg__video-play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  transition: background 0.15s ease;
+}
+
+.res-pg__video-poster:hover .res-pg__video-play {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.res-pg__video-play svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 3px;
+}
+
+.res-pg__video-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.res-pg__video-el {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  background: #000;
+}
+
+.res-pg__video.is-playing .res-pg__video-poster {
+  visibility: hidden;
+}
+
+/* ---------- Navegação ---------- */
+.res-pg__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.85);
+  color: rgb(var(--color-foreground));
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+
+.res-pg__main:hover .res-pg__nav {
+  opacity: 1;
+}
+
+.res-pg__nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+.res-pg__nav--prev {
+  left: 12px;
+}
+
+.res-pg__nav--next {
+  right: 12px;
+}
+
+.res-pg__nav.swiper-button-disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.res-pg__dots {
+  display: none;
+}
+
+/* ---------- Mobile ---------- */
+@media screen and (max-width: 749px) {
+  .res-pg__thumbs-col {
+    display: none;
+  }
+
+  .res-pg__layout {
+    display: block;
+  }
+
+  .res-pg__nav {
+    display: none;
+  }
+
+  .res-pg__dots {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    text-align: center;
+  }
+}

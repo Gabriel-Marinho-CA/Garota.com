@@ -1,0 +1,188 @@
+{% comment %}
+  Galeria de mídias do produto (custom, baseada em Swiper).
+  - Thumbnails verticais à esquerda + slider principal.
+  - Filtra as mídias pela cor da variante selecionada (usa data-group-color).
+  - Vídeos são renderizados dentro de <res-product-video> (play mutado, com controles).
+
+  Accepts:
+  - product: {Object} (usa o objeto global `product` da seção)
+
+  Usage:
+  {% render 'res-product-gallery' %}
+{% endcomment %}
+
+{{ 'res-product-gallery.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'res-product-gallery.js' | asset_url }}" defer="defer"></script>
+
+{%- liquid
+  assign rpg_color_index = -1
+  for opt in product.options
+    assign opt_lower = opt | downcase
+    if opt_lower == 'cor' or opt_lower == 'color' or opt_lower == 'colour' or opt_lower == 'cores'
+      assign rpg_color_index = forloop.index0
+      break
+    endif
+  endfor
+
+  assign rpg_color_map = ''
+  if rpg_color_index != -1
+    for variant in product.variants limit: 250
+      if variant.featured_media != null
+        assign v_color = variant.options[rpg_color_index]
+        assign rpg_color_map = rpg_color_map | append: '||' | append: variant.featured_media.id | append: '::' | append: v_color
+      endif
+    endfor
+    assign rpg_color_map = rpg_color_map | append: '||'
+  endif
+
+  assign rpg_initial_color = ''
+  if rpg_color_index != -1
+    assign rpg_initial_color = product.selected_or_first_available_variant.options[rpg_color_index]
+  endif
+-%}
+
+{%- if product.media.size > 0 -%}
+  <res-product-gallery
+    class="res-pg"
+    data-section-id="{{ section.id }}"
+    data-color-index="{{ rpg_color_index }}"
+    data-initial-color="{{ rpg_initial_color | escape }}"
+  >
+    <div class="res-pg__layout">
+      <div class="res-pg__thumbs-col">
+        <div class="res-pg__thumbs swiper">
+          <div class="swiper-wrapper">
+            {%- for media in product.media -%}
+              {%- capture rpg_gc -%}{% render 'tp-group-color', media: media, color_map: rpg_color_map %}{%- endcapture -%}
+              <div
+                class="swiper-slide res-pg__thumb"
+                data-media-id="{{ media.id }}"
+                data-group-color="{{ rpg_gc | strip }}"
+                data-media-type="{{ media.media_type }}"
+              >
+                <img
+                  class="res-pg__thumb-img"
+                  src="{{ media.preview_image | image_url: width: 200 }}"
+                  alt="{{ media.alt | escape }}"
+                  width="100"
+                  height="133"
+                  loading="lazy"
+                >
+                {%- if media.media_type == 'video' or media.media_type == 'external_video' -%}
+                  <span class="res-pg__thumb-badge" aria-hidden="true">
+                    {{- 'icon-play.svg' | inline_asset_content -}}
+                  </span>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      </div>
+
+      <div class="res-pg__main-col">
+        <div class="res-pg__main swiper">
+          <div class="swiper-wrapper">
+            {%- for media in product.media -%}
+              {%- capture rpg_gc -%}{% render 'tp-group-color', media: media, color_map: rpg_color_map %}{%- endcapture -%}
+              {%- assign rpg_loading = 'lazy' -%}
+              {%- if forloop.first -%}
+                {%- assign rpg_loading = 'eager' -%}
+              {%- endif -%}
+              <div
+                class="swiper-slide res-pg__slide"
+                data-media-id="{{ media.id }}"
+                data-group-color="{{ rpg_gc | strip }}"
+                data-media-type="{{ media.media_type }}"
+              >
+                {%- case media.media_type -%}
+                  {%- when 'video' -%}
+                    <res-product-video class="res-pg__video" data-type="native">
+                      <button class="res-pg__video-poster" type="button" aria-label="{{ 'products.product.media.play_video' | t }}">
+                        <img
+                          class="res-pg__media-img"
+                          src="{{ media.preview_image | image_url: width: 1400 }}"
+                          alt="{{ media.alt | escape }}"
+                          width="{{ media.preview_image.width }}"
+                          height="{{ media.preview_image.height }}"
+                          loading="{{ rpg_loading }}"
+                        >
+                        <span class="res-pg__video-play" aria-hidden="true">
+                          {{- 'icon-play.svg' | inline_asset_content -}}
+                        </span>
+                      </button>
+                      <template>
+                        <video
+                          class="res-pg__video-el"
+                          muted
+                          playsinline
+                          controls
+                          loop
+                          preload="none"
+                          poster="{{ media.preview_image | image_url: width: 1400 }}"
+                        >
+                          {%- for source in media.sources -%}
+                            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                          {%- endfor -%}
+                        </video>
+                      </template>
+                    </res-product-video>
+                  {%- when 'external_video' -%}
+                    <res-product-video class="res-pg__video" data-type="external">
+                      <button class="res-pg__video-poster" type="button" aria-label="{{ 'products.product.media.play_video' | t }}">
+                        <img
+                          class="res-pg__media-img"
+                          src="{{ media.preview_image | image_url: width: 1400 }}"
+                          alt="{{ media.alt | escape }}"
+                          width="{{ media.preview_image.width }}"
+                          height="{{ media.preview_image.height }}"
+                          loading="{{ rpg_loading }}"
+                        >
+                        <span class="res-pg__video-play" aria-hidden="true">
+                          {{- 'icon-play.svg' | inline_asset_content -}}
+                        </span>
+                      </button>
+                      <template>
+                        {%- if media.host == 'youtube' -%}
+                          {{ media | external_video_url: autoplay: true, mute: true, loop: 1, playlist: media.external_id | external_video_tag: class: 'res-pg__video-el', loading: 'lazy' }}
+                        {%- else -%}
+                          {{ media | external_video_url: autoplay: true, muted: true, loop: true | external_video_tag: class: 'res-pg__video-el', loading: 'lazy' }}
+                        {%- endif -%}
+                      </template>
+                    </res-product-video>
+                  {%- when 'model' -%}
+                    <img
+                      class="res-pg__media-img"
+                      src="{{ media.preview_image | image_url: width: 1400 }}"
+                      alt="{{ media.alt | escape }}"
+                      width="{{ media.preview_image.width }}"
+                      height="{{ media.preview_image.height }}"
+                      loading="{{ rpg_loading }}"
+                    >
+                  {%- else -%}
+                    <img
+                      class="res-pg__media-img"
+                      src="{{ media | image_url: width: 1400 }}"
+                      alt="{{ media.alt | escape }}"
+                      srcset="{{ media | image_url: width: 700 }} 700w, {{ media | image_url: width: 1000 }} 1000w, {{ media | image_url: width: 1400 }} 1400w"
+                      sizes="(min-width: 750px) 50vw, 100vw"
+                      width="{{ media.width }}"
+                      height="{{ media.height }}"
+                      loading="{{ rpg_loading }}"
+                    >
+                {%- endcase -%}
+              </div>
+            {%- endfor -%}
+          </div>
+
+          <button class="res-pg__nav res-pg__nav--prev" type="button" aria-label="{{ 'general.slider.previous_slide' | t }}" tabindex="-1">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M12.5 15 7.5 10l5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="res-pg__nav res-pg__nav--next" type="button" aria-label="{{ 'general.slider.next_slide' | t }}" tabindex="-1">
+            <svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M7.5 15 12.5 10l-5-5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <div class="res-pg__dots swiper-pagination"></div>
+        </div>
+      </div>
+    </div>
+  </res-product-gallery>
+{%- endif -%}
