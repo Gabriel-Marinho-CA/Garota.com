@@ -436,6 +436,11 @@ a.product__text {
     gap: 2rem;
     color:#717171;
 
+    .breadcrumbs__item::first-child {
+      &::after {
+        content:"/";
+      }
+    }
     a {
     text-decoration: none;
 
