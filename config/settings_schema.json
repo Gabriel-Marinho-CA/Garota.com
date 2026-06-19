@@ -200,6 +200,30 @@
     ]
   },
   {
+    "type": "pix_value",
+    "name": "Valor do pix",
+    "settings": [
+      {
+        "type": "number",
+        "id": "pix_value_id",
+        "label": "Valor do desconto Pix em porcentagem (Ex: 5 = 5%)",
+        "default": 5
+      }
+    ]
+  },
+  {
+    "type": "installments_value",
+    "name": "Quantidade das parcelas",
+    "settings": [
+      {
+        "type": "number",
+        "id": "installments_value_id",
+        "label": "Valor da quantidade de parcelas (Ex: 5 = 5x)",
+        "default": 3
+      }
+    ]
+  },
+  {
     "name": "t:settings_schema.animations.name",
     "settings": [
       {
