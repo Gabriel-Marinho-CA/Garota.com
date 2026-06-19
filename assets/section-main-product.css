@@ -436,7 +436,7 @@ a.product__text {
     gap: 2rem;
     color:#717171;
 
-    .breadcrumbs__item::first-child {
+    li:first-child {
       &::after {
         content:"/";
       }
