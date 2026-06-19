@@ -51,6 +51,68 @@ cart-drawer.is-empty .drawer__inner {
   padding: 0;
 }
 
+.free-shipping-bar {
+  padding: 0 2.4rem 2rem;
+}
+
+.free-shipping-bar__text {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0 0 1.8rem;
+}
+
+.free-shipping-bar__track {
+  position: relative;
+  height: 0.2rem;
+  background: rgba(var(--color-foreground), 0.15);
+  border-radius: 0.2rem;
+}
+
+.free-shipping-bar__fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  background: rgb(var(--color-foreground));
+  border-radius: 0.2rem;
+  transition: width 0.3s ease;
+}
+
+.free-shipping-bar__thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.free-shipping-bar__icon {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  background: rgb(var(--color-background));
+  border: 0.1rem solid rgba(var(--color-foreground), 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.08);
+}
+
+.free-shipping-bar__icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
+.free-shipping-bar__label {
+  font-size: 1rem;
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+}
+
+
 cart-drawer.is-empty .drawer__header {
   display: none;
 }
