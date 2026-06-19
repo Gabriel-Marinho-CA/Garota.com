@@ -2,6 +2,25 @@ product-info {
   display: block;
 }
 
+.product__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 1.2rem;
+}
+
+.product__tag {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 2px;
+}
+
 .product {
   margin: 0;
 }
