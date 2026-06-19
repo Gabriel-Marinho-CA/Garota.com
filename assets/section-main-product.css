@@ -31,8 +31,42 @@ product-info {
   gap: 1rem;
   margin-bottom: 1rem;
 
-  .product-form {
-    margin: 0;
+  product-form {
+    margin: 0 !important;
+  }
+}
+
+.product__accordion {
+  details {
+    border: 1px solid #E5E5E5;
+    padding: 0 1rem;
+
+    .icon-caret {
+      width: 14px;
+      height: auto;
+    }
+
+    .accordion__title {
+      font-weight: 500;
+      font-style: Medium;
+      font-size: 16px;
+      leading-trim: NONE;
+      line-height: 100%;
+      letter-spacing: 0.5px;
+      vertical-align: middle;
+      text-transform: uppercase;
+    }
+
+    .accordion__content {
+      * {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0%;
+        vertical-align: middle;
+      }
+    }
+
   }
 }
 
