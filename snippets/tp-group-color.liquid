@@ -1,0 +1,27 @@
+{% comment %}
+  Resolve a cor de agrupamento de uma mídia para o filtro de galeria por variante.
+
+  Usa o alt da imagem (definido no cadastro do produto) como fonte principal.
+  Quando o alt está vazio, faz fallback para a cor da variante dona da mídia,
+  usando o mapa pré-construído `color_map`.
+
+  Accepts:
+  - media: {Object} objeto media atual
+  - color_map: {String} mapa "||{media.id}::{cor}||..." construído na galeria (opcional)
+
+  Usage:
+  {%- capture group_color -%}
+    {% render 'tp-group-color', media: media, color_map: tp_color_map %}
+  {%- endcapture -%}
+{% endcomment %}
+{%- liquid
+  assign result = media.alt
+  if result == blank and color_map != blank
+    assign lookup = '||' | append: media.id | append: '::'
+    if color_map contains lookup
+      assign rest = color_map | split: lookup | last
+      assign result = rest | split: '||' | first
+    endif
+  endif
+  echo result | strip
+-%}
