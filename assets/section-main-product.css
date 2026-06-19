@@ -665,6 +665,7 @@ a.product__text {
     letter-spacing: 0.5px;
     vertical-align: middle;
     color: #999999;
+    margin: 0;
   }
 
 
@@ -678,6 +679,7 @@ a.product__text {
     vertical-align: middle;
     text-transform: uppercase;
     color: #000;
+    margin-right: auto;
   }
 
   .product-form__input--size input[type=radio]+label {
