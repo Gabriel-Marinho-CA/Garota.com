@@ -1,4 +1,4 @@
-{% assign res_pix_value = settings.pix_value_id | minus: 100.00 | abs %}
+{% assign res_pix_value = 100.00 | minus: settings.pix_value_id  | divided_by: 100.00 %}
 {% assign res_installments_quantity = settings.installments_value_id %}
 
 {% assign pix_price = tp_price | times: res_pix_value | round %}
