@@ -91,7 +91,7 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  max-width: 420px;
+  max-width: fit-content;
 }
 
 .res-ft__newsletter-heading {
@@ -101,6 +101,7 @@
   font-weight: 400;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  line-height:1;
 }
 
 .res-ft__newsletter-heading :where(p),
@@ -183,7 +184,7 @@
 .res-ft__social {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 7px;
   margin: 0;
 }
 
