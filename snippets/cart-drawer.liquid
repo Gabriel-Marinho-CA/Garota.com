@@ -74,6 +74,10 @@
           </span>
         </button>
       </div>
+      <picture>
+        <source media="(max-width: 600px)" srcset="{{ settings.img_cart_mobile | asset_url }}">
+        <img src="{{ settings.img_cart | asset_url }}" alt="Imagem carrinho">
+      </picture>
        {%- render 'shipping-bar' -%}
       <cart-drawer-items
         {% if cart == empty %}
