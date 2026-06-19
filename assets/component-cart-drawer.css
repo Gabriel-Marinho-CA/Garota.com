@@ -19,7 +19,7 @@
   height: 100%;
   width: 40rem;
   max-width: calc(100vw - 3rem);
-  padding: 0 1.5rem;
+  padding: 0;
   border: 0.1rem solid rgba(var(--color-foreground), 0.2);
   border-right: 0;
   overflow: hidden;
@@ -29,6 +29,12 @@
   transition: transform var(--duration-default) ease;
 }
 
+.drawer__header,
+thead,
+cart-drawer-items,
+.drawer__footer {
+  padding-inline:1.5rem;
+}
 .drawer__inner-empty {
   height: 100%;
   padding: 0 1.5rem;
@@ -50,7 +56,12 @@ cart-drawer.is-empty .drawer__inner {
   align-items: center;
   padding: 0;
 }
-
+.img-minicart {
+  img {
+    width:100%;
+    height:auto;
+  }
+}
 .free-shipping-bar {
   padding: 0 2.4rem 2rem;
 }
