@@ -3663,7 +3663,7 @@ details-disclosure > details {
 .mega-menu-panel {
   display: none;
   position: absolute;
-  top: calc(var(--header-height) - 20px);
+  top: 100%;
   left: 0;
   right: 0;
   background-color: rgb(var(--color-background));
@@ -3672,8 +3672,32 @@ details-disclosure > details {
   z-index: 100;
   box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
 
-  @media (max-width:1250px) {
-    
+
+  @media (min-widht:1250px){
+    top: calc(var(--header-height) - 20px);
+  }
+}
+
+
+@media (min-widht:1000px) and (max-width:1200px) {
+  .header {
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .header__heading {
+    order: -2;
+  }
+  .header__inline-menu {
+    min-width: 100%;
+
+    ul {
+      justify-content: center;
+    }
+  }
+  .header__icons.header__icons--localization.header-localization {
+    order:-1;
+  }
   }
 }
 
