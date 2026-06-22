@@ -2,6 +2,13 @@
 
 .res-wl {
   display: block;
+
+  &:has(.res-wl__grid res-color-card) {
+    .res-wl__loading,
+    .res-wl__empty {
+      display:none;
+    }
+  }
 }
 
 .res-wl__header {
