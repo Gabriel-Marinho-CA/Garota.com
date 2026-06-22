@@ -11,13 +11,24 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "res_wishlist_card_CrKtQq": {
+      "type": "res-wishlist-card",
+      "name": "Lista de desejos",
+      "settings": {
+        "show_button": true,
+        "add_to_cart": true,
+        "show_installments": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "res_wishlist_card_CrKtQq"
   ]
 }
