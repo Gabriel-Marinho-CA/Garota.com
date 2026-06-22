@@ -24,7 +24,7 @@ res-color-card.res-card,
 .res-card__media {
   position: relative;
   width: 100%;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 2 / 3.21;
   overflow: hidden;
   background: var(--tp-color-bg-secondary, #F5F5F5);
 }
