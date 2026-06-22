@@ -19,16 +19,38 @@
     },
     "res_wishlist_card_CrKtQq": {
       "type": "res-wishlist-card",
+      "disabled": true,
       "name": "Lista de desejos",
       "settings": {
         "show_button": true,
         "add_to_cart": true,
         "show_installments": true
       }
+    },
+    "res_wishlist_meWHQU": {
+      "type": "res-wishlist",
+      "name": "Lista de desejos",
+      "settings": {
+        "title": "Meus favoritos",
+        "empty_text": "Você ainda não adicionou nenhum produto aos favoritos.",
+        "empty_link_text": "Explorar produtos",
+        "empty_link_url": "",
+        "show_button": true,
+        "add_to_cart": true,
+        "show_installments": true,
+        "columns_desktop": 4,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "pad_top_mobile": 24,
+        "pad_bottom_mobile": 48,
+        "pad_top_desktop": 48,
+        "pad_bottom_desktop": 80
+      }
     }
   },
   "order": [
     "main",
-    "res_wishlist_card_CrKtQq"
+    "res_wishlist_card_CrKtQq",
+    "res_wishlist_meWHQU"
   ]
 }
