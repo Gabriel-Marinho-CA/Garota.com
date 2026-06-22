@@ -15,6 +15,12 @@ product-info {
   }
 }
 
+.product__title {
+  @media(max-width:750px) {
+    margin-top: 2.5rem;
+  }
+}
+
 .product__tag {
   display: inline-block;
   padding: 0.4rem 1rem;
