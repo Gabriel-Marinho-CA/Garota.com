@@ -22,8 +22,8 @@
 
 @media screen and (min-width: 750px) {
   .res-fc__wrapper {
-    padding-left: 5rem;
-    padding-right: 5rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
     gap: 32px;
   }
 }
