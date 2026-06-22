@@ -59,6 +59,14 @@
 }
 
 /* ---------- Estados ---------- */
+/* `display: flex` vence a regra UA [hidden]{display:none}; reforçamos aqui para
+   que o atributo hidden (toggle via JS) realmente esconda os estados. */
+.res-wl__loading[hidden],
+.res-wl__empty[hidden],
+.res-wl__grid[hidden] {
+  display: none;
+}
+
 .res-wl__loading {
   display: flex;
   justify-content: center;
