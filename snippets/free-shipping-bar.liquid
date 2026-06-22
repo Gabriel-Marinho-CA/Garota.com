@@ -1,0 +1,40 @@
+{% comment %}
+  Renders the free shipping progress bar shown in the cart drawer.
+  Uses settings.shipping_number (minimum cart total, in shop currency) as the goal.
+
+  Usage:
+  {% render 'free-shipping-bar' %}
+{% endcomment %}
+{%- liquid
+  assign shipping_goal_cents = settings.shipping_number | times: 100
+-%}
+{%- if shipping_goal_cents > 0 and cart != empty -%}
+  {%- liquid
+    assign cart_total = cart.total_price
+    assign remaining_cents = shipping_goal_cents | minus: cart_total
+    assign achieved = false
+    if cart_total >= shipping_goal_cents
+      assign achieved = true
+    endif
+    assign percent = cart_total | times: 1.0 | divided_by: shipping_goal_cents | times: 100
+    assign percent = percent | at_most: 100
+  -%}
+  <div class="free-shipping-bar">
+    <p class="free-shipping-bar__text">
+      {%- if achieved -%}
+        Parabéns, você ganhou frete grátis!
+      {%- else -%}
+        Faltam {{ remaining_cents | money }} para o frete grátis
+      {%- endif -%}
+    </p>
+    <div class="free-shipping-bar__track">
+      <div class="free-shipping-bar__fill" style="width: {{ percent }}%;"></div>
+      <div class="free-shipping-bar__thumb" style="left: {{ percent }}%;">
+        <span class="free-shipping-bar__icon">
+          {{- 'icon-truck.svg' | inline_asset_content -}}
+        </span>
+        <p class="free-shipping-bar__label">Entrega grátis</p>
+      </div>
+    </div>
+  </div>
+{%- endif -%}

@@ -1,0 +1,39 @@
+{%- comment -%}
+  Alvo do Section Rendering API: renderiza UM card de produto.
+  Buscado pela seção `res-wishlist` via /products/{handle}?section_id=res-wishlist-card
+{%- endcomment -%}
+{%- if product -%}
+  {% render 'res-product-card',
+    res_product: product,
+    show_price: true,
+    show_button: section.settings.show_button,
+    add_to_cart: section.settings.add_to_cart,
+    show_installments: section.settings.show_installments
+  %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Card da lista de desejos",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Exibir botão no card",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "add_to_cart",
+      "label": "Adicionar ao carrinho",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_installments",
+      "label": "Exibir parcelas",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
