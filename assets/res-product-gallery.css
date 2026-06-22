@@ -200,11 +200,8 @@
 /* ---------- Mobile ---------- */
 @media screen and (max-width: 749px) {
   .res-pg__thumbs-col {
-    display: none;
-  }
-
-  .res-pg__layout {
-    display: block;
+    flex: 0 0 64px;
+    width: 64px;
   }
 
   .res-pg__nav {
