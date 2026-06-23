@@ -206,10 +206,10 @@
         "pad_bottom_desktop": 64
       }
     },
-    "res_instagram_feed_e49hQ8": {
-      "type": "res-instagram-feed",
+    "17822308967127d2a6": {
+      "type": "apps",
       "blocks": {
-        "gsc_instagram_feed_instafeed_9pF3XD": {
+        "gsc_instagram_feed_instafeed_eBiieK": {
           "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
           "settings": {
             "widget_id": "GSC-BBXiLbKIIUeURGJ"
@@ -217,29 +217,10 @@
         }
       },
       "block_order": [
-        "gsc_instagram_feed_instafeed_9pF3XD"
+        "gsc_instagram_feed_instafeed_eBiieK"
       ],
-      "disabled": true,
-      "name": "res - Feed Instagram",
       "settings": {
-        "title": "<p>SIGA @LOJAGAROTACOM</p>",
-        "show_instagram_icon": true,
-        "icon_size_desktop": 18,
-        "icon_size_mobile": 16,
-        "title_custom": true,
-        "title_color": "#000000",
-        "title_font_size_desktop": 24,
-        "title_font_size_mobile": 18,
-        "title_font_weight": "400",
-        "title_align": "center",
-        "columns_desktop": 4,
-        "columns_mobile": 2,
-        "gap_desktop": 16,
-        "gap_mobile": 8,
-        "pad_top_mobile": 32,
-        "pad_bottom_mobile": 32,
-        "pad_top_desktop": 64,
-        "pad_bottom_desktop": 64
+        "include_margins": true
       }
     },
     "res_icon_columns_3VkkYJ": {
@@ -355,23 +336,6 @@
         "pad_top_desktop": 40,
         "pad_bottom_desktop": 40
       }
-    },
-    "17822308967127d2a6": {
-      "type": "apps",
-      "blocks": {
-        "gsc_instagram_feed_instafeed_eBiieK": {
-          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
-          "settings": {
-            "widget_id": ""
-          }
-        }
-      },
-      "block_order": [
-        "gsc_instagram_feed_instafeed_eBiieK"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
@@ -379,7 +343,6 @@
     "res_featured_collection_kihWDH",
     "res_featured_collection_UwENYa",
     "res_banner_blocks_REtry4",
-    "res_instagram_feed_e49hQ8",
     "17822308967127d2a6",
     "res_icon_columns_3VkkYJ"
   ]
