@@ -208,6 +208,17 @@
     },
     "res_instagram_feed_e49hQ8": {
       "type": "res-instagram-feed",
+      "blocks": {
+        "gsc_instagram_feed_instafeed_z4VeWy": {
+          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+          "settings": {
+            "widget_id": "GSC-BBXiLbKIIUeURGJ"
+          }
+        }
+      },
+      "block_order": [
+        "gsc_instagram_feed_instafeed_z4VeWy"
+      ],
       "name": "res - Feed Instagram",
       "settings": {
         "title": "<p>SIGA @LOJAGAROTACOM</p>",
