@@ -332,6 +332,23 @@
         "pad_top_desktop": 40,
         "pad_bottom_desktop": 40
       }
+    },
+    "1782222305799e3fa2": {
+      "type": "apps",
+      "blocks": {
+        "gsc_instagram_feed_instafeed_UxGe8T": {
+          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+          "settings": {
+            "widget_id": "GSC-PtozfAdOGBLPUHd"
+          }
+        }
+      },
+      "block_order": [
+        "gsc_instagram_feed_instafeed_UxGe8T"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -340,6 +357,7 @@
     "res_featured_collection_UwENYa",
     "res_banner_blocks_REtry4",
     "res_instagram_feed_e49hQ8",
-    "res_icon_columns_3VkkYJ"
+    "res_icon_columns_3VkkYJ",
+    "1782222305799e3fa2"
   ]
 }
