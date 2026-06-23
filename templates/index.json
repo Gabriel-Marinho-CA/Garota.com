@@ -219,6 +219,7 @@
       "block_order": [
         "gsc_instagram_feed_instafeed_z4VeWy"
       ],
+      "disabled": true,
       "name": "res - Feed Instagram",
       "settings": {
         "title": "<p>SIGA @LOJAGAROTACOM</p>",
@@ -358,16 +359,22 @@
     "1782222305799e3fa2": {
       "type": "apps",
       "blocks": {
-        "gsc_instagram_feed_instafeed_UxGe8T": {
+        "gsc_instagram_feed_instafeed_gT8mYB": {
           "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
           "settings": {
-            "widget_id": "GSC-PtozfAdOGBLPUHd"
+            "widget_id": "GSC-BBXiLbKIIUeURGJ"
           }
         }
       },
       "block_order": [
-        "gsc_instagram_feed_instafeed_UxGe8T"
+        "gsc_instagram_feed_instafeed_gT8mYB"
       ],
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "1782230689bfa0fa40": {
+      "type": "apps",
       "settings": {
         "include_margins": true
       }
@@ -379,7 +386,8 @@
     "res_featured_collection_UwENYa",
     "res_banner_blocks_REtry4",
     "res_instagram_feed_e49hQ8",
+    "1782222305799e3fa2",
     "res_icon_columns_3VkkYJ",
-    "1782222305799e3fa2"
+    "1782230689bfa0fa40"
   ]
 }
