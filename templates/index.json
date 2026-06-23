@@ -103,8 +103,8 @@
         "title_font_size_desktop": 36,
         "title_font_size_mobile": 24,
         "title_font_weight": "700",
-        "pad_top_mobile": 32,
-        "pad_bottom_mobile": 48,
+        "pad_top_mobile": 0,
+        "pad_bottom_mobile": 0,
         "pad_top_desktop": 64,
         "pad_bottom_desktop": 96
       }
@@ -172,6 +172,7 @@
       "blocks": {
         "banner_W6E4kM": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/Item_margin.png",
             "url": "",
@@ -180,6 +181,7 @@
         },
         "banner_iFMnVX": {
           "type": "banner",
+          "disabled": true,
           "settings": {
             "image_desktop": "shopify://shop_images/Item_margin.png",
             "url": "",
@@ -268,7 +270,7 @@
             "title_font_size_mobile": 12,
             "title_font_weight": "600",
             "title_align": "center",
-            "text": "<p>com o cupom: GRATA10</p>",
+            "text": "<p>com o cupom: <strong>GAROTA10</strong></p>",
             "text_custom": true,
             "text_color": "#000000",
             "text_font_size_desktop": 14,
