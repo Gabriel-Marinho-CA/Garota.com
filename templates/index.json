@@ -209,6 +209,12 @@
     "res_instagram_feed_e49hQ8": {
       "type": "res-instagram-feed",
       "blocks": {
+        "gsc_instagram_feed_instafeed_9pF3XD": {
+          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+          "settings": {
+            "widget_id": "GSC-BBXiLbKIIUeURGJ"
+          }
+        },
         "gsc_instagram_feed_instafeed_z4VeWy": {
           "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
           "settings": {
@@ -217,6 +223,7 @@
         }
       },
       "block_order": [
+        "gsc_instagram_feed_instafeed_9pF3XD",
         "gsc_instagram_feed_instafeed_z4VeWy"
       ],
       "disabled": true,
@@ -240,6 +247,23 @@
         "pad_bottom_mobile": 32,
         "pad_top_desktop": 64,
         "pad_bottom_desktop": 64
+      }
+    },
+    "1782222305799e3fa2": {
+      "type": "apps",
+      "blocks": {
+        "gsc_instagram_feed_instafeed_gT8mYB": {
+          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
+          "settings": {
+            "widget_id": "GSC-BBXiLbKIIUeURGJ"
+          }
+        }
+      },
+      "block_order": [
+        "gsc_instagram_feed_instafeed_gT8mYB"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "res_icon_columns_3VkkYJ": {
@@ -354,23 +378,6 @@
         "pad_bottom_mobile": 24,
         "pad_top_desktop": 40,
         "pad_bottom_desktop": 40
-      }
-    },
-    "1782222305799e3fa2": {
-      "type": "apps",
-      "blocks": {
-        "gsc_instagram_feed_instafeed_gT8mYB": {
-          "type": "shopify://apps/gsc-instagram-feed/blocks/instafeed/96970b1b-b770-454f-b16b-51f47e1aa4ed",
-          "settings": {
-            "widget_id": "GSC-BBXiLbKIIUeURGJ"
-          }
-        }
-      },
-      "block_order": [
-        "gsc_instagram_feed_instafeed_gT8mYB"
-      ],
-      "settings": {
-        "include_margins": true
       }
     },
     "1782230689bfa0fa40": {
