@@ -119,13 +119,6 @@
     "custom_colors_Lz9Yc4": {
       "type": "custom-colors",
       "blocks": {
-        "cor_mjjQza": {
-          "type": "cor",
-          "settings": {
-            "color_name": "Azul claro",
-            "color_value": "#38AFD7"
-          }
-        },
         "cor_Qh36Be": {
           "type": "cor",
           "settings": {
@@ -149,7 +142,6 @@
         }
       },
       "block_order": [
-        "cor_mjjQza",
         "cor_Qh36Be",
         "cor_TTrfjr",
         "cor_eLnHac"
