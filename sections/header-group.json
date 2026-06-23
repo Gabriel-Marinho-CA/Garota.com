@@ -14,15 +14,23 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_C4azPw": {
+          "type": "announcement",
+          "settings": {
+            "text": "10% OFF na 1ª compra com o cupom: <strong>GAROTA10</strong>",
+            "link": ""
+          }
+        },
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "FRETE GRÁTIS EM COMPRAS ACIMA DE R$ 350 e 10% OFF na sua primeira compra use o cupom: <strong>GAROTA10</strong>",
+            "text": "FRETE GRÁTIS EM COMPRAS ACIMA DE R$ 350",
             "link": ""
           }
         }
       },
       "block_order": [
+        "announcement_C4azPw",
         "announcement-bar-0"
       ],
       "settings": {
