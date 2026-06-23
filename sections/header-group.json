@@ -49,7 +49,7 @@
         "banner_menus_BGA4DF": {
           "type": "banner_menus",
           "settings": {
-            "menu_item_id": "Tops",
+            "menu_item_id": "CATEGORIAS",
             "banner_menu": "shopify://shop_images/2_ae782287-9974-46bc-9caa-6c5b20527b6f.png"
           }
         }
