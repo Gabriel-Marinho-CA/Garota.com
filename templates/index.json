@@ -12,17 +12,26 @@
     "main_banner_NttY7H": {
       "type": "main-banner",
       "blocks": {
+        "banner_wM87yJ": {
+          "type": "banner",
+          "settings": {
+            "image_mobile": "shopify://shop_images/july_obsessed.png",
+            "url": "",
+            "image_alt": "Imagem Hero"
+          }
+        },
         "banner_TjwXRg": {
           "type": "banner",
           "settings": {
             "image_desktop": "shopify://shop_images/img_slide.png",
             "image_mobile": "shopify://shop_images/2_ae782287-9974-46bc-9caa-6c5b20527b6f.png",
-            "url": "",
+            "url": "https://lojagarota.com.br/produtos/conjunto-leona",
             "image_alt": "Imagem Hero"
           }
         }
       },
       "block_order": [
+        "banner_wM87yJ",
         "banner_TjwXRg"
       ],
       "name": "res - Banner Principal",
