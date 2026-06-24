@@ -42,7 +42,7 @@
     }
     {% if section.settings.title_font_size_desktop > 0 %}
       @media screen and (min-width: 750px) {
-        .{{ section.id }} .res-fc__title *{ font-size: {{ section.settings.title_font_size_desktop }}px; }
+        .{{ section.id }} .res-fc__title { font-size: {{ section.settings.title_font_size_desktop }}px; }
       }
     {% endif %}
   {% endif %}
