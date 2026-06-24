@@ -35,7 +35,7 @@
   }
 
   {% if section.settings.title_custom %}
-    .{{ section.id }} .res-fc__title *{
+    .{{ section.id }} .res-fc__title {
       {% if section.settings.title_color != blank %}color: {{ section.settings.title_color }};{% endif %}
       {% if section.settings.title_font_size_mobile > 0 %}font-size: {{ section.settings.title_font_size_mobile }}px;{% endif %}
       {% if section.settings.title_font_weight != blank %}font-weight: {{ section.settings.title_font_weight }};{% endif %}
