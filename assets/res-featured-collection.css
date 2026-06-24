@@ -72,6 +72,7 @@
   @media (max-width:547px) {
 .wrapper:has(.res-fc__tabs) {
   overflow-x: auto;
+      width: 100%;
   padding-inline:1rem;
 }
   }
