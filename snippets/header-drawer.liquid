@@ -33,21 +33,21 @@
                       {%- else -%}
                         <div class="header-banner-slide">
                       {%- endif -%}
-                        {%- if block.settings.image != blank -%}
-                          <img
-                            class="header-banner-slide__image"
-                            src="{{ block.settings.image | image_url: width: 400 }}"
-                            srcset="{{ block.settings.image | image_url: width: 200 }} 200w, {{ block.settings.image | image_url: width: 400 }} 400w"
-                            sizes="40vw"
-                            width="{{ block.settings.image.width }}"
-                            height="{{ block.settings.image.height }}"
-                            alt="{{ block.settings.text | escape }}"
-                            loading="lazy"
-                          >
-                        {%- endif -%}
-                        {%- if block.settings.text != blank -%}
-                          <span class="header-banner-slide__text">{{ block.settings.text }}</span>
-                        {%- endif -%}
+                      {%- if block.settings.image != blank -%}
+                        <img
+                          class="header-banner-slide__image"
+                          src="{{ block.settings.image | image_url: width: 400 }}"
+                          srcset="{{ block.settings.image | image_url: width: 200 }} 200w, {{ block.settings.image | image_url: width: 400 }} 400w"
+                          sizes="40vw"
+                          width="{{ block.settings.image.width }}"
+                          height="{{ block.settings.image.height }}"
+                          alt="{{ block.settings.text | escape }}"
+                          loading="lazy"
+                        >
+                      {%- endif -%}
+                      {%- if block.settings.text != blank -%}
+                        <span class="header-banner-slide__text">{{ block.settings.text }}</span>
+                      {%- endif -%}
                       {%- if block.settings.link != blank -%}
                         </a>
                       {%- else -%}
@@ -60,8 +60,17 @@
             </div>
 
             {%- style -%}
+              .menu-drawer__navigation-container {
+                display: flex;
+                flex-direction: column;
+
+                .menu-drawer__utility-links {
+                  margin-top: auto;
+                }
+              }
               .menu-drawer__carousel {
                 padding: 1.2rem 0 1.6rem 1.5rem;
+                min-width: 0;
               }
               .menu-drawer__carousel .header-banner-slide {
                 display: block;
