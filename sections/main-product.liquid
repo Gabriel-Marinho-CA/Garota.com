@@ -820,6 +820,7 @@
                                 <p class="complete-look__title">{{ look_product.title | escape }}</p>
                               </a>
                               {% render 'price', product: look_product, price_class: 'complete-look__price', show_compare_at_price: false %}
+                            </div>
                             {%- if look_product.has_only_default_variant -%}
                               {%- if look_product.available -%}
                                 <product-form data-section-id="{{ section.id }}">
@@ -945,8 +946,6 @@
                                 </product-form>
                               </complete-look-item>
                             {%- endif -%}
-                            </div>
-
                           </li>
                         {%- endfor -%}
                       </ul>
