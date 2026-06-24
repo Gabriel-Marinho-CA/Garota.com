@@ -821,33 +821,100 @@
                               </a>
                               {% render 'price', product: look_product, price_class: 'complete-look__price', show_compare_at_price: false %}
                             </div>
-                            {%- if look_product.available -%}
-                              <product-form data-section-id="{{ section.id }}">
-                                {%- form 'product',
-                                  look_product,
-                                  id: look_form_id,
-                                  class: 'complete-look__form form',
-                                  novalidate: 'novalidate',
-                                  data-type: 'add-to-cart-form'
-                                -%}
-                                  <input type="hidden" name="id" value="{{ look_variant.id }}" class="product-variant-id">
-                                  <button
-                                    id="{{ look_form_id }}-submit"
-                                    type="submit"
-                                    name="add"
-                                    class="complete-look__add button button--tertiary"
-                                    aria-live="polite"
-                                    data-sold-out-message="true"
-                                  >
-                                    <span>{{ block.settings.add_label | default: '+ ADD' }}</span>
-                                    {%- render 'loading-spinner' -%}
-                                  </button>
-                                {%- endform -%}
-                              </product-form>
+                            {%- if look_product.has_only_default_variant -%}
+                              {%- if look_product.available -%}
+                                <product-form data-section-id="{{ section.id }}">
+                                  {%- form 'product',
+                                    look_product,
+                                    id: look_form_id,
+                                    class: 'complete-look__form form',
+                                    novalidate: 'novalidate',
+                                    data-type: 'add-to-cart-form'
+                                  -%}
+                                    <input type="hidden" name="id" value="{{ look_variant.id }}" class="product-variant-id">
+                                    <button
+                                      id="{{ look_form_id }}-submit"
+                                      type="submit"
+                                      name="add"
+                                      class="complete-look__add button button--tertiary"
+                                      aria-live="polite"
+                                      data-sold-out-message="true"
+                                    >
+                                      <span>{{ block.settings.add_label | default: '+ ADD' }}</span>
+                                      {%- render 'loading-spinner' -%}
+                                    </button>
+                                  {%- endform -%}
+                                </product-form>
+                              {%- else -%}
+                                <button class="complete-look__add complete-look__add--disabled button button--tertiary" type="button" disabled>
+                                  {{ 'products.product.sold_out' | t }}
+                                </button>
+                              {%- endif -%}
                             {%- else -%}
-                              <button class="complete-look__add complete-look__add--disabled button button--tertiary" type="button" disabled>
-                                {{ 'products.product.sold_out' | t }}
-                              </button>
+                              <complete-look-item
+                                class="complete-look__variants"
+                                data-add-label="{{ block.settings.add_label | default: '+ ADD' | escape }}"
+                                data-sold-out-label="{{ 'products.product.sold_out' | t | escape }}"
+                                data-unavailable-label="Indisponível"
+                              >
+                                <product-form data-section-id="{{ section.id }}">
+                                  {%- form 'product',
+                                    look_product,
+                                    id: look_form_id,
+                                    class: 'complete-look__form form',
+                                    novalidate: 'novalidate',
+                                    data-type: 'add-to-cart-form'
+                                  -%}
+                                    <div class="complete-look__options">
+                                      {%- for option in look_product.options_with_values -%}
+                                        <div class="complete-look__option">
+                                          <label
+                                            class="complete-look__option-label"
+                                            for="{{ look_form_id }}-option-{{ forloop.index0 }}"
+                                          >
+                                            {{ option.name }}
+                                          </label>
+                                          <div class="select complete-look__select-wrapper">
+                                            <select
+                                              id="{{ look_form_id }}-option-{{ forloop.index0 }}"
+                                              class="select__select complete-look__select"
+                                              data-option-index="{{ forloop.index0 }}"
+                                              aria-label="{{ option.name | escape }}"
+                                            >
+                                              {%- for value in option.values -%}
+                                                <option
+                                                  value="{{ value | escape }}"
+                                                  {% if value.selected %}selected{% endif %}
+                                                >
+                                                  {{ value }}
+                                                </option>
+                                              {%- endfor -%}
+                                            </select>
+                                            <span class="svg-wrapper">
+                                              {{- 'icon-caret.svg' | inline_asset_content -}}
+                                            </span>
+                                          </div>
+                                        </div>
+                                      {%- endfor -%}
+                                    </div>
+                                    <input type="hidden" name="id" value="{{ look_variant.id }}" class="product-variant-id">
+                                    <button
+                                      id="{{ look_form_id }}-submit"
+                                      type="submit"
+                                      name="add"
+                                      class="complete-look__add button button--tertiary"
+                                      aria-live="polite"
+                                      data-sold-out-message="true"
+                                    >
+                                      <span>{{ block.settings.add_label | default: '+ ADD' }}</span>
+                                      {%- render 'loading-spinner' -%}
+                                    </button>
+                                    <script type="application/json" class="complete-look__variant-data">
+                                      {{ look_product.variants | json }}
+                                    </script>
+                                  {%- endform -%}
+                                </product-form>
+                              </complete-look-item>
                             {%- endif -%}
                           </li>
                         {%- endfor -%}
@@ -855,6 +922,7 @@
                     </div>
                   {%- endif -%}
                 </product-recommendations>
+                <script src="{{ 'complete-look.js' | asset_url }}" defer="defer"></script>
               {%- when 'icon-with-text' -%}
                 {% render 'icon-with-text', block: block %}
             {%- endcase -%}

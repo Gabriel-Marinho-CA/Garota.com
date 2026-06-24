@@ -274,6 +274,7 @@ product-info {
 
 .complete-look__item {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 1.4rem;
   padding: 1.2rem;
@@ -333,6 +334,53 @@ product-info {
 .complete-look__add--disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.complete-look__variants {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.complete-look__variants .complete-look__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+.complete-look__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  flex: 1 1 auto;
+}
+
+.complete-look__option {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 9rem;
+}
+
+.complete-look__option-label {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04rem;
+  opacity: 0.7;
+}
+
+.complete-look__select-wrapper {
+  min-height: 4rem;
+}
+
+.complete-look__select {
+  min-height: 4rem;
+  padding: 0 3.2rem 0 1.2rem;
+  font-size: 1.3rem;
 }
 
 /* ── Wishlist block ── */
