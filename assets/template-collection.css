@@ -268,3 +268,7 @@ display: flex;
     }
   }
 }
+
+price-range {
+  flex-direction: column;
+}
