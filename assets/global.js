@@ -445,9 +445,12 @@ class MenuDrawer extends HTMLElement {
     const openDetailsElement = event.target.closest('details[open]');
     if (!openDetailsElement) return;
 
-    openDetailsElement === this.mainDetailsToggle
-      ? this.closeMenuDrawer(event, this.mainDetailsToggle.querySelector('summary'))
-      : this.closeSubmenu(openDetailsElement);
+    if (openDetailsElement === this.mainDetailsToggle) {
+      this.closeMenuDrawer(event, this.mainDetailsToggle.querySelector('summary'));
+    } else {
+      openDetailsElement.removeAttribute('open');
+      openDetailsElement.querySelector('summary').setAttribute('aria-expanded', false);
+    }
   }
 
   onSummaryClick(event) {
@@ -470,14 +473,7 @@ class MenuDrawer extends HTMLElement {
         document.documentElement.style.setProperty('--viewport-height', `${window.innerHeight}px`);
       }
     } else {
-      setTimeout(() => {
-        detailsElement.classList.add('menu-opening');
-        summaryElement.setAttribute('aria-expanded', true);
-        parentMenuElement && parentMenuElement.classList.add('submenu-open');
-        !reducedMotion || reducedMotion.matches
-          ? addTrapFocus()
-          : summaryElement.nextElementSibling.addEventListener('transitionend', addTrapFocus);
-      }, 100);
+      summaryElement.setAttribute('aria-expanded', !isOpen);
     }
   }
 
