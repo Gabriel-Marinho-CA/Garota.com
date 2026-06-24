@@ -2132,8 +2132,8 @@ a.product__text {
     }
 
     .product__info-container .product-form__input--size input[type=radio]+label {
-      width: 25px;
-      height: 25px;
+      width: 25px !important;
+      height: 25px !important;
     }
 
     .product-form__input--pill input[type=radio]+label:before {
