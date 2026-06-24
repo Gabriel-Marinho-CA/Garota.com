@@ -302,16 +302,32 @@ FacetFiltersForm.setListeners();
 class PriceRange extends HTMLElement {
   constructor() {
     super();
-    this.querySelectorAll('input').forEach((element) => {
+    this.textInputs = this.querySelectorAll('.field__input');
+    this.minRange = this.querySelector('.price-facet__range--min');
+    this.maxRange = this.querySelector('.price-facet__range--max');
+    this.progress = this.querySelector('.price-facet__slider-progress');
+
+    this.textInputs.forEach((element) => {
       element.addEventListener('change', this.onRangeChange.bind(this));
       element.addEventListener('keydown', this.onKeyDown.bind(this));
     });
+
+    if (this.minRange && this.maxRange) {
+      this.rangeMax = Number(this.maxRange.max) || 0;
+      this.minRange.addEventListener('input', this.onSliderInput.bind(this));
+      this.maxRange.addEventListener('input', this.onSliderInput.bind(this));
+      this.minRange.addEventListener('change', this.onSliderCommit.bind(this));
+      this.maxRange.addEventListener('change', this.onSliderCommit.bind(this));
+      this.updateProgress();
+    }
+
     this.setMinAndMaxValues();
   }
 
   onRangeChange(event) {
     this.adjustToValidValues(event.currentTarget);
     this.setMinAndMaxValues();
+    this.syncSlidersFromText();
   }
 
   onKeyDown(event) {
@@ -321,10 +337,68 @@ class PriceRange extends HTMLElement {
     if (!event.key.match(pattern)) event.preventDefault();
   }
 
+  onSliderInput(event) {
+    let minVal = Number(this.minRange.value);
+    let maxVal = Number(this.maxRange.value);
+
+    // Prevent the thumbs from crossing over each other.
+    if (minVal > maxVal) {
+      if (event.currentTarget === this.minRange) {
+        minVal = maxVal;
+        this.minRange.value = minVal;
+      } else {
+        maxVal = minVal;
+        this.maxRange.value = maxVal;
+      }
+    }
+
+    this.textInputs[0].value = minVal <= 0 ? '' : this.formatValue(minVal);
+    this.textInputs[1].value = maxVal >= this.rangeMax ? '' : this.formatValue(maxVal);
+
+    this.setMinAndMaxValues();
+    this.updateProgress();
+  }
+
+  onSliderCommit() {
+    // Re-use the existing text input pipeline (the form listens to `input`).
+    this.textInputs[0].dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  syncSlidersFromText() {
+    if (!this.minRange || !this.maxRange) return;
+    const minText = this.parseValue(this.textInputs[0].value);
+    const maxText = this.parseValue(this.textInputs[1].value);
+    this.minRange.value = isNaN(minText) ? 0 : minText;
+    this.maxRange.value = isNaN(maxText) ? this.rangeMax : maxText;
+    this.updateProgress();
+  }
+
+  formatValue(value) {
+    return Number(value).toFixed(2).replace('.', ',');
+  }
+
+  parseValue(str) {
+    if (!str) return NaN;
+    let s = String(str).trim();
+    if (s.indexOf(',') > -1 && s.indexOf('.') > -1) {
+      s = s.replace(/\./g, '').replace(',', '.');
+    } else if (s.indexOf(',') > -1) {
+      s = s.replace(',', '.');
+    }
+    s = s.replace(/[^0-9.]/g, '');
+    return Math.round(parseFloat(s));
+  }
+
+  updateProgress() {
+    if (!this.progress || !this.rangeMax) return;
+    const minPct = (Number(this.minRange.value) / this.rangeMax) * 100;
+    const maxPct = (Number(this.maxRange.value) / this.rangeMax) * 100;
+    this.progress.style.left = `${minPct}%`;
+    this.progress.style.right = `${100 - maxPct}%`;
+  }
+
   setMinAndMaxValues() {
-    const inputs = this.querySelectorAll('input');
-    const minInput = inputs[0];
-    const maxInput = inputs[1];
+    const [minInput, maxInput] = this.textInputs;
     if (maxInput.value) minInput.setAttribute('data-max', maxInput.value);
     if (minInput.value) maxInput.setAttribute('data-min', minInput.value);
     if (minInput.value === '') maxInput.setAttribute('data-min', 0);
