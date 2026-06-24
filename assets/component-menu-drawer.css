@@ -2,8 +2,8 @@
   position: initial;
 }
 
-.js menu-drawer > details > summary::before,
-.js menu-drawer > details[open]:not(.menu-opening) > summary::before {
+.js menu-drawer>details>summary::before,
+.js menu-drawer>details[open]:not(.menu-opening)>summary::before {
   content: '';
   position: absolute;
   cursor: default;
@@ -19,7 +19,7 @@
   transition: opacity 0s, visibility 0s;
 }
 
-menu-drawer > details[open] > summary::before {
+menu-drawer>details[open]>summary::before {
   visibility: visible;
   opacity: 1;
   transition: opacity var(--duration-default) ease, visibility var(--duration-default) ease;
@@ -36,10 +36,7 @@ menu-drawer > details[open] > summary::before {
   padding: 0;
   background-color: rgb(var(--color-background));
   overflow-x: hidden;
-  filter: drop-shadow(
-    var(--drawer-shadow-horizontal-offset) var(--drawer-shadow-vertical-offset) var(--drawer-shadow-blur-radius)
-      rgba(var(--color-shadow), var(--drawer-shadow-opacity))
-  );
+  filter: drop-shadow(var(--drawer-shadow-horizontal-offset) var(--drawer-shadow-vertical-offset) var(--drawer-shadow-blur-radius) rgba(var(--color-shadow), var(--drawer-shadow-opacity)));
 }
 
 .js .menu-drawer {
@@ -47,11 +44,11 @@ menu-drawer > details[open] > summary::before {
   height: calc(var(--viewport-height, 100vh) - (var(--header-bottom-position, 100%)));
 }
 
-.js details[open] > .menu-drawer {
+.js details[open]>.menu-drawer {
   transition: transform var(--duration-default) ease, visibility var(--duration-default) ease;
 }
 
-.js details[open].menu-opening > .menu-drawer {
+.js details[open].menu-opening>.menu-drawer {
   transform: translateX(0);
   visibility: visible;
 }
@@ -95,7 +92,8 @@ menu-drawer > details[open] > summary::before {
 .menu-drawer__menu-item {
   padding: 1.1rem 3rem;
   text-decoration: none;
-  font-size: 1.8rem;
+  font-family: 'Figtree', sans-serif;
+  font-size: 14px;
 }
 
 .menu-drawer summary.menu-drawer__menu-item {
@@ -107,8 +105,8 @@ menu-drawer > details[open] > summary::before {
 .menu-drawer__close-button:focus,
 .menu-drawer__menu-item:hover,
 .menu-drawer__close-button:hover {
-  color: rgb(var(--color-foreground));
-  background-color: rgba(var(--color-foreground), 0.04);
+  color: #fff;
+  background-color: #000;
 }
 
 .menu-drawer__menu-item--active:hover {
@@ -124,11 +122,11 @@ menu-drawer > details[open] > summary::before {
   transition: transform 0.25s ease;
 }
 
-details[open] > summary.menu-drawer__menu-item > .svg-wrapper:last-child {
+details[open]>summary.menu-drawer__menu-item>.svg-wrapper:last-child {
   transform: translateY(-50%) rotate(180deg);
 }
 
-.menu-drawer__menu-item > .svg-wrapper {
+.menu-drawer__menu-item>.svg-wrapper {
   width: 15px;
   position: absolute;
   right: 3rem;
@@ -145,7 +143,7 @@ details[open] > summary.menu-drawer__menu-item > .svg-wrapper:last-child {
   padding-left: 1.5rem;
 }
 
-details[open] > .menu-drawer__submenu {
+details[open]>.menu-drawer__submenu {
   display: block;
 }
 
@@ -205,7 +203,7 @@ details[open] > .menu-drawer__submenu {
   margin: 0;
 }
 
-.menu-drawer__account account-icon > .svg-wrapper {
+.menu-drawer__account account-icon>.svg-wrapper {
   height: 2rem;
   width: 2rem;
   margin-right: 1rem;
@@ -217,7 +215,7 @@ details[open] > .menu-drawer__submenu {
   margin-left: -0.45rem;
 }
 
-.menu-drawer__account:hover account-icon > .svg-wrapper {
+.menu-drawer__account:hover account-icon>.svg-wrapper {
   transform: scale(1.07);
 }
 
