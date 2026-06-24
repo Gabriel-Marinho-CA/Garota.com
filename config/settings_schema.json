@@ -1451,6 +1451,18 @@
         "default": 200
       },
       {
+        "type": "checkbox",
+        "id": "cart_show_calc",
+        "label": "habilitar calculadora no carrinho",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_show_coupon",
+        "label": "habilitar cupom no carrinho",
+        "default": true
+      },
+      {
         "type": "image_picker",
         "id": "img_cart",
         "label": "Imagem carrinho"

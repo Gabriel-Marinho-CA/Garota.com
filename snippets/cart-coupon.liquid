@@ -1,0 +1,33 @@
+{% comment %}
+  Renders coupon field inside the cart drawer.
+  
+  Usage:
+  {% render 'cart-coupon' %}
+{% endcomment %}
+
+<div class="cart-coupon" data-cart-coupon>
+  <div class="cart-coupon__form">
+    <input
+      type="text"
+      class="cart-coupon__input"
+      placeholder="Cupom de desconto"
+      aria-label="Cupom de desconto"
+      data-coupon-input
+      autocomplete="off"
+    >
+    <button
+      type="button"
+      class="cart-coupon__button"
+      data-coupon-apply
+    >
+      Aplicar
+    </button>
+  </div>
+
+  <div class="cart-coupon__feedback" data-coupon-feedback hidden></div>
+
+  <div class="cart-coupon__list" data-coupon-list hidden>
+    <span class="cart-coupon__list-label">Desconto:</span>
+    <div class="cart-coupon__tags" data-coupon-tags></div>
+  </div>
+</div>

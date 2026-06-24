@@ -1,0 +1,121 @@
+/* ============================================
+   CART COUPON
+   ============================================ */
+
+.cart-coupon {
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cart-coupon__form {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  background: #F5F5F5;
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.cart-coupon__input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #2B2B2B;
+  outline: none;
+  font-family: inherit;
+}
+
+.cart-coupon__input::placeholder {
+  color: #999;
+}
+
+.cart-coupon__button {
+  background: transparent;
+  border: none;
+  color: #443FD2;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.cart-coupon__button:hover {
+  background: rgba(68, 63, 210, 0.08);
+}
+
+.cart-coupon__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cart-coupon__feedback {
+  font-size: 13px;
+  padding: 4px 0;
+}
+
+.cart-coupon__feedback--error {
+  color: #EF4444;
+}
+
+.cart-coupon__feedback--success {
+  color: #22C55E;
+}
+
+.cart-coupon__list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 4px;
+}
+
+.cart-coupon__list-label {
+  font-size: 13px;
+  color: #667085;
+}
+
+.cart-coupon__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.cart-coupon__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #E8F5E9;
+  color: #22C55E;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.cart-coupon__tag-remove {
+  background: none;
+  border: none;
+  color: #22C55E;
+  cursor: pointer;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: background 0.2s ease;
+}
+
+.cart-coupon__tag-remove:hover {
+  background: rgba(34, 197, 94, 0.2);
+}
