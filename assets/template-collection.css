@@ -187,3 +187,30 @@ h2#verticalTitle {
     display:none;
   }
 }
+
+.active-facets.active-facets-desktop {
+  display: none;
+}
+.facets__disclosure-vertical {
+  border-bottom: 1px solid #000;
+  border-top: none !important;
+}
+
+.facet-id--cor {
+  .facet-checkbox__text {
+    display: none;
+  }
+}
+
+ul.facets-layout.facets-layout-list.facets-layout-list--swatch.facets__list--vertical.list-unstyled {
+  display: flex;
+  gap:16px;
+
+  .facets__label.facet-checkbox {
+    padding: 0;
+  }
+}
+
+.facet-id--tags {
+  
+}
