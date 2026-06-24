@@ -310,6 +310,27 @@
   </div>
 </footer>
 
+<script>
+(function() {
+  var mql = window.matchMedia('(min-width: 750px)');
+  function updateFooterAccordions(e) {
+    document.querySelectorAll('.res-ft__accordion').forEach(function(el) {
+      if (e.matches) {
+        el.setAttribute('open', '');
+      } else {
+        el.removeAttribute('open');
+      }
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function() { updateFooterAccordions(mql); });
+  } else {
+    updateFooterAccordions(mql);
+  }
+  mql.addEventListener('change', updateFooterAccordions);
+})();
+</script>
+
 {% schema %}
 {
   "name": "res - Footer",

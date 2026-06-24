@@ -29,22 +29,13 @@ res-color-card.res-card,
   background: var(--tp-color-bg-secondary, #F5F5F5);
 }
 
-.res-card__swiper {
-  width: 100%;
-  height: 100%;
-}
-
-.res-card__swiper .swiper-slide {
-  width: 100%;
-  height: 100%;
-}
-
 .res-card__img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.4s ease;
 }
 
 .res-card__img.placeholder-svg {
@@ -53,51 +44,13 @@ res-color-card.res-card,
   box-sizing: border-box;
 }
 
-.res-card__media-link:hover .res-card__img {
-  transform: scale(1.04);
+.res-card__img--hover {
+  opacity: 0;
+  transition: opacity 0.4s ease;
 }
 
-/* ── Nav arrows (hover sobre imagem) ── */
-
-.res-card__nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 4;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.92);
-  border: none;
-  cursor: pointer;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  color: #05122B;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
-  padding: 0;
-  transition: opacity 150ms;
-}
-
-.res-card:hover .res-card__nav {
-  display: flex;
-}
-
-.res-card__nav:hover {
-  opacity: 0.8;
-}
-
-.res-card__nav.swiper-button-disabled {
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.res-card__nav--prev {
-  left: 8px;
-}
-
-.res-card__nav--next {
-  right: 8px;
+.res-card:hover .res-card__img--hover {
+  opacity: 1;
 }
 
 /* ── Badge ── */
@@ -281,34 +234,6 @@ wishlist-button[active] svg {
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
-}
-
-/* ── Image indicator (barrinhas) ── */
-
-.res-card__img-dots.swiper-pagination {
-  position: static;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 8px 0 4px;
-  width: 100%;
-}
-
-.res-card__img-dots .swiper-pagination-bullet {
-  width: 24px;
-  height: 2px;
-  border-radius: 999px;
-  background: #D0D0D0;
-  opacity: 1;
-  margin: 0;
-  transition: background var(--tp-transition-base, 300ms);
-  cursor: pointer;
-}
-
-.res-card__img-dots .swiper-pagination-bullet-active {
-  background: #05122B;
-  width: 32px;
 }
 
 /* ── Info area (sempre visível) ── */

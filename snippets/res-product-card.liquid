@@ -54,38 +54,29 @@
 
     <a href="{{ res_product.url }}" class="res-card__media-link" aria-label="{{ res_product.title | escape }}">
       <div class="res-card__media">
-        <div class="swiper res-card__swiper">
-          <div class="swiper-wrapper">
-            <div class="swiper-slide">
-              {% if res_product.featured_image %}
-                {{
-                  res_product.featured_image
-                  | image_url: width: 800
-                  | image_tag:
-                    loading: 'lazy',
-                    class: 'res-card__img',
-                    widths: '400, 600, 800',
-                    sizes: '(min-width: 1024px) 25vw, (min-width: 750px) 33vw, 50vw'
-                }}
-              {% else %}
-                {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg res-card__img' }}
-              {% endif %}
-            </div>
-          </div>
-        </div>
-
-        {%- comment -%} Arrows — visíveis no hover {%- endcomment -%}
-        {% if res_product.images.size > 1 %}
-          <button class="res-card__nav res-card__nav--prev" aria-label="Anterior" tabindex="-1" type="button">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M12.5 15L7.5 10L12.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-          <button class="res-card__nav res-card__nav--next" aria-label="Próximo" tabindex="-1" type="button">
-            <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">
-              <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
+        {% if res_product.featured_image %}
+          {{
+            res_product.featured_image
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'res-card__img res-card__img--primary',
+              widths: '400, 600, 800',
+              sizes: '(min-width: 1024px) 25vw, (min-width: 750px) 33vw, 50vw'
+          }}
+        {% else %}
+          {{ 'product-apparel-2' | placeholder_svg_tag: 'placeholder-svg res-card__img res-card__img--primary' }}
+        {% endif %}
+        {% if res_product.images[1] %}
+          {{
+            res_product.images[1]
+            | image_url: width: 800
+            | image_tag:
+              loading: 'lazy',
+              class: 'res-card__img res-card__img--hover',
+              widths: '400, 600, 800',
+              sizes: '(min-width: 1024px) 25vw, (min-width: 750px) 33vw, 50vw'
+          }}
         {% endif %}
       </div>
     </a>
@@ -136,10 +127,6 @@
       {% endif %}
     </div>
 
-    {%- comment -%} Indicador de imagens (barrinhas) {%- endcomment -%}
-    {% if res_product.images.size > 1 %}
-      <div class="res-card__img-dots swiper-pagination"></div>
-    {% endif %}
   </div>
 
   {%- comment -%} ===== INFO: cores, titulo, preço (sempre visível) ===== {%- endcomment -%}

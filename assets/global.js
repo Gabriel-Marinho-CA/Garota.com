@@ -1505,21 +1505,9 @@ class ResColorCard extends HTMLElement {
     this._activeColor = (this._data.colorValues && this._data.colorValues.length > 0)
       ? this._data.colorValues[0]
       : null;
-    this._swiper = null;
-    this._initSwiper();
+    this._updateImages(this._activeColor);
     this._bindSwatches();
     this._renderBuySizes(this._activeColor);
-  }
-
-  disconnectedCallback() {
-    this._destroySwiper();
-  }
-
-  _destroySwiper() {
-    if (this._swiper) {
-      this._swiper.destroy(true, true);
-      this._swiper = null;
-    }
   }
 
   _getImagesForColor(color) {
@@ -1533,49 +1521,34 @@ class ResColorCard extends HTMLElement {
     return filtered.length > 0 ? filtered : this._data.images;
   }
 
-  _initSwiper() {
-    this._destroySwiper();
-
-    var images = this._activeColor
-      ? this._getImagesForColor(this._activeColor)
-      : (this._data.images || []);
-
+  _updateImages(color) {
+    var images = (color ? this._getImagesForColor(color) : this._data.images) || [];
     if (images.length === 0) return;
-    images = images.slice(0, 5);
 
-    var wrapper = this.querySelector('.swiper-wrapper');
-    if (!wrapper) return;
+    var primary = this.querySelector('.res-card__img--primary');
+    var hover = this.querySelector('.res-card__img--hover');
+    var media = this.querySelector('.res-card__media');
 
-    wrapper.innerHTML = images.map(function (img) {
-      return (
-        '<div class="swiper-slide">' +
-        '<img class="res-card__img" src="' + img.src + '" alt="' + (img.alt || '') + '"' +
-        ' width="' + img.width + '" height="' + img.height + '" loading="lazy">' +
-        '</div>'
-      );
-    }).join('');
-
-    if (typeof Swiper === 'undefined') return;
-
-    var multiSlide = images.length > 1;
-    var paginationEl = this.querySelector('.res-card__img-dots');
-    var prevEl = this.querySelector('.res-card__nav--prev');
-    var nextEl = this.querySelector('.res-card__nav--next');
-
-    /* Esconde dots e arrows quando só há 1 imagem para a cor ativa */
-    if (paginationEl) paginationEl.style.display = multiSlide ? '' : 'none';
-    if (prevEl) prevEl.style.display = multiSlide ? '' : 'none';
-    if (nextEl) nextEl.style.display = multiSlide ? '' : 'none';
-
-    var config = { loop: multiSlide, spaceBetween: 8, nested: true };
-    if (multiSlide && paginationEl) {
-      config.pagination = { el: paginationEl, clickable: true };
-    }
-    if (multiSlide && prevEl && nextEl) {
-      config.navigation = { prevEl: prevEl, nextEl: nextEl };
+    if (primary && images[0]) {
+      primary.src = images[0].src;
+      primary.alt = images[0].alt || '';
     }
 
-    this._swiper = new Swiper(this.querySelector('.res-card__swiper'), config);
+    if (images[1]) {
+      if (!hover && media) {
+        hover = document.createElement('img');
+        hover.className = 'res-card__img res-card__img--hover';
+        hover.loading = 'lazy';
+        media.appendChild(hover);
+      }
+      if (hover) {
+        hover.src = images[1].src;
+        hover.alt = images[1].alt || '';
+        hover.style.display = '';
+      }
+    } else if (hover) {
+      hover.style.display = 'none';
+    }
   }
 
   _bindSwatches() {
@@ -1593,7 +1566,7 @@ class ResColorCard extends HTMLElement {
         swatch.classList.add('res-card__swatch--active');
 
         self._renderBuySizes(color);
-        self._initSwiper();
+        self._updateImages(color);
       });
     });
   }
