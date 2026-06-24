@@ -2147,3 +2147,24 @@ a.product__text {
     }
   }
 }
+
+.complete-look__item:not(:has(.product-form__input--size)) {
+  .complete-look__info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    .complete-look__title-link {
+      min-width: 100%;
+    }
+    product-form {
+      width: fit-content !important;
+          form {
+          text-align: end;
+    display: flex;
+    }
+    }
+
+  }
+}
