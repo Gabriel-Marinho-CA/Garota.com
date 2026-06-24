@@ -40,7 +40,7 @@ text-transform: uppercase;
       }
   }
 
-  shipping-calculator {
+  shipping-calculator-cart {
       .shipping__form {
           display: flex;
           align-items: center;
