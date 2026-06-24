@@ -181,3 +181,9 @@ h2#verticalTitle {
 .collection__view-all a:not(.link) {
   margin-top: 1rem;
 }
+
+@media (max-width:990px) {
+  #FacetFiltersForm {
+    display:none;
+  }
+}
