@@ -219,11 +219,18 @@ ul.facets-layout.facets-layout-list.facets-layout-list--swatch.facets__list--ver
 }
 
 .facet-id--tags {
+  .show-more-item.hidden {
+    display: block !important;
+  }
+  show-more-button {
+    display: none;
+  }
   label.facets__label.facet-checkbox {
     .facet-checkbox__text {
       font-size: 0;
 
       .facet-checkbox__text-label {
+        display: block;
         border: 1px solid #00000066;
         padding: .75rem;
         font-family: "Figtree",sans-serif;
