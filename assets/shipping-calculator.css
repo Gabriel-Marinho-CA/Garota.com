@@ -1,6 +1,8 @@
   .shipping-calculator-wrapper-details {
       border-bottom: 1px solid #E4E4E4;
       padding-bottom: 1rem;
+      padding-inline: 2rem;
+      padding-top: 1rem;
 
       &[open] {
           summary {
@@ -14,12 +16,13 @@
           align-items: center;
           justify-content: space-between;
           color: var(--Primary-medium, #0C3A21);
-font-feature-settings: 'liga' off, 'clig' off;
-font-size: 12px;
-font-style: normal;
-font-weight: 600;
-line-height: 150%; /* 18px */
-text-transform: uppercase;
+          font-feature-settings: 'liga' off, 'clig' off;
+          font-size: 12px;
+          font-style: normal;
+          font-weight: 600;
+          line-height: 150%;
+          /* 18px */
+          text-transform: uppercase;
           /* 18px */
           text-transform: uppercase;
           padding: 0;
