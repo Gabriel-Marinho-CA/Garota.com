@@ -693,6 +693,9 @@ a.product__text {
     color: #000;
     margin-right: auto;
     margin-bottom: 1rem !important;
+    
+    width: 100%;
+    text-align: start;
   }
 
   .product-form__input--size input[type=radio]+label {
