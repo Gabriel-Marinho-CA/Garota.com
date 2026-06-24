@@ -159,86 +159,106 @@
         {% endif %}
       </div>
 
-      {% for block in section.blocks %}
-        {% case block.type %}
-          {% when 'menu' %}
-            <div class="res-ft__column" {{ block.shopify_attributes }}>
-              {% if block.settings.heading != blank %}
-                <div
-                  class="res-ft__column-heading rte"
-                  {% if block.settings.heading_custom %}
-                    style="
-                      {% if block.settings.heading_color != blank %}--res-ft-col-heading-color: {{ block.settings.heading_color }};{% endif %}
-                      --res-ft-col-heading-weight: {{ block.settings.heading_font_weight }};
-                      --res-ft-col-heading-align: {{ block.settings.heading_align }};
-                      --res-ft-col-heading-size-mobile: {{ block.settings.heading_font_size_mobile }}px;
-                      --res-ft-col-heading-size-desktop: {{ block.settings.heading_font_size_desktop }}px;
-                    "
-                  {% endif %}
-                >
-                  {{ block.settings.heading }}
-                </div>
-              {% endif %}
-              {% if block.settings.menu != blank %}
-                <ul class="res-ft__menu list-unstyled">
-                  {% for link in block.settings.menu.links %}
-                    <li>
-                      <a class="res-ft__menu-link" href="{{ link.url }}">{{ link.title | escape }}</a>
-                    </li>
-                  {% endfor %}
-                </ul>
-              {% endif %}
-            </div>
-
-          {% when 'contact' %}
-            <div class="res-ft__column" {{ block.shopify_attributes }}>
-              {% if block.settings.heading != blank %}
-                <div
-                  class="res-ft__column-heading rte"
-                  {% if block.settings.heading_custom %}
-                    style="
-                      {% if block.settings.heading_color != blank %}--res-ft-col-heading-color: {{ block.settings.heading_color }};{% endif %}
-                      --res-ft-col-heading-weight: {{ block.settings.heading_font_weight }};
-                      --res-ft-col-heading-align: {{ block.settings.heading_align }};
-                      --res-ft-col-heading-size-mobile: {{ block.settings.heading_font_size_mobile }}px;
-                      --res-ft-col-heading-size-desktop: {{ block.settings.heading_font_size_desktop }}px;
-                    "
-                  {% endif %}
-                >
-                  {{ block.settings.heading }}
-                </div>
-              {% endif %}
-              <ul class="res-ft__contact list-unstyled">
-                {% for i in (1..3) %}
-                  {% liquid
-                    assign text_key = 'text_' | append: i
-                    assign url_key = 'url_' | append: i
-                    assign icon_key = 'icon_' | append: i
-                    assign line_text = block.settings[text_key]
-                    assign line_url = block.settings[url_key]
-                    assign line_icon = block.settings[icon_key]
-                  %}
-                  {% if line_text != blank %}
-                    <li class="res-ft__contact-row">
-                      <span class="res-ft__contact-icon">
-                        {% if line_icon != blank %}
-                          {{ line_icon | image_url: width: 100 | image_tag: alt: '' }}
-                        {% else %}
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 5a5 5 0 0 1 3.5 3.5M15 1.5a8.5 8.5 0 0 1 7 7M21.5 16.92v2.7a1.5 1.5 0 0 1-1.63 1.5 14.8 14.8 0 0 1-6.46-2.3 14.6 14.6 0 0 1-4.5-4.5A14.8 14.8 0 0 1 6.6 4.85 1.5 1.5 0 0 1 8.1 3.2h2.7a1.5 1.5 0 0 1 1.5 1.29c.1.78.27 1.55.52 2.28a1.5 1.5 0 0 1-.34 1.58L11.6 9.1a12 12 0 0 0 4.5 4.5l.75-.87a1.5 1.5 0 0 1 1.58-.34c.73.25 1.5.42 2.28.52a1.5 1.5 0 0 1 1.29 1.5z"/></svg>
+      <div class="res-ft__columns">
+        {% for block in section.blocks %}
+          {% case block.type %}
+            {% when 'menu' %}
+              <div class="res-ft__column" {{ block.shopify_attributes }}>
+                <details class="res-ft__accordion">
+                  <summary class="res-ft__accordion-trigger">
+                    {% if block.settings.heading != blank %}
+                      <div
+                        class="res-ft__column-heading rte"
+                        {% if block.settings.heading_custom %}
+                          style="
+                            {% if block.settings.heading_color != blank %}--res-ft-col-heading-color: {{ block.settings.heading_color }};{% endif %}
+                            --res-ft-col-heading-weight: {{ block.settings.heading_font_weight }};
+                            --res-ft-col-heading-align: {{ block.settings.heading_align }};
+                            --res-ft-col-heading-size-mobile: {{ block.settings.heading_font_size_mobile }}px;
+                            --res-ft-col-heading-size-desktop: {{ block.settings.heading_font_size_desktop }}px;
+                          "
                         {% endif %}
-                      </span>
-                      {% if line_url != blank %}
-                        <a class="res-ft__contact-text" href="{{ line_url }}">{{ line_text }}</a>
-                      {% else %}
-                        <span class="res-ft__contact-text">{{ line_text }}</span>
-                      {% endif %}
-                    </li>
-                  {% endif %}
-                {% endfor %}
-              </ul>
-            </div>
-        {% endcase %}
-      {% endfor %}
+                      >
+                        {{ block.settings.heading }}
+                      </div>
+                    {% endif %}
+                    <span class="res-ft__accordion-caret" aria-hidden="true">
+                      <svg viewBox="0 0 12 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg>
+                    </span>
+                  </summary>
+                  <div class="res-ft__accordion-body">
+                    {% if block.settings.menu != blank %}
+                      <ul class="res-ft__menu list-unstyled">
+                        {% for link in block.settings.menu.links %}
+                          <li>
+                            <a class="res-ft__menu-link" href="{{ link.url }}">{{ link.title | escape }}</a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    {% endif %}
+                  </div>
+                </details>
+              </div>
+
+            {% when 'contact' %}
+              <div class="res-ft__column" {{ block.shopify_attributes }}>
+                <details class="res-ft__accordion">
+                  <summary class="res-ft__accordion-trigger">
+                    {% if block.settings.heading != blank %}
+                      <div
+                        class="res-ft__column-heading rte"
+                        {% if block.settings.heading_custom %}
+                          style="
+                            {% if block.settings.heading_color != blank %}--res-ft-col-heading-color: {{ block.settings.heading_color }};{% endif %}
+                            --res-ft-col-heading-weight: {{ block.settings.heading_font_weight }};
+                            --res-ft-col-heading-align: {{ block.settings.heading_align }};
+                            --res-ft-col-heading-size-mobile: {{ block.settings.heading_font_size_mobile }}px;
+                            --res-ft-col-heading-size-desktop: {{ block.settings.heading_font_size_desktop }}px;
+                          "
+                        {% endif %}
+                      >
+                        {{ block.settings.heading }}
+                      </div>
+                    {% endif %}
+                    <span class="res-ft__accordion-caret" aria-hidden="true">
+                      <svg viewBox="0 0 12 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 1l5 5 5-5"/></svg>
+                    </span>
+                  </summary>
+                  <div class="res-ft__accordion-body">
+                    <ul class="res-ft__contact list-unstyled">
+                      {% for i in (1..3) %}
+                        {% liquid
+                          assign text_key = 'text_' | append: i
+                          assign url_key = 'url_' | append: i
+                          assign icon_key = 'icon_' | append: i
+                          assign line_text = block.settings[text_key]
+                          assign line_url = block.settings[url_key]
+                          assign line_icon = block.settings[icon_key]
+                        %}
+                        {% if line_text != blank %}
+                          <li class="res-ft__contact-row">
+                            <span class="res-ft__contact-icon">
+                              {% if line_icon != blank %}
+                                {{ line_icon | image_url: width: 100 | image_tag: alt: '' }}
+                              {% else %}
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 5a5 5 0 0 1 3.5 3.5M15 1.5a8.5 8.5 0 0 1 7 7M21.5 16.92v2.7a1.5 1.5 0 0 1-1.63 1.5 14.8 14.8 0 0 1-6.46-2.3 14.6 14.6 0 0 1-4.5-4.5A14.8 14.8 0 0 1 6.6 4.85 1.5 1.5 0 0 1 8.1 3.2h2.7a1.5 1.5 0 0 1 1.5 1.29c.1.78.27 1.55.52 2.28a1.5 1.5 0 0 1-.34 1.58L11.6 9.1a12 12 0 0 0 4.5 4.5l.75-.87a1.5 1.5 0 0 1 1.58-.34c.73.25 1.5.42 2.28.52a1.5 1.5 0 0 1 1.29 1.5z"/></svg>
+                              {% endif %}
+                            </span>
+                            {% if line_url != blank %}
+                              <a class="res-ft__contact-text" href="{{ line_url }}">{{ line_text }}</a>
+                            {% else %}
+                              <span class="res-ft__contact-text">{{ line_text }}</span>
+                            {% endif %}
+                          </li>
+                        {% endif %}
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </details>
+              </div>
+          {% endcase %}
+        {% endfor %}
+      </div>
     </div>
 
     {% if section.settings.payment_enable %}

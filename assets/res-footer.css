@@ -215,6 +215,94 @@
   }
 }
 
+/* ---------- Columns wrapper ---------- */
+.res-ft__columns {
+  flex: 1 1 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--res-ft-gap-desktop, 48px);
+  align-content: flex-start;
+}
+
+@media screen and (max-width: 749px) {
+  .res-ft__columns {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    border-top: 1px solid #000;
+    margin-top: 8px;
+  }
+
+  .res-ft__columns .res-ft__column {
+    flex: none;
+    width: 100%;
+    min-width: 0;
+  }
+
+  /* Accordion — mobile only */
+  .res-ft__accordion {
+    border-bottom: 1px solid #000;
+  }
+
+  .res-ft__accordion-trigger {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+
+  .res-ft__accordion-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .res-ft__accordion-trigger .res-ft__column-heading {
+    margin: 0;
+  }
+
+  .res-ft__accordion-caret {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 14px;
+    height: 14px;
+    transition: transform 0.25s ease;
+  }
+
+  .res-ft__accordion[open] > .res-ft__accordion-trigger .res-ft__accordion-caret {
+    transform: rotate(180deg);
+  }
+
+  .res-ft__accordion-body {
+    padding-bottom: 20px;
+  }
+}
+
+@media screen and (min-width: 750px) {
+  .res-ft__accordion-caret {
+    display: none;
+  }
+
+  .res-ft__accordion-trigger {
+    display: block;
+    pointer-events: none;
+    cursor: default;
+    list-style: none;
+  }
+
+  .res-ft__accordion-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .res-ft__accordion-body {
+    display: block !important;
+  }
+}
+
 /* ---------- Menu / Contact columns ---------- */
 .res-ft__column-heading {
   margin: 0 0 16px;
