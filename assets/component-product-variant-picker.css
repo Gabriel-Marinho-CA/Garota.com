@@ -177,14 +177,17 @@ variant-selects {
   color: rgba(var(--color-foreground), 0.3);
   text-decoration: none;
   cursor: not-allowed;
+  position:relative;
 
   &::before {
-          content: "";
-      width: 1px;
-      height: 100%;
-      position: absolute;
-      rotate: 160deg;
-      background: #cecece;
+    content: "";
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    rotate: 221deg;
+    background: #cecece;
+    left: 19px;
+    z-index: 2;
   }
 }
 
