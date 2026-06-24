@@ -76,7 +76,8 @@
 
     {%- comment -%} Tabs {%- endcomment -%}
     {% if tab_blocks.size > 0 %}
-      <div class="res-fc__tabs">
+      <div class="wrapper">
+              <div class="res-fc__tabs">
         {% for block in tab_blocks %}
           <button
             class="res-fc__tab{% if forloop.first %} res-fc__tab--active{% endif %}"
@@ -88,6 +89,8 @@
           </button>
         {% endfor %}
       </div>
+      </div>
+
     {% endif %}
 
     {%- comment -%} Carousel com setas fora {%- endcomment -%}
