@@ -66,6 +66,7 @@
   @media (max-width:547px) {
     gap:10px;
     flex-wrap:nowrap;
+    justify-content:flex-start;
   }
 }
   @media (max-width:547px) {
