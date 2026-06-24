@@ -1,9 +1,10 @@
 /**
  * <complete-look-item>
  *
- * Seletores de variante (tamanho / cor) para cada produto do bloco
- * "Complete o look". Mantém o input oculto `name="id"` sincronizado com a
- * combinação de opções escolhida e atualiza o estado do botão de adicionar.
+ * Seletores de variante (cor / tamanho) para cada produto do bloco
+ * "Complete o look". Lê os radios de opção (swatches de cor e pílulas de
+ * tamanho), mantém o input oculto `name="id"` sincronizado com a combinação
+ * escolhida e atualiza o estado do botão de adicionar.
  */
 if (!customElements.get('complete-look-item')) {
   customElements.define(
@@ -13,9 +14,6 @@ if (!customElements.get('complete-look-item')) {
         super();
 
         this.variants = this.getVariantData();
-        this.selects = Array.from(this.querySelectorAll('select[data-option-index]')).sort(
-          (a, b) => Number(a.dataset.optionIndex) - Number(b.dataset.optionIndex)
-        );
         this.idInput = this.querySelector('.product-variant-id');
         this.button = this.querySelector('[type="submit"]');
         this.buttonText = this.button ? this.button.querySelector('span') : null;
@@ -24,11 +22,9 @@ if (!customElements.get('complete-look-item')) {
         this.soldOutLabel = this.dataset.soldOutLabel || 'Esgotado';
         this.unavailableLabel = this.dataset.unavailableLabel || 'Indisponível';
 
-        this.selects.forEach((select) =>
-          select.addEventListener('change', this.onSelectChange.bind(this))
-        );
+        this.addEventListener('change', this.onOptionChange.bind(this));
 
-        this.onSelectChange();
+        this.updateState();
       }
 
       getVariantData() {
@@ -42,7 +38,10 @@ if (!customElements.get('complete-look-item')) {
       }
 
       getSelectedOptions() {
-        return this.selects.map((select) => select.value);
+        const checked = Array.from(
+          this.querySelectorAll('input[type="radio"][data-option-index]:checked')
+        ).sort((a, b) => Number(a.dataset.optionIndex) - Number(b.dataset.optionIndex));
+        return checked.map((input) => input.value);
       }
 
       getMatchingVariant(selectedOptions) {
@@ -51,7 +50,21 @@ if (!customElements.get('complete-look-item')) {
         );
       }
 
-      onSelectChange() {
+      onOptionChange(event) {
+        if (event.target.matches('input[type="radio"][data-option-index]')) {
+          this.updateSelectedColorLabel(event.target);
+        }
+        this.updateState();
+      }
+
+      updateSelectedColorLabel(input) {
+        const fieldset = input.closest('.product-form__input--swatch');
+        if (!fieldset) return;
+        const label = fieldset.querySelector('[data-selected-value]');
+        if (label) label.textContent = input.value;
+      }
+
+      updateState() {
         const variant = this.getMatchingVariant(this.getSelectedOptions());
 
         if (!variant) {

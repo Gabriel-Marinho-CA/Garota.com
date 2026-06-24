@@ -346,41 +346,52 @@ product-info {
 
 .complete-look__variants .complete-look__form {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.2rem;
   width: 100%;
 }
 
 .complete-look__options {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-  flex: 1 1 auto;
-}
-
-.complete-look__option {
-  display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  min-width: 9rem;
+  gap: 0.8rem;
+  width: 100%;
 }
 
-.complete-look__option-label {
+.complete-look__fieldset {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.complete-look__fieldset .form__label {
+  margin-bottom: 0.6rem;
   font-size: 1.1rem;
   text-transform: uppercase;
   letter-spacing: 0.04rem;
-  opacity: 0.7;
 }
 
-.complete-look__select-wrapper {
-  min-height: 4rem;
+/* Pílulas de tamanho mais compactas dentro do card */
+.complete-look__fieldset.product-form__input--size {
+  gap: 0.8rem;
+  padding-bottom: 0;
 }
 
-.complete-look__select {
-  min-height: 4rem;
-  padding: 0 3.2rem 0 1.2rem;
+.complete-look__fieldset.product-form__input--size input[type='radio']+label {
+  width: 3.8rem;
+  height: 3.8rem;
   font-size: 1.3rem;
+}
+
+/* Swatches de cor mais compactos dentro do card */
+.complete-look__fieldset.product-form__input--swatch .swatch-input__input+.swatch-input__label {
+  --swatch-input--size: 2.6rem;
+  margin: 0 0.8rem 0 0;
+}
+
+.complete-look__variants .complete-look__add {
+  align-self: stretch;
 }
 
 /* ── Wishlist block ── */
@@ -686,6 +697,11 @@ a.product__text {
   text-transform: uppercase;
 }
 
+.no-stocks>div {
+
+  display: none;
+}
+
 .product__title {
   word-break: break-word;
   margin-bottom: 1.5rem;
@@ -741,7 +757,7 @@ a.product__text {
     color: #000;
     margin-right: auto;
     margin-bottom: 1rem !important;
-    
+
     width: 100%;
     text-align: start;
   }

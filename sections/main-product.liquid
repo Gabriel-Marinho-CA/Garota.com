@@ -273,7 +273,7 @@
                 {% endif %}
               
               {%- when 'quantity_selector' -%}
-                <div class="product-form__qty-buy">
+                <div class="product-form__qty-buy {% unless product.selected_or_first_available_variant.available  %} no-stocks {%endunless %}">
                 <div
                   id="Quantity-Form-{{ section.id }}"
                   class="product-form__input product-form__quantity{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} product-form__quantity-top{% endif %}"
@@ -867,34 +867,64 @@
                                   -%}
                                     <div class="complete-look__options">
                                       {%- for option in look_product.options_with_values -%}
-                                        <div class="complete-look__option">
-                                          <label
-                                            class="complete-look__option-label"
-                                            for="{{ look_form_id }}-option-{{ forloop.index0 }}"
-                                          >
-                                            {{ option.name }}
-                                          </label>
-                                          <div class="select complete-look__select-wrapper">
-                                            <select
-                                              id="{{ look_form_id }}-option-{{ forloop.index0 }}"
-                                              class="select__select complete-look__select"
-                                              data-option-index="{{ forloop.index0 }}"
-                                              aria-label="{{ option.name | escape }}"
-                                            >
-                                              {%- for value in option.values -%}
-                                                <option
-                                                  value="{{ value | escape }}"
-                                                  {% if value.selected %}selected{% endif %}
-                                                >
-                                                  {{ value }}
-                                                </option>
-                                              {%- endfor -%}
-                                            </select>
-                                            <span class="svg-wrapper">
-                                              {{- 'icon-caret.svg' | inline_asset_content -}}
-                                            </span>
-                                          </div>
-                                        </div>
+                                        {%- liquid
+                                          assign opt_index = forloop.index0
+                                          assign opt_input_name = look_form_id | append: '-opt-' | append: opt_index
+                                          assign opt_name_lower = option.name | downcase
+
+                                          assign is_color_option = false
+                                          if opt_name_lower == 'cor' or opt_name_lower == 'color' or opt_name_lower == 'colour' or opt_name_lower == 'cores'
+                                            assign is_color_option = true
+                                          endif
+
+                                          assign is_size_option = false
+                                          if opt_name_lower == 'tamanho' or opt_name_lower == 'size' or opt_name_lower == 'sizes' or opt_name_lower == 'tam'
+                                            assign is_size_option = true
+                                          endif
+                                        -%}
+                                        {%- if is_color_option -%}
+                                          <fieldset class="js product-form__input product-form__input--swatch complete-look__fieldset">
+                                            <legend class="form__label">
+                                              {{ option.name }}:
+                                              <span data-selected-value>{{- option.selected_value -}}</span>
+                                            </legend>
+                                            {%- for value in option.values -%}
+                                              {% render 'swatch-input',
+                                                id: opt_input_name | append: '-' | append: forloop.index0,
+                                                name: opt_input_name,
+                                                value: value,
+                                                swatch: value.swatch,
+                                                color_name: value,
+                                                product_form_id: look_form_id,
+                                                checked: value.selected,
+                                                visually_disabled: value.available == false,
+                                                additional_props: 'data-option-index="' | append: opt_index | append: '"'
+                                              %}
+                                            {%- endfor -%}
+                                          </fieldset>
+                                        {%- else -%}
+                                          <fieldset class="js product-form__input product-form__input--pill{% if is_size_option %} product-form__input--size{% endif %} complete-look__fieldset">
+                                            <legend class="form__label">{{ option.name }}</legend>
+                                            {%- for value in option.values -%}
+                                              <input
+                                                type="radio"
+                                                id="{{ opt_input_name }}-{{ forloop.index0 }}"
+                                                name="{{ opt_input_name }}"
+                                                value="{{ value | escape }}"
+                                                form="{{ look_form_id }}"
+                                                data-option-index="{{ opt_index }}"
+                                                {% if value.selected %}checked{% endif %}
+                                                {% unless value.available %}class="disabled"{% endunless %}
+                                              >
+                                              <label for="{{ opt_input_name }}-{{ forloop.index0 }}">
+                                                {{- value -}}
+                                                <span class="visually-hidden label-unavailable">
+                                                  {{- 'products.product.variant_sold_out_or_unavailable' | t -}}
+                                                </span>
+                                              </label>
+                                            {%- endfor -%}
+                                          </fieldset>
+                                        {%- endif -%}
                                       {%- endfor -%}
                                     </div>
                                     <input type="hidden" name="id" value="{{ look_variant.id }}" class="product-variant-id">
