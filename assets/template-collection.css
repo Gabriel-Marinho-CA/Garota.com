@@ -273,33 +273,3 @@ ul.facets-layout.facets-layout-list.facets-layout-list--swatch.facets__list--ver
   }
 }
 
-price-range {
-  flex-direction: column;
-
-  .price-facet__slider-progress {
-    display: block;
-  }
-  .field-currency {
-    display: none;
-  }
-
-  .price-facet__fields {
-    justify-content: space-between;
-
-    .field {
-      max-width: 90px;
-
-      .field__input {
-        padding: 0;
-        height: 30px;
-        text-align: center;
-      }
-
-      .field__label {
-        display: none;
-      }
-    }
-
-
-  }
-}
