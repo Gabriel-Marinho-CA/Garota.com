@@ -2121,3 +2121,27 @@ a.product__text {
     border: none;
   }
 }
+
+
+.complete-look__container {
+  .complete-look__form {
+    flex-direction: row;
+
+    product-form {
+      width: 100%;
+    }
+
+    .product__info-container .product-form__input--size input[type=radio]+label {
+      width: 25px;
+      height: 25px;
+    }
+
+    .product-form__input--pill input[type=radio]+label:before {
+      left: 12px;
+    }
+
+    button {
+      height: 30px;
+    }
+  }
+}
