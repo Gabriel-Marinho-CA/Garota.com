@@ -2124,17 +2124,17 @@ a.product__text {
 
 
 .complete-look__container {
+  product-form {
+    width: 100% !important;
+  }
+
+  .product__info-container .product-form__input--size input[type=radio]+label {
+    width: 25px !important;
+    height: 25px !important;
+  }
+
   .complete-look__form {
     flex-direction: row;
-
-    product-form {
-      width: 100%;
-    }
-
-     .product-form__input--size input[type=radio]+label {
-      width: 25px !important;
-      height: 25px !important;
-    }
 
     .product-form__input--pill input[type=radio]+label:before {
       left: 12px;
