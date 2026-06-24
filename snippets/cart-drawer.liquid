@@ -498,9 +498,7 @@
         </form>
       </cart-drawer-items>
       {% if settings.cart_show_calc %}
-        <div class="shipping-container">
-          {% render 'shipping-calculator' %}
-        </div>
+          {% render 'shipping-calculator-cart' %}
       {% endif %}
       {% if settings.cart_show_coupon %}
         {% render 'cart-coupon' %}

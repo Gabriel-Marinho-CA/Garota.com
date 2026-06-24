@@ -1,0 +1,38 @@
+{{ 'shipping-calculator.css' | asset_url | stylesheet_tag }}
+
+<details class="shipping-calculator-wrapper-details">
+  <summary>
+    Calcule seu frete
+
+    <span class="svg-wrapper icon-plus">
+      {{ 'icon-plus.svg' | inline_asset_content }}
+    </span>
+    <span class="svg-wrapper icon-minus">
+      {{ 'icon-minus.svg' | inline_asset_content }}
+    </span>
+  </summary>
+
+  <shipping-calculator-cart class="bls__shipping-calculator">
+    <div class="shipping__form shipping-input-group flex items-center">
+      <input type="hidden" name="variant_id" value="{{ v.id }}">
+
+      <div class="icon-truck">
+        {{ 'icon-truck.svg' | inline_asset_content }}
+      </div>
+
+      <input
+        type="text"
+        class="form-input flex-1 form__zip js-zip"
+        placeholder="CEP"
+      >
+
+      <button class="button__zip get-rates-button btn-radius js-button">
+        {{ 'calc-shpp.svg' | inline_asset_content }}
+      </button>
+    </div>
+
+    <div class="shipping__response"></div>
+  </shipping-calculator-cart>
+</details>
+
+<script src="{{ 'shipping-calculator-cart.js' | asset_url }}" defer="defer"></script>
