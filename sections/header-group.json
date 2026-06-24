@@ -46,6 +46,22 @@
     "header": {
       "type": "header",
       "blocks": {
+        "mobile_banner_mXf8WM": {
+          "type": "mobile_banner",
+          "settings": {
+            "image": "shopify://shop_images/july_obsessed.png",
+            "text": "Bla Bla",
+            "link": ""
+          }
+        },
+        "mobile_banner_9Mekpx": {
+          "type": "mobile_banner",
+          "settings": {
+            "image": "shopify://shop_images/july_obsessed.png",
+            "text": "Bla Bla",
+            "link": ""
+          }
+        },
         "banner_menus_BGA4DF": {
           "type": "banner_menus",
           "settings": {
@@ -55,6 +71,8 @@
         }
       },
       "block_order": [
+        "mobile_banner_mXf8WM",
+        "mobile_banner_9Mekpx",
         "banner_menus_BGA4DF"
       ],
       "settings": {
