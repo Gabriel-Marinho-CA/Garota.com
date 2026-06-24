@@ -65,8 +65,16 @@
   gap: 32px;
   @media (max-width:547px) {
     gap:10px;
+    flex-wrap:nowrap;
   }
 }
+  @media (max-width:547px) {
+.wrapper:has(.res-fc__tabs) {
+  overflow-x: auto;
+  padding-inline:1rem;
+}
+  }
+
 
 .res-fc__tab {
   display: inline-flex;
