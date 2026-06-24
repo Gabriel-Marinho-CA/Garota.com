@@ -2131,7 +2131,7 @@ a.product__text {
       width: 100%;
     }
 
-    .product__info-container .product-form__input--size input[type=radio]+label {
+     .product-form__input--size input[type=radio]+label {
       width: 25px !important;
       height: 25px !important;
     }
