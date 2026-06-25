@@ -15,6 +15,7 @@
         "banner_wM87yJ": {
           "type": "banner",
           "settings": {
+            "image_desktop": "shopify://shop_images/img_slide.png",
             "image_mobile": "shopify://shop_images/july_obsessed.png",
             "url": "",
             "image_alt": "Imagem Hero"
