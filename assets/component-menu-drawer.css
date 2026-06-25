@@ -100,11 +100,7 @@ menu-drawer>details[open]>summary::before {
   padding-right: 5.2rem;
 }
 
-.menu-drawer__menu-item--active,
-.menu-drawer__menu-item:focus,
-.menu-drawer__close-button:focus,
-.menu-drawer__menu-item:hover,
-.menu-drawer__close-button:hover {
+.menu-opening[open] {
   color: #fff;
   background-color: #000;
 }
