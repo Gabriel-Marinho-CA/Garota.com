@@ -1,0 +1,155 @@
+{% liquid
+  assign banner_desktop = product.metafields.custom.banner_desktop.value
+  assign banner_mobile = product.metafields.custom.banner_mobile.value
+  assign full_width = section.settings.full_width
+%}
+
+{% style %}
+  .{{ section.id }} {
+    display: block;
+    padding-top: {{ section.settings.pad_top_mobile }}px;
+    padding-bottom: {{ section.settings.pad_bottom_mobile }}px;
+  }
+
+  .{{ section.id }} .res-product-banner__picture,
+  .{{ section.id }} .res-product-banner__img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media screen and (min-width: 750px) {
+    .{{ section.id }} {
+      padding-top: {{ section.settings.pad_top_desktop }}px;
+      padding-bottom: {{ section.settings.pad_bottom_desktop }}px;
+    }
+  }
+{% endstyle %}
+
+{% if banner_desktop != blank or banner_mobile != blank %}
+  <div class="res-product-banner {{ section.id }} scroll-trigger animate--fade-in">
+    <div class="res-product-banner__inner{% unless full_width %} page-width{% endunless %}">
+      <picture class="res-product-banner__picture">
+        {%- if banner_mobile != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ banner_mobile | image_url: width: 1100 }}"
+            width="{{ banner_mobile.width }}"
+            height="{{ banner_mobile.height }}"
+          >
+        {%- endif -%}
+
+        {%- if banner_desktop != blank -%}
+          {{
+            banner_desktop
+            | image_url: width: 3000
+            | image_tag:
+              class: 'res-product-banner__img',
+              loading: 'lazy',
+              widths: '750, 1100, 1500, 2000, 3000',
+              sizes: '100vw',
+              alt: product.title
+          }}
+        {%- else -%}
+          {{
+            banner_mobile
+            | image_url: width: 1100
+            | image_tag:
+              class: 'res-product-banner__img',
+              loading: 'lazy',
+              widths: '375, 550, 750, 1100',
+              sizes: '100vw',
+              alt: product.title
+          }}
+        {%- endif -%}
+      </picture>
+    </div>
+  </div>
+{% elsif request.design_mode %}
+  <div class="res-product-banner {{ section.id }}">
+    <div class="res-product-banner__inner{% unless full_width %} page-width{% endunless %}">
+      <p style="text-align:center;padding:24px;border:1px dashed currentColor;">
+        Defina os metacampos <strong>custom.banner_desktop</strong> e/ou
+        <strong>custom.banner_mobile</strong> neste produto para exibir o banner.
+      </p>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Banner do Produto",
+  "class": "RES__PRODUCT_BANNER__V1",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "As imagens vêm dos metacampos do produto: custom.banner_desktop e custom.banner_mobile."
+    },
+    {
+      "type": "header",
+      "content": "Aparência"
+    },
+    {
+      "type": "checkbox",
+      "id": "full_width",
+      "label": "Largura total (full screen)",
+      "default": false,
+      "info": "Remove o limite de largura (page-width) e ocupa toda a tela."
+    },
+    {
+      "type": "header",
+      "content": "Espaçamento"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_mobile",
+      "label": "Padding TOP (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_mobile",
+      "label": "Padding BOTTOM (mobile)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_top_desktop",
+      "label": "Padding TOP (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "pad_bottom_desktop",
+      "label": "Padding BOTTOM (desktop)",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner do Produto",
+      "category": "Produto"
+    }
+  ],
+  "enabled_on": {
+    "templates": ["product"]
+  }
+}
+{% endschema %}
