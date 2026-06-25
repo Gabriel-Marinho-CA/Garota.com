@@ -168,11 +168,23 @@
         "pad_top_desktop": 64,
         "pad_bottom_desktop": 96
       }
+    },
+    "product_banner_LcFDgq": {
+      "type": "product-banner",
+      "name": "Banner do Produto",
+      "settings": {
+        "full_width": false,
+        "pad_top_mobile": 0,
+        "pad_bottom_mobile": 0,
+        "pad_top_desktop": 0,
+        "pad_bottom_desktop": 0
+      }
     }
   },
   "order": [
     "main",
     "related-products",
-    "res_related_products_U6NqEK"
+    "res_related_products_U6NqEK",
+    "product_banner_LcFDgq"
   ]
 }
