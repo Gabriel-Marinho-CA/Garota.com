@@ -100,7 +100,7 @@ menu-drawer>details[open]>summary::before {
   padding-right: 5.2rem;
 }
 
-.menu-opening[open] {
+.menu-opening[open] summary{
   color: #fff;
   background-color: #000;
 }
