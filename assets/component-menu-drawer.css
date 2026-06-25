@@ -100,10 +100,14 @@ menu-drawer>details[open]>summary::before {
   padding-right: 5.2rem;
 }
 
+.menu-drawer__navigation {
 details.menu-opening[open] > summary {
   background: #000;
   color: #fff;
 }
+}
+
+
 
 .menu-drawer__menu-item--active:hover {
   background-color: rgba(var(--color-foreground), 0.08);
