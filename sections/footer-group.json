@@ -52,8 +52,10 @@
             "heading_align": "left",
             "text_1": "<p>+5511915542496</p>",
             "url_1": "",
+            "icon_1": "shopify://shop_images/phone.svg",
             "text_2": "<p>(11) 91554-2496</p>",
             "url_2": "",
+            "icon_2": "shopify://shop_images/phone_8ce64824-e035-4128-9d2b-2d3261ec0199.svg",
             "text_3": "",
             "url_3": ""
           }
@@ -123,7 +125,7 @@
           "type": "cor",
           "settings": {
             "color_name": "Azul Claro",
-            "color_value": "#3DAFD5"
+            "color_value": "#3dafd5"
           }
         },
         "cor_Qh36Be": {
