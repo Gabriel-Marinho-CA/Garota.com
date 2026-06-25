@@ -136,15 +136,59 @@
     }
   }
 
-  function removeCoupon(container, code) {
+  async function removeCoupon(container, code) {
     const codes = getAppliedCoupons().filter((c) => c !== code);
     saveAppliedCoupons(codes);
 
-    // Limpa o cookie do Shopify visitando /discount/clear-equivalente
-    // (não há endpoint oficial, então a remoção é apenas visual aqui).
-    // Se o cliente reaplicar outro código, ele substitui no checkout.
+    // Desabilita os botões de remover enquanto atualiza.
+    container
+      .querySelectorAll('[data-coupon-remove]')
+      .forEach((btn) => (btn.disabled = true));
 
-    renderTags(container);
+    try {
+      if (codes.length) {
+        // Re-aplica apenas os cupons restantes. A rota /discount aceita
+        // múltiplos códigos separados por vírgula e substitui o conjunto
+        // atual no carrinho, efetivamente removendo o que foi tirado.
+        await fetch(
+          `${window.Shopify.routes.root}discount/${codes
+            .map(encodeURIComponent)
+            .join(',')}`,
+          { method: 'GET', redirect: 'follow', credentials: 'same-origin' }
+        );
+      } else {
+        // Sem cupons restantes: apaga o cookie de desconto do Shopify.
+        // É esse cookie (setado pela rota /discount) que carrega o desconto
+        // até o checkout — limpá-lo garante que ele não reapareça lá.
+        const domain = window.location.hostname;
+        const expire = 'expires=Thu, 01 Jan 1970 00:00:00 GMT';
+        document.cookie = `discount_code=; path=/; ${expire}`;
+        document.cookie = `discount_code=; path=/; domain=${domain}; ${expire}`;
+        document.cookie = `discount_code=; path=/; domain=.${domain}; ${expire}`;
+
+        // Atualiza o total exibido no drawer.
+        await fetch(`${window.Shopify.routes.root}cart/update.js`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ discount: '' }),
+          credentials: 'same-origin',
+        });
+      }
+
+      // Atualiza os totais do drawer pra refletir a remoção do desconto.
+      await refreshCartDrawer();
+      const fresh = document.querySelector('[data-cart-coupon]');
+      if (fresh) {
+        renderTags(fresh);
+        showFeedback(
+          fresh,
+          codes.length ? 'Cupom removido.' : 'Desconto removido.',
+          'success'
+        );
+      }
+    } catch (err) {
+      renderTags(container);
+    }
   }
 
   function init(container) {
