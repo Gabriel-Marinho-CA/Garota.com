@@ -23,6 +23,8 @@
 
 .totals__total {
   margin-top: .5rem;
+  font-family:'Figtree',sans-serif;
+  font-weight:500;
 }
 
 .totals__total-value {
