@@ -159,7 +159,7 @@
 }
 
 .res-fc__swiper .swiper-slide res-color-card .res-card__info {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 /* ── Nav buttons (setas fora do slider) ── */
