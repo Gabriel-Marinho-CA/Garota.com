@@ -73,6 +73,11 @@
 </style>
 
 {%- style -%}
+@media (min-width:1000px) and (max-width:1251px) {
+  a.header__heading-link.link.link--text.focus-inset {
+    order:-2;
+  }
+}
   .header {
     padding: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px 3rem {{ section.settings.padding_bottom | times: 0.5 | round: 0 }}px 3rem;
   }
