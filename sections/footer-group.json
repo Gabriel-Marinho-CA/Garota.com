@@ -30,7 +30,7 @@
         "menu_MGb4HB": {
           "type": "menu",
           "settings": {
-            "heading": "<p>ATENDIMENTO</p>",
+            "heading": "<p>ajuda</p>",
             "menu": "ajuda",
             "heading_custom": true,
             "heading_color": "#000000",
